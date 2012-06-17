@@ -1,0 +1,9 @@
+[submodule "public/kekomi/jquery"]
+	path = public/kekomi/jquery
+	url = git@github.com:jupiterjs/jquerypp.git
+[submodule "public/kekomi/steal"]
+	path = public/kekomi/steal
+	url = git@github.com:jupiterjs/steal.git
+[submodule "public/kekomi/can"]
+	path = public/kekomi/can
+	url = git@github.com:jupiterjs/canjs.git
