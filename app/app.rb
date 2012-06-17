@@ -1,4 +1,4 @@
-class Kekomi < Padrino::Application
+class KekomiCMS < Padrino::Application
   register Padrino::Rendering
   register Padrino::Mailer
   register Padrino::Helpers
