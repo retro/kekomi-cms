@@ -1,0 +1,55 @@
+<form>
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal">×</button>
+		<h3><%= this.page.isNew() ? "Create" : "Edit" %> page</h3>
+	</div>
+	<div class="modal-body">
+		<fieldset>
+			<div class="basic-wrap">
+				<div class="control-group">
+					<label class="control-label" for="page_name">Name</label>
+					<div class="controls">
+						<input id="page_name" class="span3" type="text" size="16" name="page[name]">
+						<p class="help-block calculated-url"></p>
+					</div>
+				</div>
+				<div class="clearfix">
+					<div class="control-group parent-wrap">
+						<label class="control-label" for="page_parent_id">Parent page</label>
+						<div class="controls">
+							<select id="page_parent_id" name="page[parent_id]">
+								<option value="">Root</option>
+								<%== tree %>
+							</select>
+						</div>
+					</div>
+					<div class="control-group slug-wrap">
+						<label class="control-label" for="page_slug">Slug</label>
+						<div class="controls">
+							<input id="page_slug" class="span3" type="text" size="16" name="page[slug]">
+							<p class="help-block calculated-path"></p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="template-wrap">
+				<div class="control-group">
+					<label class="control-label" for="page_template">Template</label>
+					<div class="controls">
+						<select id="page_template" name="page[template]">
+							<option value="">Template</option>
+							<% for(var i = 0; i < templates.length; i++){ %>
+								<option value="<%= templates[i].path %>"><%= templates[i].path %></option>
+							<% } %>
+						</select>
+					</div>
+				</div>
+				<div class="slots"></div>
+			</div>
+		</fieldset>
+	</div>
+	<div class="modal-footer">
+		<a href="#" class="btn" data-dismiss="modal">Close</a>
+		<button type="submit" class="btn btn-primary">Save changes</button>
+	</div>
+</form>

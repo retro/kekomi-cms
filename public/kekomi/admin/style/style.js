@@ -1,0 +1,1 @@
+steal('steal/less', './bootstrap/css/bootstrap.css', 'can/construct').then('./bootstrap/js/bootstrap.js', './awesome/css/font-awesome.css', './application.less')

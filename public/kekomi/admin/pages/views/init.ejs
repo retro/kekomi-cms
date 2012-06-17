@@ -1,0 +1,18 @@
+<div class="module-header navbar">
+	<div class="navbar-inner">
+		<ul class="nav">
+			<li class="active">
+				<a href="javascript://" class="add-page"><i class="icon-plus-sign"></i> Add page</a>
+			</li>
+		</ul>
+	</div>
+</div>
+<div class="module-content">
+	<% if(this.pages.length === 0){ %>
+		<div class="alert alert-info">There are no pages. <a href="javascript://" class="add-page">Add page</a></div>
+	<% } else { %>
+		<div class="pages-wrapper">
+			<%== tree %>
+		</div>
+	<% } %>
+</div>

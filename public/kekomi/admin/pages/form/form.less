@@ -1,0 +1,74 @@
+@import "../../style/elements/elements.less";
+
+.admin_pages_form {
+	width: 800px;
+	height: 80%;
+	.modal-header {
+		position: absolute;
+		top: 0;
+		right: 0;
+		left: 0;
+	}
+	.modal-body {
+		overflow-y: scroll;
+		position: absolute;
+		top: 46px;
+		bottom: 58px;
+		left: 0;
+		right: 0;
+		max-height: none;
+	}
+	.modal-footer {
+		position: absolute;
+		bottom: 0;
+		right: 0;
+		left: 0;
+	}
+	.slots {
+		.tabbable ul.nav-tabs {
+			margin-left: -15px;
+			margin-right: -15px;
+			padding-left: 15px;
+			padding-right: 15px;
+		}
+		.setup-slots {
+			padding: 8px 8px 8px 0;
+			line-height: 18px;
+			display: block;
+		}
+	}
+	.basic-wrap {
+		background: white;
+		padding: 15px 15px 0;
+		margin: -15px -15px 0;
+	}
+	#page_name {
+		width: 760px;
+		font-size: 18px;
+		height: 26px;
+		line-height: 26px;
+	}
+	#page_template {
+		width: 770px;
+	}
+	.parent-wrap {
+		float: left;
+		margin-right: 15px;
+	}
+	.slug-wrap {
+		float: left;
+		#page_slug {
+			width: 525px;
+		}
+	}
+	.template-wrap {
+		background-repeat: repeat-x;
+		margin: 0 -15px;
+		padding: 15px 15px 0;
+		border-top: 1px solid #d0d0d0;
+	}
+	.calculated-path {
+		margin-bottom: 0;
+		font-size: 11px;
+	}
+}

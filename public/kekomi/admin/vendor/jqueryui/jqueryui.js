@@ -1,0 +1,1 @@
+steal('can/control').then('./jquery-ui-1.8.20.custom/js/jquery-ui-1.8.20.custom.min.js', './jquery-ui-1.8.20.custom/css/ui-lightness/jquery-ui-1.8.20.custom.css');

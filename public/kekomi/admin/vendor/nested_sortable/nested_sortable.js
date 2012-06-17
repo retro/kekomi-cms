@@ -1,0 +1,1 @@
+steal('admin/vendor/jqueryui').then('./nestedSortable/jquery.ui.nestedSortable.js');

@@ -1,0 +1,15 @@
+<% var slots = template.attr('slots').attr(), isFirst; %>
+
+<div class="tabbable">
+	<ul class="nav nav-tabs">
+		<li><b class="setup-slots">Page slots &raquo;</b></li>
+		<% isFirst = true; $.each(slots, function(k, val){ %>
+			<li <%= isFirst ? 'class=active' : "" %>><a href="#<%= k %>" data-toggle="tab"><%= val %></a></li>
+		<% isFirst = false; }) %>
+	</ul>
+	<div class="tab-content">
+		<% isFirst = true; $.each(slots, function(k, val){ %>
+			<div class="tab-pane<%= isFirst ? ' active' : "" %>" id="<%= k %>" <%= (el)-> el.admin_pages_form_slots({key: k, slot: val}) %>></div>
+		<% isFirst = false; }) %>
+	</div>
+</div>
