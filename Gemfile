@@ -17,7 +17,7 @@ gem 'mongoid_smart_tags'
 gem 'mongoid_slug'
 gem 'jsonify'
 gem 'h2o'
-gem "kekomi_content_types", :path => "~/projects/kekomi_content_types"
+gem "kekomi_content_types", '0.0.1', :path => "~/projects/kekomi_content_types"
 
 # Test requirements
 

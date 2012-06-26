@@ -3,7 +3,7 @@ steal(
 'admin/pages/form',
 'steal/less',
 'admin/vendor/nested_sortable'
-).then('./pages.less', './views/leaf.ejs', function(){8
+).then('./pages.less', './views/leaf.ejs', function(){
 	can.Control('Admin.Pages', {}, {
 		init : function(){
 			Admin.Models.Page.findAll({}, this.proxy('render'));

@@ -1,0 +1,13 @@
+json.data(@field_types) do |field_type|
+  json.id   field_type[:name].underscore
+  json.name field_type[:name]
+  json.type field_type[:type]
+  if field_type[:type] == :block
+    json.fields field_type[:fields].map {|f| { name: f.first, type: f.last } }
+  elsif field_type[:type] == :collection
+    json.allowed field_type[:allowed].downcase
+  elsif field_type[:type] == :compound
+    json.allowed field_type[:allowed].map { |f| f.downcase }
+  end
+end
+json.count @field_types.count

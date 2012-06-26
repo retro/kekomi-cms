@@ -1,0 +1,8 @@
+<h1><%= model.isNew() ? "Add" : "Edit" %> <%= contentType.name %></h1>
+
+<form>
+	<% list(contentType.attr('fields'), function(field, i){ %>
+		<div <%= (el)-> renderField(el, field, model, field.name)%>></div>
+	<% }) %>
+	<input type="submit" value="save" class="btn btn-primary" />
+</form>

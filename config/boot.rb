@@ -26,6 +26,7 @@ end
 # Add your after load hooks here
 #
 Padrino.after_load do
+  #Admin.prerequisites << Padrino.root('theme/models/**/*.rb')
+  Padrino.require_dependencies(Padrino.root("theme/models/**/*.rb"))
 end
-
 Padrino.load!
