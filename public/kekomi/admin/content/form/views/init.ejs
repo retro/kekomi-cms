@@ -1,8 +1,12 @@
-<h1><%= model.isNew() ? "Add" : "Edit" %> <%= contentType.name %></h1>
+<form class="form-horizontal">
+	<div class="content-form">
 
-<form>
-	<% list(contentType.attr('fields'), function(field, i){ %>
-		<div <%= (el)-> renderField(el, field, model, field.name)%>></div>
-	<% }) %>
-	<input type="submit" value="save" class="btn btn-primary" />
+		<h1 class="add-or-edit"><%= model.isNew() ? "Add" : "Edit" %> <%= contentType.name %></h1>
+
+
+		<% list(contentType.attr('fields'), function(field, i){ %>
+			<div <%= (el)-> renderField(el, field, model, field.name)%> class="content-type-level"></div>
+		<% }) %>
+		<input type="submit" value="save" class="btn btn-primary" />
+	<div>
 </form>

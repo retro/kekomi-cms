@@ -1,6 +1,18 @@
+<label>
+	<span class="label-text">
+		<% if(this.collection){ %>
+			<i class="icon-sort"></i>
+		<% } %>
+		<%= collection ? field.name : attr %>
+	</span>
+	<% if(this.collection){ %>
+		<span class="remove"><i class="icon-remove-sign"></i> Remove</span>
+	<% } %>
+</label>
 <div class="toolbar">
-	<label><%= attr %></label>
-	<button class="btn btn-small add-to-collection">Add <%= fieldType.allowed %></button>
+	<div class="inner-toolbar">
+		<button class="btn btn-mini btn-primary add-to-collection">Add <%= fieldType.allowed %></button>
+	</div>
 </div>
 <div class="collection-values">
 

@@ -3,9 +3,10 @@ steal(
 'admin/content/types/atom',
 'admin/content/types/block',
 'admin/content/types/collection',
+'admin/content/types/compound',
 'steal/less',
 './helper.js'
-).then(function(){
+).then('./form.less', function(){
 	can.Control('Admin.Content.Form', {
 	}, {
 		init : function(){

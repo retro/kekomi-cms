@@ -14,6 +14,9 @@ steal(
 	}
 
 	can.Control('Admin.Content.Types.Collection', {
+		defaults: {
+			collection: false
+		}
 	}, {
 		init : function(){
 			var curVal = this.options.model.attr(this.options.attr);
@@ -23,7 +26,9 @@ steal(
 			this.allowed = Admin.Models.FieldType.all().get(this.options.fieldType.allowed)[0];
 			this.element.html(this.view('init.ejs', {
 				fieldType: this.options.fieldType,
-				attr: this.options.attr
+				field: this.options.field,
+				attr: this.options.attr,
+				collection: this.options.collection
 			}))
 			this.element.find('.collection-values').sortable({
 				items: ".collection-value"
@@ -39,7 +44,8 @@ steal(
 				newValue.push(elValueController(this.valueController(), valueEl).value());
 				valueEl[controller]({attr: i});
 			}
-			this.options.model.attr(this.options.attr).replace(newValue)
+			this.options.model.attr(this.options.attr).replace(newValue);
+			ev.stopPropagation();
 		},
 		'.add-to-collection click' : function(el, ev){
 			ev.preventDefault();
@@ -54,8 +60,10 @@ steal(
 				attr      : this.options.model.attr(this.options.attr).length, 
 				fieldType : this.allowed, 
 				field     : {
-					type: this.allowed.id
-				}
+					type: this.allowed.id,
+					name: this.allowed.name
+				},
+				collection: true
 			})
 		},
 		valueController : function(){

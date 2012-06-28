@@ -1,0 +1,12 @@
+<label class="compound-label"><%= attr %></label>
+<div class="toolbar">
+	<div class="btn-group">
+		<% list(fieldType.allowed, function(field){ %>
+			<button class="btn btn-mini btn-primary add-to-compound" data-field-type="<%= field %>">Add <%= field %></button>
+		<% }) %>
+	</div>
+	
+</div>
+<div class="compound-values">
+
+</div>

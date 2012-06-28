@@ -2,15 +2,22 @@ steal(
 'admin/mvc.js',
 'can/observe/compute'
 ).then(function(){
-	can.Control('Admin.Content.Types.Atom', {}, {
+	can.Control('Admin.Content.Types.Atom', {
+		defaults : {
+			collection: false
+		}
+	}, {
 		init : function(){
+			console.log(this.options)
 			var curVal = this.options.model.attr(this.options.attr);
 			if(typeof curVal === "undefined"){
 				this.options.model.attr(this.options.attr, "")
 			}
 			this.element.html(this.view(this.options.field.type + ".ejs", {
 				model : this.options.model,
-				attr : this.options.attr
+				attr : this.options.attr,
+				collection: this.options.collection,
+				field: this.options.field
 			}))
 		},
 		"input change"    : 'inputChanged',

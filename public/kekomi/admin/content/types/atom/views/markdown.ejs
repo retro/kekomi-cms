@@ -1,2 +1,14 @@
-<label><%= attr %></label>
-<textarea></textarea>
+<div class="control-group">
+	<label class="control-label">
+		<% if(this.collection){ %>
+			<i class="icon-sort"></i>
+		<% } %>
+		<%= this.collection ? field.name : attr %>
+		<% if(this.collection){ %>
+			<span class="remove"><i class="icon-remove-sign"></i> Remove</span>
+		<% } %>
+	</label>
+	<div class="controls">
+		<textarea class="full-width"></textarea>
+	</div>
+</div>

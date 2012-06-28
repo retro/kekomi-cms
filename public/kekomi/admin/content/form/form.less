@@ -1,0 +1,255 @@
+@import "../../style/elements/elements.less";
+.admin_content_form {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	overflow: auto;
+	background: #333;
+	border-left: 1px solid #222;
+	margin-left: -1px;
+	.content-form {
+		width: 800px;
+		margin: 50px auto 20px;
+		padding: 20px;
+		background: white;
+		border: 1px solid black;
+		input[type="text"], textarea {
+			background: #eee;
+			border: none;
+			.rounded(1px);
+			&:focus {
+				.box-shadow(0 0 0 1px #ccc);
+			}
+			&.full-width {
+				width: 637px;
+			}
+		}
+		label {
+			font-size: 10px;
+			text-transform: uppercase;
+			font-weight: bold;
+			color: #666;
+			margin-bottom: 0;
+			width: auto;
+			.remove {
+				float: right;
+				color: #ccc;
+				margin-right: -5px;
+				background: white;
+				padding-left: 5px;
+				cursor: pointer;
+				&:hover {
+					color: #f30;
+				}
+			}
+		}
+		.rounded();
+		.admin_content_types_block .block-fields {
+			margin-top: -23px;
+			padding-left: 160px;
+			label {
+				float: none;
+				margin-bottom: 2px;
+			}
+			.controls {
+				margin-left: 0;
+				float: none;
+			}
+		}
+		.admin_content_types_collection {
+			.toolbar {
+				margin-left: 160px;
+				margin-top: -20px;
+				margin-right: -5px;
+				text-align: right;
+			}
+			.collection-values {
+				padding-left: 160px;
+				label {
+					float: none
+				}
+				.controls {
+					margin-left: 0;
+					float: none;
+				}
+				.collection-value:first-child {
+					margin-top: 5px;
+				}
+			}
+		}
+		.admin_content_types_collection, .admin_content_types_block {
+			.admin_content_types_block {
+				margin-top: 20px;
+				border-top: 1px solid #ccc;
+				width: 645px;
+				label {
+					padding-right: 5px;
+					margin-top: -10px;
+					.label-text {
+						display: inline-block;
+						background: white;
+						padding-right: 5px;
+					}
+				}
+				.block-fields {
+					margin-top: 0;
+					padding-left: 20px;
+					clear: both;
+					label {
+						float: none;
+						margin-top: 0;
+					}
+				}
+				input[type="text"].full-width, textarea.full-width {
+					width: 617px;
+				}
+			}
+			.admin_content_types_collection {
+				margin-top: 20px;
+				border-top: 1px solid #ccc;
+				label {
+					padding-right: 5px;
+					margin-top: -10px;
+					.label-text {
+						display: inline-block;
+						background: white;
+						padding-right: 5px;
+					}
+				}
+				.inner-toolbar {
+					background: white;
+					padding-left: 5px;
+					display: inline-block;
+				}
+				.collection-values {
+					padding-left: 20px;
+
+					.admin_content_types_block, .admin_content_types_atom {
+						width: 625px;
+						input[type="text"].full-width, textarea.full-width {
+							width: 597px;
+						}
+					}
+				}
+			}
+		}
+		.admin_content_types_collection .collection-values .admin_content_types_block:first-child {
+			margin-top: 20px;
+		}
+		.admin_content_types_collection, .admin_content_types_block, .admin_content_types_atom {
+			margin-bottom: 5px;
+			&:last-child {
+				margin-bottom: 0;
+			}
+		}
+		.content-type-level {
+			margin-bottom: 0;
+		}
+		.admin_content_types_collection .btn-mini, .admin_content_types_compound .btn-mini {
+			font-size: 10px;
+			font-weight: bold;
+			line-height: 12px;
+			padding: 2px 4px;
+		}
+		.admin_content_types_compound {
+			.toolbar {
+				margin-left: 160px;
+				margin-top: -20px;
+				margin-right: -5px;
+				text-align: right;
+				.btn-group > .btn {
+					margin-left: -5px;
+					float: none;
+				}
+			}
+			.compound-values {
+				padding-left: 160px;
+				.compound-value {
+					margin-top: 10px;
+				}
+				.compound-value:first-child {
+					margin-top: 20px;
+				}
+			}
+			.compound-values > .admin_content_types_atom,
+			.compound-values > .admin_content_types_block,
+			.compound-values > .admin_content_types_collection {
+				.controls {
+					margin-left: 0;
+				}
+				.control-group > label {
+					float: none;
+				}
+				.block-fields {
+					padding-left: 20px;
+					margin-top: 0;
+				}
+				
+			}
+			.compound-values .admin_content_types_collection,
+			.compound-values .admin_content_types_block,  {
+				margin-top: 20px;
+				border-top: 1px solid #ccc;
+				label {
+					padding-right: 5px;
+					margin-top: -10px;
+					.label-text {
+						display: inline-block;
+						background: white;
+						padding-right: 5px;
+					}
+				}
+				input[type="text"].full-width, textarea.full-width {
+					width: 617px;
+				}
+				
+			}
+			.admin_content_types_collection {
+				.collection-values {
+					padding-left: 20px;
+					.admin_content_types_atom {
+						margin-top: 13px;
+					}
+				}
+			}
+			.admin_content_types_block, .admin_content_types_collection {
+				.block-fields > .admin_content_types_atom {
+					margin-top: 10px;
+				}
+				.admin_content_types_block, .admin_content_types_collection {
+					width: 625px;
+					input[type="text"].full-width, textarea.full-width {
+						width: 597px;
+					}
+					.admin_content_types_collection, .admin_content_types_block {
+						width: 605px;
+						input[type="text"].full-width, textarea.full-width {
+							width: 577px;
+						}
+					}
+				}
+
+			}
+		}
+
+	}
+	.add-or-edit {
+		margin: -65px 0 10px;
+		color: white;
+		font-size: 20px;
+	}
+	label, .form-horizontal .control-label {
+		text-align: left;
+	}
+	.content-type-level {
+		margin-left: -20px;
+		margin-right: -20px;
+		padding: 15px 20px 15px;
+		border-bottom: 1px solid #ddd;
+		.control-group {
+			margin-bottom: 0px;
+		}
+	}
+}

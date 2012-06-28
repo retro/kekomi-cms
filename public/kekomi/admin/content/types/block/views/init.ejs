@@ -1,6 +1,18 @@
-<label><%= attr %></label>
-<div class="block-fields">
-	<% list(fieldType.fields, function(field){ %>
-		<div <%= (el)-> renderField(el, field, model, field.name)%>></div>
-	<% }) %>
+<div class="control-group form-vertical">
+	<label>
+		<span class="label-text">
+			<% if(this.collection){ %>
+				<i class="icon-sort"></i>
+			<% } %>
+			<%= collection ? fieldType.name : attr %>
+		</span>
+		<% if(this.collection){ %>
+			<span class="remove"><i class="icon-remove-sign"></i> Remove</span>
+		<% } %>
+	</label>
+	<div class="block-fields">
+		<% list(fieldType.fields, function(field){ %>
+			<div <%= (el)-> renderField(el, field, model, field.name)%>></div>
+		<% }) %>
+	</div>
 </div>
