@@ -33,15 +33,22 @@
 			color: #666;
 			margin-bottom: 0;
 			width: auto;
-			.remove {
+			.remove, .add-to-collection {
 				float: right;
-				color: #ccc;
+				color: #ddd;
 				margin-right: -5px;
 				background: white;
 				padding-left: 5px;
 				cursor: pointer;
 				&:hover {
 					color: #f30;
+				}
+			}
+			.add-to-collection {
+				padding-right: 10px;
+				color: #0088cc;
+				&:hover {
+					color: black;
 				}
 			}
 		}
@@ -67,6 +74,7 @@
 			}
 			.collection-values {
 				padding-left: 160px;
+				clear: both;
 				label {
 					float: none
 				}
@@ -77,6 +85,9 @@
 				.collection-value:first-child {
 					margin-top: 5px;
 				}
+			}
+			.remove {
+				margin-left: 0;
 			}
 		}
 		.admin_content_types_collection, .admin_content_types_block {
@@ -151,7 +162,14 @@
 			font-size: 10px;
 			font-weight: bold;
 			line-height: 12px;
-			padding: 2px 4px;
+			height: 17px;
+			padding: 2px 6px;
+			background: #0088cc;
+			box-shadow: none;
+			border: none;
+			&:hover {
+				background: #0074ae;
+			}
 		}
 		.admin_content_types_compound {
 			.toolbar {
@@ -160,7 +178,7 @@
 				margin-right: -5px;
 				text-align: right;
 				.btn-group > .btn {
-					margin-left: -5px;
+					margin-left: -3px;
 					float: none;
 				}
 			}
@@ -176,6 +194,7 @@
 			.compound-values > .admin_content_types_atom,
 			.compound-values > .admin_content_types_block,
 			.compound-values > .admin_content_types_collection {
+				width: 645px;
 				.controls {
 					margin-left: 0;
 				}
@@ -223,6 +242,12 @@
 					input[type="text"].full-width, textarea.full-width {
 						width: 597px;
 					}
+					label {
+						.add-to-collection {
+							padding-right: 0;
+							margin-right: -5px;
+						}
+					}
 					.admin_content_types_collection, .admin_content_types_block {
 						width: 605px;
 						input[type="text"].full-width, textarea.full-width {
@@ -234,6 +259,18 @@
 			}
 		}
 
+		.admin_content_types_compound .admin_content_types_atom label .remove {
+			margin-right: 0;
+		}
+		.admin_content_types_compound .admin_content_types_collection .admin_content_types_atom label .remove {
+			margin-right: -5px;
+		}
+		.compound-value, .collection-value {
+			background: white;
+		}
+		.admin_content_types_block .admin_content_types_collection {
+			width: 655px;
+		}
 	}
 	.add-or-edit {
 		margin: -65px 0 10px;
@@ -247,7 +284,7 @@
 		margin-left: -20px;
 		margin-right: -20px;
 		padding: 15px 20px 15px;
-		border-bottom: 1px solid #ddd;
+		border-bottom: 1px solid #eee;
 		.control-group {
 			margin-bottom: 0px;
 		}

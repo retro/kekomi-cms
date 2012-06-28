@@ -16,7 +16,6 @@ steal(
 			}))
 		},
 		"form submit" : function(el, ev){
-			this.options.model.attr('title', "MY TITLE")
 			ev.preventDefault();
 			console.log(this.options.model.serialize())
 		}

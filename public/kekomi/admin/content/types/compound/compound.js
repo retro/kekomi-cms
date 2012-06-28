@@ -29,15 +29,18 @@ steal(
 			})
 		},
 		".compound-values sortstop" : function(el, ev, ui){
-			var values     = this.element.find('.collection-value'),
-				controller = this.valueController(),
+			var values     = this.element.find('.compound-value'),
 				newValue   = [],
-				valueEl;
+				valueEl, controller, elValue;
 			for(var i = 0; i < values.length; i++){
 				valueEl = values.eq(i);
-				newValue.push(elValueController(this.valueController(), valueEl).value());
-				valueEl[controller]({attr: i});
+				elValue = {
+					type: valueEl.data('field-type'), 
+					value: elValueController(this.valueController(valueEl), valueEl).value()
+				}
+				newValue.push(elValue);
 			}
+			
 			this.options.model.attr(this.options.attr).replace(newValue)
 		},
 		'.add-to-compound click' : function(el, ev){
@@ -48,11 +51,13 @@ steal(
 		renderField : function(buttonEl){
 			var field_type = buttonEl.data('field-type'),
 				allowed    = this.allowed().get(field_type)[0],
-				el         = $('<div/>').addClass('compound-value'),
-				controller = this.valueController(buttonEl);
+				el         = $('<div/>').addClass('compound-value').data('field-type', field_type),
+				controller = this.valueController(buttonEl),
+				model      = new can.Observe({type: field_type});
+				this.options.model.attr(this.options.attr).push(model)
 			return $(el)[controller]({
-				model     : this.options.model.attr(this.options.attr), 
-				attr      : this.options.model.attr(this.options.attr).length, 
+				model     : model, 
+				attr      : 'value', 
 				fieldType : allowed, 
 				field     : {
 					type: allowed.id,
@@ -62,17 +67,24 @@ steal(
 			})
 		},
 		allowed : function(){
-			if(this._allowed) return this._allowed;
-			var fieldTypes = Admin.Models.FieldType.all();
-			this._allowed  = fieldTypes.get.apply(fieldTypes, this.options.fieldType.allowed);
+			if(typeof this._allowed === "undefined"){
+				var fieldTypes = Admin.Models.FieldType.all();
+				this._allowed  = fieldTypes.get.apply(fieldTypes, this.options.fieldType.allowed);
+			}
 			return this._allowed;
 		},
 		valueController : function(el){
-			console.log(field_type, this.allowed())
+			//console.log(field_type, this.allowed())
 			var field_type = el.data('field-type'),
 				allowed    = this.allowed().get(field_type)[0],
 				controller = "admin_content_types_" + allowed.type;
 			return $.fn[controller + '_' + allowed.id] ? controller + '_' + allowed.id : controller;
+		},
+		".remove click" : function(el, ev){
+			var valueEl = el.closest('.compound-value');
+			var index = this.element.find('.compound-value').index(valueEl);
+			this.options.model.attr(this.options.attr).splice(index, 1);
+			valueEl.remove();
 		}
 	})
 })

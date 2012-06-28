@@ -12,7 +12,7 @@
 	</label>
 	<div class="block-fields">
 		<% list(fieldType.fields, function(field){ %>
-			<div <%= (el)-> renderField(el, field, model, field.name)%>></div>
+			<div <%= (el)-> renderField(el, field, model, field.name, {block: true})%>></div>
 		<% }) %>
 	</div>
 </div>

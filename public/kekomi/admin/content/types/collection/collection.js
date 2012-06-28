@@ -15,7 +15,8 @@ steal(
 
 	can.Control('Admin.Content.Types.Collection', {
 		defaults: {
-			collection: false
+			collection: false,
+			block: false
 		}
 	}, {
 		init : function(){
@@ -28,7 +29,8 @@ steal(
 				fieldType: this.options.fieldType,
 				field: this.options.field,
 				attr: this.options.attr,
-				collection: this.options.collection
+				collection: this.options.collection,
+				block: this.options.block
 			}))
 			this.element.find('.collection-values').sortable({
 				items: ".collection-value"
@@ -69,6 +71,16 @@ steal(
 		valueController : function(){
 			var controller = "admin_content_types_" + this.allowed.type;
 			return $.fn[controller + '_' + this.allowed.id] ? controller + '_' + this.allowed.id : controller;
+		},
+		".collection-values .remove click" : function(el, ev){
+			ev.stopPropagation();
+			var valueEl = el.closest('.collection-value');
+			var index = this.element.find('.collection-value').index(valueEl);
+			this.options.model.attr(this.options.attr).splice(index, 1);
+			valueEl.remove();
+		},
+		value : function(){
+			return this.options.model.attr(this.options.attr);
 		}
 	})
 })

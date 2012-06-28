@@ -8,12 +8,17 @@
 	<% if(this.collection){ %>
 		<span class="remove"><i class="icon-remove-sign"></i> Remove</span>
 	<% } %>
+	<% if(this.collection || this.block){ %>
+		<span class="add-to-collection"><i class="icon-plus-sign"></i> Add <%= fieldType.allowed %></span>
+	<% } %>
 </label>
+<% if(!this.collection && !this.block){ %>
 <div class="toolbar">
 	<div class="inner-toolbar">
 		<button class="btn btn-mini btn-primary add-to-collection">Add <%= fieldType.allowed %></button>
 	</div>
 </div>
+<% } %>
 <div class="collection-values">
 
 </div>
