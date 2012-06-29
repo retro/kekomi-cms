@@ -18,7 +18,8 @@ gem 'mongoid_slug'
 gem 'jsonify'
 gem 'h2o'
 gem "kekomi_content_types", '0.0.1', :path => "~/projects/kekomi_content_types"
-
+gem 'kaminari', :require => 'kaminari/sinatra'
+gem "yajl-ruby", :require => 'yajl'
 # Test requirements
 
 # Padrino Stable Gem

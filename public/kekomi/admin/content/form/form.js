@@ -17,7 +17,7 @@ steal(
 		},
 		"form submit" : function(el, ev){
 			ev.preventDefault();
-			console.log(this.options.model.serialize())
+			this.options.model.save();
 		}
 	})
 })

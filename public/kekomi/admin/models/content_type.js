@@ -14,9 +14,28 @@ can.Model('Admin.Models.ContentType',
 	findAll : "/content_types",
 	preload : function(){
 		return this.findAll({}, function(contentTypes){
+			var modelName, modelEndpoint;
 			contentTypesCache = contentTypes;
 			for(var i = 0; i < contentTypes.length; i++){
-				can.Model('Admin.Models.ContentTypes.' + contentTypes[i].name.replace(/ /g, ''), {}, {})
+
+				modelName     = contentTypes[i].name.replace(/ /g, '');
+				modelEndpoint = modelName.replace(/[A-Z]/g, function(caps){ return "_" + caps.toLowerCase() }).replace(/^_/, ""); // AdminTest => admin_test
+
+				can.Model('Admin.Models.ContentTypes.' + modelName, {
+					findAll : "/content/" + modelEndpoint,
+					findOne : "/content/" + modelEndpoint + "/{id}", 
+					create  : "/content/" + modelEndpoint,
+					update  : "/content/" + modelEndpoint + "/{id}",
+					destroy : "/content/" + modelEndpoint + "/{id}",
+				}, {
+					_serialize : function(){
+						var namespace = this.constructor._shortName,
+							data      = this._super.apply(this, arguments),
+							returnData = {};
+						returnData[namespace] = data
+						return returnData;
+					}
+				})
 			}
 		})
 	},

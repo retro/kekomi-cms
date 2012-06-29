@@ -1,0 +1,5 @@
+json.data(@items) do |item|
+  json.id item.id
+  json.created_at item.created_at
+end
+json.count @items.count
