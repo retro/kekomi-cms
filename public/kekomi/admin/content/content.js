@@ -1,6 +1,7 @@
 steal(
 'admin/mvc.js',
 'admin/content/form',
+'admin/content/list',
 'steal/less',
 'admin/content/types/atom'
 ).then(function(){
@@ -15,6 +16,15 @@ steal(
 				this.element.html($('<div/>').admin_content_form({
 					model: new (contentType.contentTypeModel()),
 					contentType: contentType
+				}))
+			} else if(can.route.attr('action') === "edit"){
+				this.element.html($('<div/>').admin_content_form({
+					model: contentType.contentTypeModel().findOne({id: can.route.attr('id')}),
+					contentType: contentType
+				}))
+			} else if(can.route.attr('action') === "list"){
+				this.element.html($('<div/>').admin_content_list({
+					contentTypeModel: contentType.contentTypeModel()
 				}))
 			}
 		}

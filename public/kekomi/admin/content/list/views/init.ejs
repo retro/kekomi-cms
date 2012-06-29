@@ -1,0 +1,5 @@
+<ul>
+	<% for(var i = 0; i < items.length; i++){ %>
+		<li><a href="<%= can.route.url({action: "edit", id: items[i].id }, true) %>"><%= items[i].id %></a></li>
+	<% } %>
+</ul>

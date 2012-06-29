@@ -1,3 +1,4 @@
+<% console.log(this.model) %>
 <label class="compound-label"><%= attr %></label>
 <div class="toolbar">
 	<div class="btn-group">
@@ -8,5 +9,7 @@
 	
 </div>
 <div class="compound-values">
-
+	<% list(this.model, function(item, i){ %>
+		<div class="compound-value" data-field-type="<%= item.type %>" <%= (el)-> renderField(el, {type: item.type, name: item.type}, item, "value", {collection: true})%>></div>
+	<% }) %>
 </div>

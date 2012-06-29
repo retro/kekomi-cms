@@ -30,7 +30,12 @@ steal(
 				field: this.options.field,
 				attr: this.options.attr,
 				collection: this.options.collection,
-				block: this.options.block
+				block: this.options.block,
+				allowed: {
+					type: this.allowed.id,
+					name: this.allowed.name
+				},
+				model: this.options.model.attr(this.options.attr)
 			}))
 			this.element.find('.collection-values').sortable({
 				items: ".collection-value"

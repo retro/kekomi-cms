@@ -20,5 +20,7 @@
 </div>
 <% } %>
 <div class="collection-values">
-
+	<% list(this.model, function(item, i){ %>
+		<div class="collection-value" <%= (el)-> renderField(el, allowed, model, i, {collection: true})%>></div>
+	<% }) %>
 </div>

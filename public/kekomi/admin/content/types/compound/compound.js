@@ -22,7 +22,8 @@ steal(
 			}
 			this.element.html(this.view('init.ejs', {
 				fieldType: this.options.fieldType,
-				attr: this.options.attr
+				attr: this.options.attr,
+				model: this.options.model.attr(this.options.attr)
 			}))
 			this.element.find('.compound-values').sortable({
 				items: ".compound-value"
