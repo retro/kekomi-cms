@@ -1,0 +1,13 @@
+<% if(children.length > 0){ %>
+	<ol class="unstyled ui-sortable">
+		<% for(var i = 0; i < children.length; i++){ %>
+			<li <%= children[i] %> id="page-<%= children[i].id %>" data-id="<%= children[i].id %>">
+				<div class="page-wrapper clearfix">
+					<div class="name"><i class="icon-reorder"></i><%= children[i].name %></div>
+					<div class="actions"><i class="icon-pencil edit-page"></i><i class="icon-remove-sign remove-page"></i></div>
+				</div>
+				<%== can.view.render("//admin/pages/tree/views/leaf.ejs", {children: pages.childrenOf(children[i].id), pages: pages}) %>
+			</li>
+		<% } %>
+	</ol>
+<% } %>

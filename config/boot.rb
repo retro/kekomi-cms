@@ -27,6 +27,8 @@ end
 #
 Padrino.after_load do
   #Admin.prerequisites << Padrino.root('theme/models/**/*.rb')
+  Kekomi::ContentTypes.base = ContentNode
   Padrino.require_dependencies(Padrino.root("theme/models/**/*.rb"))
+
 end
 Padrino.load!

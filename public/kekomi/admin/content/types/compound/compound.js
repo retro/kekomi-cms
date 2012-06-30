@@ -47,9 +47,11 @@ steal(
 		'.add-to-compound click' : function(el, ev){
 			ev.preventDefault();
 			ev.stopPropagation();
-			this.element.find('.compound-values').append(this.renderField(el));
+			//this.element.find('.compound-values').append(this.renderField(el));
+			var fieldType = this.allowed().get(el.data('field-type'))[0];
+			this.options.model.attr(this.options.attr).push({type: fieldType.id, name: fieldType.name})
 		},
-		renderField : function(buttonEl){
+		/*renderField : function(buttonEl){
 			var field_type = buttonEl.data('field-type'),
 				allowed    = this.allowed().get(field_type)[0],
 				el         = $('<div/>').addClass('compound-value').data('field-type', field_type),
@@ -66,7 +68,7 @@ steal(
 				},
 				collection: true
 			})
-		},
+		},*/
 		allowed : function(){
 			if(typeof this._allowed === "undefined"){
 				var fieldTypes = Admin.Models.FieldType.all();

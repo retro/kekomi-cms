@@ -23,10 +23,14 @@ class Page
 
   field :template
 
+  belongs_to :content_node
+
   before_create :set_position
 
   def set_position
     self.position = self.siblings.size
   end
+
+
 
 end

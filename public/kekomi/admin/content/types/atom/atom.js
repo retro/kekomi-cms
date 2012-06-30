@@ -8,6 +8,7 @@ steal(
 		}
 	}, {
 		init : function(){
+			//console.log(this.options.attr)
 			var curVal = this.options.model.attr(this.options.attr);
 			if(typeof curVal === "undefined"){
 				this.options.model.attr(this.options.attr, "")

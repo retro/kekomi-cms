@@ -57,6 +57,18 @@ class Admin < Padrino::Application
   #   end
   #
 
+  helpers do
+
+    def parser
+      Yajl::Parser.new
+    end
+
+    def json_body
+      @body ||= parser.parse(request.body.read)
+    end
+
+  end
+
   get :index do
     render "application"
   end

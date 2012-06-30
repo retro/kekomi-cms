@@ -56,10 +56,11 @@ steal(
 		},
 		'.add-to-collection click' : function(el, ev){
 			ev.preventDefault();
-			ev.stopPropagation();
-			this.element.find('.collection-values').append(this.renderField());
+			ev.stopPropagation()
+			//this.element.find('.collection-values').append(this.renderField());
+			this.options.model.attr(this.options.attr).push(null)
 		},
-		renderField : function(){
+		/*renderField : function(){
 			var el         = $('<div/>').addClass('collection-value'),
 				controller = this.valueController();
 			return $(el)[controller]({
@@ -72,7 +73,7 @@ steal(
 				},
 				collection: true
 			})
-		},
+		},*/
 		valueController : function(){
 			var controller = "admin_content_types_" + this.allowed.type;
 			return $.fn[controller + '_' + this.allowed.id] ? controller + '_' + this.allowed.id : controller;

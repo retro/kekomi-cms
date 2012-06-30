@@ -1,7 +1,7 @@
 <ul class="nav nav-list">
 	<li class="nav-header">Content</li>
 	<% for(var i = 0; i < contentTypes.length; i++){ %>
-		<li><a href="<%= can.route.url({type: "content", content_type: contentTypes[i].id, action: "new"}) %>"><i class="icon-file icon-large"></i> <%= contentTypes[i].name.pluralize() %></a></li>
+		<li><a href="<%= can.route.url({type: "content", content_type: contentTypes[i].id, action: "list"}) %>"><i class="icon-file icon-large"></i> <%= contentTypes[i].name.pluralize() %></a></li>
 	<% } %>
-	<li><a href="#"><i class="icon-sitemap icon-large"></i> Pages</a></li>
+	<li><a href="<%= can.route.url({type: "pages", action: "list"}) %>"><i class="icon-sitemap icon-large"></i> Pages</a></li>
 </ul>

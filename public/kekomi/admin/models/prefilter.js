@@ -3,7 +3,8 @@ steal('can/construct', 'jquery/lang/json', function(){
 		if(originalOptions.dataType.toLowerCase() === "json"){
 			
 			options.url  = "/admin" + options.url;
-			if(options.type.toUpperCase() === "POST"){
+			//console.log(options.type.toUpperCase())
+			if(["POST", "PUT"].indexOf(options.type.toUpperCase()) > -1){
 				options.data = $.toJSON(originalOptions.data)
 				options.contentType = "application/json";
 			}

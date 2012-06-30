@@ -28,10 +28,6 @@ Admin.controllers :content, :provides => :json do
       @resource
     end
 
-    def parser
-      Yajl::Parser.new
-    end
-
     def jsonify(item)
       data = {id: item.id, created_at: item.created_at}
       item.class.serializable_fields.each_pair do |key, value|
@@ -57,14 +53,12 @@ Admin.controllers :content, :provides => :json do
   end
 
   post "/:model" do
-    body = request.body.read
     @item = resource.new
-    data = parser.parse(body)
-    data.each_pair do |key, value|
+    json_body.each_pair do |key, value|
       @item.send :"#{key}=", value
     end
     @item.save
-    @item.to_json
+    jsonify(@item)
   end
 
   get "/:model/:id" do
@@ -73,9 +67,12 @@ Admin.controllers :content, :provides => :json do
   end
 
   put "/:model/:id" do
-    @item = resource.find(:id)
-    @item.update_attributes(params[params[:model]])
-    @item.to_json
+    @item = resource.find(:id).first
+    json_body.each_pair do |key, value|
+      @item.send :"#{key}=", value
+    end
+    @item.save
+    jsonify(@item)
   end
 
   delete "/:model/:id" do

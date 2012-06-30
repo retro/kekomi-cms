@@ -2,7 +2,7 @@
 	<div class="navbar-inner">
 		<ul class="nav">
 			<li class="active">
-				<a href="<%= can.route.url({type: "pages", action: "new"}) %>"><i class="icon-plus-sign"></i> Add page</a>
+				<a href="<%= can.route.url({action: "new", type: "content", content_type: can.route.attr('content_type')}) %>"><i class="icon-plus-sign"></i> Add Content</a>
 			</li>
 		</ul>
 	</div>

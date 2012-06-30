@@ -24,7 +24,7 @@ Admin.controllers :pages, :provides => :json do
   end
 
   post "/" do
-    @page = Page.new params
+    @page = Page.new json_body
     @page.save
     #render "pages/create"
   end
@@ -37,7 +37,7 @@ Admin.controllers :pages, :provides => :json do
   put "/:id" do
     @page = Page.find params[:id]
     if @page
-      @page.update_attributes params
+      @page.update_attributes json_body
       render "pages/create"
     else
       halt 404
