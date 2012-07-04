@@ -3,6 +3,8 @@
 		<% list(contentType.attr('fields'), function(field, i){ %>
 			<div <%= (el)-> renderField(el, field, model, field.name)%> class="content-type-level"></div>
 		<% }) %>
-		<input type="submit" value="save" class="btn btn-primary" />
+		<div class="actions-bar clearfix">
+			<input type="submit" value="Save Page" class="btn btn-primary" />
+		</div>
 	<div>
 </form>

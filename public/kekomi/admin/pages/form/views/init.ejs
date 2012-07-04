@@ -33,11 +33,11 @@
 				<div class="control-group acts-as-content-section-wrap">
 					<div class="controls">
 						<label class="checkbox">
-							<input type="checkbox" class="enable-page-content" <%= typeof page.content_node_type === "undefined" ? "" : "checked" %>> Enable page content
+							<input type="checkbox" class="enable-page-content" <%= typeof page.content_node_type === "undefined" || page.content_node_type === "" ? "" : "checked" %>> Enable page content
 						</label>
 					</div>
 				</div>
-				<div class="control-group page-content-type-wrap" style="<%= typeof page.content_node_type === "undefined" ? "display:none": "" %>">
+				<div class="control-group page-content-type-wrap" style="<%= typeof page.content_node_type === "undefined" || page.content_node_type === "" ? "display:none": "" %>">
 					<label class="control-label" for="page_content_node_type">Page content type</label>
 					<div class="controls">
 						<select id="page_content_node_type" name="page[content_node_type]">
@@ -53,11 +53,11 @@
 				<div class="control-group acts-as-content-section-wrap">
 					<div class="controls">
 						<label class="checkbox">
-							<input type="checkbox" class="enable-acts-as-section" <%= typeof page.section_content_type === "undefined" ? "" : "checked" %>> Acts as content section
+							<input type="checkbox" class="enable-acts-as-section" <%= typeof page.section_content_type === "undefined" || page.section_content_type === "" ? "" : "checked" %>> Acts as content section
 						</label>
 					</div>
 				</div>
-				<div class="control-group content-section-wrap" style="<%= typeof page.section_content_type === "undefined" ? "display:none": "" %>">
+				<div class="control-group content-section-wrap" style="<%= typeof page.section_content_type === "undefined" || page.section_content_type === "" ? "display:none": "" %>">
 					<label class="control-label" for="page_template">Section Content type</label>
 					<div class="controls">
 						<select id="page_section_content_type" name="page[section_content_type]">
