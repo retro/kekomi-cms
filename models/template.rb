@@ -48,7 +48,7 @@ class Template
       {
         :id => :section,
         :templates => {},
-        :url => "/"
+        :url => ""
       },
       {
         :id => :list,

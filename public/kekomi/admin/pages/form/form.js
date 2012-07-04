@@ -89,10 +89,12 @@ steal(
 		"#page_section_content_type change" : function(el){
 			var val = el.val();
 			this.options.page.attr("section_content_type", val)
+			this.options.page.attr("behaviors", {})
 			this.showBehaviors();
 		},
 		"#page_template change" : function(el, ev){
 			var val = el.val();
+			this.options.page.attr("behaviors", {})
 			if(typeof val === "undefined" || val === ""){
 				delete this.template;
 				this.options.page.attr("template", "");
@@ -141,10 +143,14 @@ steal(
 			))
 		},
 		calculatePath : function(slug){
-			if(slug === ""){
+			if(typeof slug === "undefined" || slug === ""){
 				slug = "<page-slug>"
 			}
-			return "/" + calculatePath(this.pages, this.element.find('#page_parent_id').val(), slug);
+			var path = calculatePath(this.pages, this.element.find('#page_parent_id').val(), slug);
+			if(path !== ""){
+				path = "/" + path;
+			}
+			return path;
 		},
 		updatePath : function(slug){
 			var path = this.calculatePath(slug);

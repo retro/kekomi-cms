@@ -2,7 +2,7 @@
 	<% var exts = ["html", "rss", "xml", "json", "js"] %>
 	<% for(var j = 0; j < exts.length; j++){ %>
 		<% if(this.behavior.templates.hasOwnProperty(exts[j])){ %>
-			<li id="t-<%= this.behavior.templates[exts[j]].replace(/\//g, ":") %>">
+			<li>
 				<span class="label"><%= exts[j] %></span> 
 				<span class="behavior-path">
 					<span class="path"><%= path %></span><%= this.behavior.url %><%= exts[j] !== "html" ? "." + exts[j] : "" %>
@@ -19,7 +19,7 @@
 								</tr>
 								<% for(var i = 0; i < templateSlots.slots.length; i++){ %>
 									<% var template = this.behavior.templates[exts[j]].replace(/\./g, "*") %>
-									<% var value = page.attr("behaviors."+behavior.id+"."+template+"."+templateSlots.slots[i]) %>
+									<% var value = page.readAttr("behaviors."+behavior.id+"."+template+"."+templateSlots.slots[i]) %>
 									<tr>
 										<td class="slot-name"><%= templateSlots.slots[i] %></td>
 										<td class="pick-slot">
