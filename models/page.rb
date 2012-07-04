@@ -13,6 +13,7 @@ class Page
   # key :field <, :another_field, :one_more ....>
 
   field :slug
+  
   field :title
 
   field :slots
@@ -24,6 +25,10 @@ class Page
   field :template
 
   field :content_node_type
+
+  field :section_content_type
+
+  field :behaviors
 
   has_one :content_node
 

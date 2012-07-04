@@ -18,9 +18,20 @@
 									<th><label>Assigned slot</label></th>
 								</tr>
 								<% for(var i = 0; i < templateSlots.slots.length; i++){ %>
+									<% var template = this.behavior.templates[exts[j]].replace(/\./g, "*") %>
+									<% var value = page.attr("behaviors."+behavior.id+"."+template+"."+templateSlots.slots[i]) %>
 									<tr>
 										<td class="slot-name"><%= templateSlots.slots[i] %></td>
-										<td class="pick-slot"><i class="icon-cog assign-slot"></i></td>
+										<td class="pick-slot">
+											<select name="page[behaviors][<%= this.behavior.id %>][<%= template %>][<%= templateSlots.slots[i] %>]">
+												<option value="">Empty</option>
+												<% for(var k; k < availableSlots.length; k++){ %>
+													<option value="<%= availableSlots[k].id %>" <%= value == availableSlots[k].id ? "selected" : "" %>>
+														<%= availableSlots[k].name %>
+													</option>
+												<% } %>
+											</select>
+										</td>
 									</tr>
 								<% } %>
 							</table>

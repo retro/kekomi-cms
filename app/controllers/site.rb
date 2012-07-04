@@ -21,7 +21,7 @@ Frontend.controllers "/" do
 
   helpers do 
     def extract_slug(path)
-      path.split("/").first
+      path.gsub(/^\//, "").split("/").first
     end
   end
 

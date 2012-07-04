@@ -66,6 +66,8 @@ steal('admin/mvc.js', function(){
 			this.element.find('.error').removeClass('error');
 			var data = el.formParams().page;
 			this.options.model.attr(data);
+			console.log(this.options.model.serialize())
+			//return
 			var errors = this.options.model.errors();
 			if($.isEmptyObject(errors)){
 				this.options.model.save(this.proxy('saved'));

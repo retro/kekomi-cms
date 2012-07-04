@@ -51,11 +51,13 @@
 			width: 555px;
 		}
 	}
-	.template-wrap {
-		background-repeat: repeat-x;
+	.template-wrap, .checkbox-wrap {
 		margin: 0 -20px;
 		padding: 20px 20px 0;
 		border-top: 1px solid #e0e0e0;
+	}
+	.checkbox-wrap {
+		padding: 10px 20px 3px;
 	}
 	.calculated-path {
 		margin-bottom: 0;
@@ -89,7 +91,6 @@
 			}
 		}
 		.behaviors {
-			border-bottom: 1px solid #e0e0e0;
 			margin: 0 -20px;
 			padding: 0 20px;
 			.behavior {
@@ -141,7 +142,7 @@
 						width: 100%;
 						border-collapse: collapse;
 						.slot-name {
-							width: 50%;
+							
 						}
 						th {
 							padding: 0 5px;
@@ -150,14 +151,14 @@
 							padding: 3px 5px;
 							background: white;
 							border: 3px solid #f0f0f0;
-							.assign-slot {
-								float: right;
-								font-size: 14px;
-								line-height: 14px;
-								margin-top: 1px;
-								color: #ccc;
-								cursor: pointer;
-								width: auto;
+							&.pick-slot {
+								width: 200px;
+								padding: 3px;
+								select {
+									margin: 0;
+									height: 20px;
+									width: 200px;
+								}
 								&:hover {
 									color: #0088cc;
 								}

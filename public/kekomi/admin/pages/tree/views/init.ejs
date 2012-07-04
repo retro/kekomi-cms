@@ -1,5 +1,5 @@
 <% if(this.pages.length === 0){ %>
-	<div class="alert alert-info">There are no pages. <a href="javascript://" class="add-page">Add page</a></div>
+	<div class="alert alert-info">There are no pages. <a href="<%= can.route.url({action: "new"}, true) %>" class="add-page">Add page</a></div>
 <% } else { %>
 	<div class="pages-wrapper">
 		<%== can.view.render("//admin/pages/tree/views/leaf.ejs", {children: pages.childrenOf(), pages: pages}) %>

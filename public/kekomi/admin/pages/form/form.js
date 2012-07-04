@@ -33,6 +33,7 @@ steal(
 
 	can.Control('Admin.Pages.Form', {}, {
 		init : function(){
+			window.page = this.options.page
 			if(typeof this.options.page.attr('behaviors') === "undefined"){
 				this.options.page.attr('behaviors', {});
 			}
@@ -42,10 +43,8 @@ steal(
 			this.templates = templates[0];
 			this.pages     = pages[0];
 
-			/*this.options.page.attr("section_content_type", "article")
-			this.options.page.attr("template", "news_inside")*/
 
-			this.template =Admin.Models.Template.all().getByPath(this.options.page.template)[0]
+			this.template = Admin.Models.Template.all().getByPath(this.options.page.template)[0]
 
 			this.element.html(this.view('init', {
 				page          : this.options.page,
@@ -57,21 +56,21 @@ steal(
 				model: this.options.page
 			})
 			this.updatePath(this.options.page.slug);
-			this.showBehaviors()
+			this.showBehaviors();
+			if(!this.options.page.isNew()){
+				this.element.find('.behavior-toggle:checked').each(this.proxy(function(i, el){
+					this.loadBehaviorFiles($(el));
+				}))
+			}
+			
 		},
 		"form saved" : function(el, ev){
 			can.route.attr({type: "pages", action: "list"})
 		},
 		'.behavior-toggle change' : function(el, ev){
-			var behavior;
+			var behavior, behaviorName;
 			if(el.is(':checked')){
-				behavior = this.template.getBehaviorsFor(this.element.find("#page_section_content_type").val()).get(el.data('behavior'));
-				console.log(behavior)
-				el.closest('.behavior').find('.templates').html(this.view('templates.ejs', {
-					behavior: behavior,
-					path: this.calculatePath(this.element.find('#page_slug').val()),
-					slots: Admin.Models.TemplateSlot.findAll({ids: getTemplatesAsArray(behavior.templates)})
-				})).show()
+				this.loadBehaviorFiles(el);
 			} else {
 				el.closest('.behavior').find('.templates').html("").hide()
 			}
@@ -89,18 +88,14 @@ steal(
 		},
 		"#page_section_content_type change" : function(el){
 			var val = el.val();
-			if(typeof val === "undefined" || val === ""){
-				this.options.page.removeAttr("section_content_type");
-			} else {
-				this.options.page.attr("section_content_type", val)
-			}
+			this.options.page.attr("section_content_type", val)
 			this.showBehaviors();
 		},
 		"#page_template change" : function(el, ev){
 			var val = el.val();
 			if(typeof val === "undefined" || val === ""){
 				delete this.template;
-				this.options.page.removeAttr("template");
+				this.options.page.attr("template", "");
 				this.element.find(".behaviors-wrapper").html();
 			} else {
 				this.template = Admin.Models.Template.all().getByPath(val)[0];
@@ -117,6 +112,21 @@ steal(
 			if(!checked){
 				this.element.find("#page_section_content_type").val("").trigger("change");
 			}
+		},
+		loadBehaviorFiles : function(el){
+			behaviorName = el.data('behavior');
+			behavior = this.template.getBehaviorsFor(this.element.find("#page_section_content_type").val()).get(behaviorName);
+			if(typeof this.options.page.attr("behaviors." + behaviorName) === "undefined"){
+				this.options.page.attr("behaviors." + behaviorName, {});
+			}
+			
+			el.closest('.behavior').find('.templates').html(this.view('templates.ejs', {
+				behavior: behavior,
+				path: this.calculatePath(this.element.find('#page_slug').val()),
+				slots: Admin.Models.TemplateSlot.findAll({ids: getTemplatesAsArray(behavior.templates)}),
+				page: this.options.page,
+				availableSlots: []
+			})).show()
 		},
 		showBehaviors : function(path){
 			if(typeof this.template === "undefined") return;

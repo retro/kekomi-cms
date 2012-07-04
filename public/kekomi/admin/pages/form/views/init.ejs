@@ -29,11 +29,11 @@
 					</div>
 				</div>
 			</div>
-			<div class="template-wrap clearfix">
+			<div class="checkbox-wrap clearfix">
 				<div class="control-group acts-as-content-section-wrap">
 					<div class="controls">
 						<label class="checkbox">
-							<input type="checkbox" class="enable-page-content"> Enable page content
+							<input type="checkbox" class="enable-page-content" <%= typeof page.content_node_type === "undefined" ? "" : "checked" %>> Enable page content
 						</label>
 					</div>
 				</div>
@@ -49,11 +49,11 @@
 					</div>
 				</div>
 			</div>
-			<div class="template-wrap clearfix">
+			<div class="checkbox-wrap clearfix">
 				<div class="control-group acts-as-content-section-wrap">
 					<div class="controls">
 						<label class="checkbox">
-							<input type="checkbox" class="enable-acts-as-section"> Acts as content section
+							<input type="checkbox" class="enable-acts-as-section" <%= typeof page.section_content_type === "undefined" ? "" : "checked" %>> Acts as content section
 						</label>
 					</div>
 				</div>

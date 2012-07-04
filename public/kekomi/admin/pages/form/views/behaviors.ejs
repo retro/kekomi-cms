@@ -4,7 +4,7 @@
 		<% for(var i = 0; i < this.behaviors.length; i++){ %>
 			<% if(this.behaviors[i].id === "section" || typeof page.section_content_type != "undefined"){ %>
 				<div class="behavior clearfix">
-					<input type="checkbox" class="behavior-toggle" value="true" name="page[behaviors][<%= this.behaviors[i].id %>]" data-behavior="<%= this.behaviors[i].id %>"/> 
+					<input type="checkbox" class="behavior-toggle" value="true" data-behavior="<%= this.behaviors[i].id %>" <%= page.behaviors[this.behaviors[i].id] ? "checked" : "" %>/> 
 					<b><%= this.behaviors[i].name %></b>
 					<div class="templates"></div>
 				</div>
