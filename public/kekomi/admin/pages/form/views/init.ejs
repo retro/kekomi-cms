@@ -24,12 +24,68 @@
 						<label class="control-label" for="page_slug">Slug</label>
 						<div class="controls">
 							<input id="page_slug" class="span3" type="text" size="16" name="page[slug]">
-							<p class="help-block calculated-path"></p>
+							<p class="help-block calculated-path"><b>Full path: </b><span></span></p>
 						</div>
 					</div>
 				</div>
 			</div>
+			<div class="template-wrap clearfix">
+				<div class="control-group acts-as-content-section-wrap">
+					<div class="controls">
+						<label class="checkbox">
+							<input type="checkbox" class="enable-page-content"> Enable page content
+						</label>
+					</div>
+				</div>
+				<div class="control-group page-content-type-wrap" style="<%= typeof page.content_node_type === "undefined" ? "display:none": "" %>">
+					<label class="control-label" for="page_content_node_type">Page content type</label>
+					<div class="controls">
+						<select id="page_content_node_type" name="page[content_node_type]">
+							<option value="">None</option>
+							<% for(var i = 0; i < content_types.length; i++){ %>
+								<option value="<%= content_types[i].id %>"><%= content_types[i].name %></option>
+							<% } %>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="template-wrap clearfix">
+				<div class="control-group acts-as-content-section-wrap">
+					<div class="controls">
+						<label class="checkbox">
+							<input type="checkbox" class="enable-acts-as-section"> Acts as content section
+						</label>
+					</div>
+				</div>
+				<div class="control-group content-section-wrap" style="<%= typeof page.section_content_type === "undefined" ? "display:none": "" %>">
+					<label class="control-label" for="page_template">Section Content type</label>
+					<div class="controls">
+						<select id="page_section_content_type" name="page[section_content_type]">
+							<option value="">None</option>
+							<% for(var i = 0; i < content_types.length; i++){ %>
+								<option value="<%= content_types[i].id %>"><%= content_types[i].name %></option>
+							<% } %>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="template-wrap">
+				<div class="control-group">
+					<label class="control-label" for="page_template">Template Group</label>
+					<div class="controls">
+						<select id="page_template" name="page[template]">
+							<option value="">Select template group</option>
+							<% for(var i = 0; i < templates.length; i++){ %>
+								<option value="<%= templates[i].path %>"><%= templates[i].name %></option>
+							<% } %>
+						</select>
+					</div>
+				</div>
+				<div class="behaviors-wrapper clearfix"></div>
+			</div>
 		</fieldset>
-	
+		<div class="actions-bar clearfix">
+			<input type="submit" value="Save Page" class="btn btn-primary" />
+		</div>
 	</form>
 </div>

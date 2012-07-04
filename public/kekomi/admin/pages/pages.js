@@ -2,7 +2,8 @@ steal(
 'admin/mvc.js',
 'admin/pages/form',
 'steal/less',
-'admin/pages/tree'
+'admin/pages/tree',
+'admin/pages/content'
 ).then('./pages.less', function(){
 	can.Control('Admin.Pages', {}, {
 		init : function(){
@@ -25,6 +26,21 @@ steal(
 			this.element.find('.module-content').html($('<div/>').admin_pages_form({
 				page: new Admin.Models.Page
 			}));
+		},
+		editAction : function(){
+			Admin.Models.Page.findOne({id: can.route.attr('id')}, this.proxy(function(page){
+				this.element.find('.module-content').html($('<div/>').admin_pages_form({
+					page: page
+				}));
+			}))
+		},
+		contentAction : function(){
+			Admin.Models.Page.findOne({id: can.route.attr('id')}, this.proxy(function(page){
+				this.element.find('.module-content').html($('<div/>').admin_pages_content({
+					page: page
+				}));
+			}))
+			
 		}
 	})
 	

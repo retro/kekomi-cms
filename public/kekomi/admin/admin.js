@@ -6,7 +6,7 @@ steal(
 'admin/content',
 function(){
 	can.route.ready(false);
-	$.when(Admin.Models.ContentType.preload(), Admin.Models.FieldType.preload()).then(function(){
+	$.when(Admin.Models.ContentType.preload(), Admin.Models.FieldType.preload(), Admin.Models.Template.preload()).then(function(){
 		
 		/*can.route("content/:content_type/:action/:id", {type: "content"})
 		can.route("content/:content_type/:action", {type: "content"});

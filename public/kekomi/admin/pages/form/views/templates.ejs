@@ -1,0 +1,33 @@
+<ul class="unstyled">
+	<% var exts = ["html", "rss", "xml", "json", "js"] %>
+	<% for(var j = 0; j < exts.length; j++){ %>
+		<% if(this.behavior.templates.hasOwnProperty(exts[j])){ %>
+			<li id="t-<%= this.behavior.templates[exts[j]].replace(/\//g, ":") %>">
+				<span class="label"><%= exts[j] %></span> 
+				<span class="behavior-path">
+					<span class="path"><%= path %></span><%= this.behavior.url %><%= exts[j] !== "html" ? "." + exts[j] : "" %>
+				</span>
+				<span class="template-filename"><%= this.behavior.templates[exts[j]] %></span>
+				<% var templateSlots = slots.get(this.behavior.templates[exts[j]])[0] %>
+				<% if(templateSlots.slots.length > 0){ %>
+					<div class="template-slots clearfix">
+						<div class="template-slots-table-wrap">
+							<table>
+								<tr>
+									<th><label>Template slot</label></th>
+									<th><label>Assigned slot</label></th>
+								</tr>
+								<% for(var i = 0; i < templateSlots.slots.length; i++){ %>
+									<tr>
+										<td class="slot-name"><%= templateSlots.slots[i] %></td>
+										<td class="pick-slot"><i class="icon-cog assign-slot"></i></td>
+									</tr>
+								<% } %>
+							</table>
+						</div>
+					</div>
+				<% } %>
+			</li>
+		<% } %>
+	<% } %>
+</ul>

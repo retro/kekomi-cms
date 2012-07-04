@@ -57,7 +57,7 @@ steal('admin/mvc.js', function(){
 
 	}, {
 		init : function(){
-			console.log(this.options.model.attr())
+			//console.log(this.options.model.attr())
 			this.element.formParams({page: this.options.model.attr()})
 		},
 		" submit" : function(el, ev){

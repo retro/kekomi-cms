@@ -19,7 +19,7 @@ Admin.controllers :content, :provides => :json do
   # end
 
   before do
-    @resource = params[:model].classify.constantize
+    @resource = params[:model].classify.constantize unless params[:model].nil?
   end
 
   helpers do
@@ -48,7 +48,7 @@ Admin.controllers :content, :provides => :json do
   end
 
   get "/:model" do
-    @items = resource.page(params[:page] || 1)
+    @items = resource.not_attached.page(params[:page] || 1)
     render "content/index"
   end
 
@@ -62,18 +62,20 @@ Admin.controllers :content, :provides => :json do
   end
 
   get "/:model/:id" do
-    @item = resource.find(:id).first
+    @item = resource.find(params[:id])
     jsonify(@item)
   end
 
   put "/:model/:id" do
-    @item = resource.find(:id).first
+    @item = resource.find(params[:id])
     json_body.each_pair do |key, value|
       @item.send :"#{key}=", value
     end
     @item.save
     jsonify(@item)
   end
+
+  
 
   delete "/:model/:id" do
   end

@@ -1,0 +1,14 @@
+<% if(page.attr("template") && page.attr("template") != ""){ %>
+	<label>Section behaviors</label>
+	<div class="behaviors">
+		<% for(var i = 0; i < this.behaviors.length; i++){ %>
+			<% if(this.behaviors[i].id === "section" || typeof page.section_content_type != "undefined"){ %>
+				<div class="behavior clearfix">
+					<input type="checkbox" class="behavior-toggle" value="true" name="page[behaviors][<%= this.behaviors[i].id %>]" data-behavior="<%= this.behaviors[i].id %>"/> 
+					<b><%= this.behaviors[i].name %></b>
+					<div class="templates"></div>
+				</div>
+			<% } %>
+		<% } %>
+	</div>
+<% } %>

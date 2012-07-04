@@ -1,0 +1,5 @@
+json.data(@template_slots) do |template_slots|
+  json.id    template_slots.id
+  json.slots template_slots.slots
+end
+json.count @template_slots.size

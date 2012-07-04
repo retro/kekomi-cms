@@ -23,7 +23,9 @@ class Page
 
   field :template
 
-  belongs_to :content_node
+  field :content_node_type
+
+  has_one :content_node
 
   before_create :set_position
 
@@ -31,6 +33,14 @@ class Page
     self.position = self.siblings.size
   end
 
+  def content_node_with_set_class=(content)
+    unless content.class < ContentNode
+      content = self.content_node_type.classify.constantize.new(content)
+    end
+    self.content_node_without_set_class = content
+  end
+
+  alias_method_chain :content_node=, :set_class
 
 
 end

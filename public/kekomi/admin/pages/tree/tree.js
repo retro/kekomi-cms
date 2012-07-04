@@ -22,16 +22,6 @@ steal(
 				toleranceElement: '> div'
 			})
 		},
-		".add-page click" : function(){
-			$('<div/>').admin_pages_form({
-				page: new Admin.Models.Page
-			});
-		},
-		".edit-page click" : function(el){
-			$('<div/>').admin_pages_form({
-				page: el.closest('li').model()
-			});
-		},
 		".remove-page click" : function(el, ev){
 			var model = el.closest('li').model();
 			if(confirm("Are you sure?")){

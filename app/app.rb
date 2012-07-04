@@ -1,4 +1,4 @@
-class KekomiCMS < Padrino::Application
+class Frontend < Padrino::Application
   register Padrino::Rendering
   register Padrino::Mailer
   register Padrino::Helpers

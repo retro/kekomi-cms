@@ -8,6 +8,9 @@ steal(
 './helper.js'
 ).then('./form.less', function(){
 	can.Control('Admin.Content.Form', {
+		save : function(){
+			this.options.model.save();
+		}
 	}, {
 		init : function(){
 			this.element.html(this.view('init.ejs', {
@@ -18,7 +21,7 @@ steal(
 		"form submit" : function(el, ev){
 			ev.preventDefault();
 			//console.log(this.options)
-			this.options.model.save();
+			this.options.save.apply(this);
 		}
 	})
 })

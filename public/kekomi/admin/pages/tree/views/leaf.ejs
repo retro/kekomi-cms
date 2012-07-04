@@ -4,7 +4,12 @@
 			<li <%= children[i] %> id="page-<%= children[i].id %>" data-id="<%= children[i].id %>">
 				<div class="page-wrapper clearfix">
 					<div class="name"><i class="icon-reorder"></i><%= children[i].name %></div>
-					<div class="actions"><i class="icon-pencil edit-page"></i><i class="icon-remove-sign remove-page"></i></div>
+					<div class="actions">
+						<% if(children[i].content_node_type && children[i].content_node_type != ""){ %>
+							<a href="<%= can.route.url({type: "pages", action: "content", id: children[i].id }) %>"><i class="icon-pencil edit-page"></i></a>
+						<% } %>
+						<a href="<%= can.route.url({type: "pages", action: "edit", id: children[i].id }) %>"><i class="icon-cog page-settings"></i></a>
+						<i class="icon-remove-sign remove-page"></i></div>
 				</div>
 				<%== can.view.render("//admin/pages/tree/views/leaf.ejs", {children: pages.childrenOf(children[i].id), pages: pages}) %>
 			</li>
