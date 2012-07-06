@@ -4,13 +4,19 @@
 		input[type="text"], textarea {
 			background: #e6e6e6;
 			border: none;
-			.rounded(1px);
+			.rounded(2px);
 			&:focus {
 				.box-shadow(0 0 0 1px #ccc);
 			}
 			&.full-width {
 				width: 637px;
 			}
+		}
+		select {
+			height: 24px;
+			line-height: 20px;
+			margin-top: 10px;
+			width: 645px;
 		}
 		label {
 			font-size: 10px;
@@ -277,5 +283,79 @@
 	}
 	.actions-bar {
 		margin-top: -1px;
+	}
+	.publish-options {
+		background: #eee;
+		margin: -1px -20px -20px;
+		padding: 10px 15px 20px 20px;
+		border-top: 1px solid #ccc;
+		.inner-shadow(0, 3px, 0, 0.03);
+	}
+	.publish-controls {
+		margin-top: 5px;
+
+		label {
+			margin-bottom: 3px;
+		}
+		input[type="text"] {
+			background: white;
+			border: 1px solid #d7cece;
+			height: 16px;
+			line-height: 16px;
+			padding: 3px;
+			&:focus {
+				outline: none;
+				.box-shadow(none);
+			}
+		}
+		.publish-date-time {
+			width: 140px;
+			float: left;
+			position: relative;
+			input[type="text"] {
+				width: 112px;
+				text-align: center;
+				padding-right: 21px;
+				margin-top: -1px;
+			}
+			i {
+				position: absolute;
+				z-index: 10;
+				right: 8px;
+				top: 24px;
+				font-size: 18px;
+				color: #999;
+				cursor: pointer;
+				&:hover {
+					color: #0088cc;
+				}
+			}
+		}
+		.section, .tags {
+			float: right;
+			width: 475px;
+			select {
+				width: 100%;
+				margin-top: 0;
+				font-size: 12px;
+			}
+			
+		}
+		.tags {
+			margin-top: 10px;
+			input[type="text"] {
+				width: auto;
+				border: none;
+				margin-top: -2px;
+			}
+			ul.tagit {
+				.rounded(2px);
+				border-color: #d7cece;
+				padding: 2px 4px 0;
+				li.tagit-choice {
+					padding: 1px 18px 1px 8px;
+				}
+			}
+		}
 	}
 }

@@ -32,6 +32,8 @@ class Page
 
   has_one :content_node
 
+  has_many :items, :class_name => 'ContentNode'
+
   before_create :set_position
 
   def set_position

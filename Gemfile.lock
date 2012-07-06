@@ -62,9 +62,8 @@ GEM
     mongoid_slug (0.10.0)
       mongoid (~> 2.0)
       stringex (~> 1.3)
-    mongoid_smart_tags (0.0.3)
-      activesupport
-      mongoid
+    mongoid_taggable_with_context (0.8.1)
+      mongoid (>= 2.0.0)
     multi_json (1.3.6)
     padrino (0.10.6)
       padrino-admin (= 0.10.6)
@@ -147,7 +146,7 @@ DEPENDENCIES
   mongoid
   mongoid-tree
   mongoid_slug
-  mongoid_smart_tags
+  mongoid_taggable_with_context
   padrino (= 0.10.6)
   rake
   sinatra-flash

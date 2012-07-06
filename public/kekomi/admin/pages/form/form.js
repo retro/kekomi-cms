@@ -4,7 +4,8 @@ steal(
 'jquery/dom/form_params',
 'admin/util/form',
 'admin/util',
-'admin/vendor/base64'
+'admin/vendor/base64',
+'admin/vendor/chosen'
 ).then('./form.less', function(){
 
 	var calculatePath = function(pages, parentId, slug){
@@ -62,7 +63,7 @@ steal(
 					this.loadBehaviorFiles($(el));
 				}))
 			}
-			
+			//this.element.find('select').chosen()
 		},
 		"form saved" : function(el, ev){
 			can.route.attr({type: "pages", action: "list"})
@@ -106,7 +107,11 @@ steal(
 			}
 		},
 		".enable-page-content change" : function(el, ev){
-			this.element.find('.page-content-type-wrap').toggle(el.is(":checked"));
+			var checked = el.is(":checked");
+			this.element.find('.page-content-type-wrap').toggle(checked);
+			if(!checked){
+				this.element.find("#page_content_node_type").val("").trigger("change");
+			}
 		},
 		".enable-acts-as-section change" : function(el, ev){
 			var checked = el.is(":checked");

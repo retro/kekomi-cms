@@ -13,7 +13,7 @@ gem 'haml'
 gem 'mongoid'
 gem 'bson_ext', :require => "mongo"
 gem 'mongoid-tree', :require => 'mongoid/tree'
-gem 'mongoid_smart_tags'
+gem 'mongoid_taggable_with_context'
 gem 'mongoid_slug'
 gem 'jsonify'
 gem 'h2o'

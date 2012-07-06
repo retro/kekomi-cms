@@ -29,7 +29,7 @@ Admin.controllers :content, :provides => :json do
     end
 
     def jsonify(item)
-      data = {id: item.id, created_at: item.created_at}
+      data = {id: item.id, created_at: item.created_at, tags: item.tags_array}
       item.class.serializable_fields.each_pair do |key, value|
         if value.to_s.split("::")[-2] == "Compound"
           compound = []

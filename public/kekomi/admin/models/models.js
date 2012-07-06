@@ -5,7 +5,8 @@ steal(
 './content_type.js', 
 './field_type.js', 
 './content.js', 
-'./template_slot.js', function(){
+'./template_slot.js',
+'./tag.js', function(){
 	can.Observe.List.prototype.replace = function(newValues){
 		newValues.unshift(0, this.length);
 		this.splice.apply(this, newValues);

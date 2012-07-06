@@ -1,0 +1,1 @@
+steal('admin/vendor/jqueryui').then('./tag-it/js/tag-it.js', './tag-it/css/jquery.tagit.css');

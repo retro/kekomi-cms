@@ -1,0 +1,1 @@
+steal('can/control').then('./chosen/chosen/chosen.jquery.js', './chosen/chosen/chosen.css');

@@ -26,7 +26,7 @@ can.Model('Admin.Models.ContentType',
 					findOne : "/content/" + modelEndpoint + "/{id}", 
 					create  : "/content/" + modelEndpoint,
 					update  : "/content/" + modelEndpoint + "/{id}",
-					destroy : "/content/" + modelEndpoint + "/{id}",
+					destroy : "/content/" + modelEndpoint + "/{id}"
 				}, {
 					_serialize : function(){
 						var namespace = this.constructor._shortName,

@@ -1,1 +1,1 @@
-steal('can/control').then('./jquery-ui-1.8.20.custom/js/jquery-ui-1.8.20.custom.min.js', './jquery-ui-1.8.20.custom/css/ui-lightness/jquery-ui-1.8.20.custom.css');
+steal('can/control').then('./jqueryui/js/jquery-ui-1.8.21.custom.min.js', "./bootstrap/css/custom-theme/jquery-ui-1.8.16.custom.css");

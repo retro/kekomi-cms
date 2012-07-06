@@ -3,6 +3,34 @@
 		<% list(contentType.attr('fields'), function(field, i){ %>
 			<div <%= (el)-> renderField(el, field, model, field.name)%> class="content-type-level"></div>
 		<% }) %>
+		<% if(typeof model.page_id === "undefined" || model.page_id === ""){ %>
+			<div class="publish-options">
+				<div class="control-group">
+					<label class="control-label checkbox">
+						<input type="checkbox" value="true" /> Publish
+					</label>
+					<div class="controls publish-controls clearfix">
+						<div class="publish-date-time">
+							<label>Publish at</label>
+							<input type="text" />
+							<i class="icon-calendar"></i>
+						</div>
+						<div class="section">
+							<label>Section</label>
+							<select>
+								<option value="">Select section</option>
+								<%== pagesTree %>
+							</select>
+						</div>
+						<div class="tags">
+							<label>Tags</label>
+							<input type="hidden" name="content[tags]" class="tags-input" value="<%= (model.tags || []).join(",") %>">
+						</div>
+					</div>
+				</div>
+			</div>
+
+		<% } %>
 		<div class="actions-bar clearfix">
 			<input type="submit" value="Save Page" class="btn btn-primary" />
 		</div>
