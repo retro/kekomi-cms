@@ -1,0 +1,5 @@
+json.errors do 
+  @item.errors.messages.each_pair do |id, errors|
+    json.send id, errors
+  end
+end

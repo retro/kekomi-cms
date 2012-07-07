@@ -20,6 +20,7 @@ gem 'h2o'
 gem "kekomi_content_types", '0.0.1', :path => "~/projects/kekomi_content_types"
 gem 'kaminari', :require => 'kaminari/sinatra'
 gem "yajl-ruby", :require => 'yajl'
+gem 'mongoid_acts_as_list', '~> 0.0.5'
 # Test requirements
 
 # Padrino Stable Gem

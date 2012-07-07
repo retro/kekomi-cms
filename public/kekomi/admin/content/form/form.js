@@ -10,6 +10,17 @@ steal(
 'steal/less',
 './helper.js'
 ).then('./form.less', function(){
+
+	var showErrors = function(errors){
+		var self = this;
+		$('.error').removeClass('.error').find('.error-wrap').remove()
+		$.each(errors, function(key, value){
+			var input = self.element.find('[name="content['+key+']"]');
+			input.after('<span class="help-inline error-wrap">' + value.join(', ') + '</span>');
+			input.closest('.attr-wrap').addClass('error');
+		})
+	}
+
 	can.Control('Admin.Content.Form', {
 		save : function(){
 			this.options.model.save();
@@ -26,9 +37,9 @@ steal(
 				pagesTree   : renderTree(this.pages)
 			})).addClass('paper-form')
 			var datetimepicker = this.element.find('.publish-date-time input').datetimepicker();
-			if(this.options.model.isNew()){
-				datetimepicker.datetimepicker('setDate', (new Date()))
-			}
+			console.log(this.options.model.attr('published_at'))
+			datetimepicker.datetimepicker('setDate', this.options.model.attr('published_at'));
+
 			this.element.find('.tags-input').tagit({
 				allowSpaces: true,
 				tagSource : Admin.Models.Tag.suggest
@@ -42,8 +53,15 @@ steal(
 		},
 		"form submit" : function(el, ev){
 			ev.preventDefault();
-			//console.log(this.options)
-			this.options.save.apply(this);
+			console.log(el.formParams().content)
+			this.options.model.attr(el.formParams().content)
+			this.options.model.attr('published_at', this.element.find('.publish-date-time input').datetimepicker('getDate'))
+			this.options.model.save(this.proxy('saved'), this.proxy('errors'))
+		},
+		saved : function(){},
+		errors: function(xhr){
+			var errors = $.parseJSON(xhr.responseText);
+			showErrors.call(this, errors.errors);
 		}
 	})
 	var renderTree = function(pages, id){

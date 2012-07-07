@@ -28,12 +28,11 @@ can.Model('Admin.Models.ContentType',
 					update  : "/content/" + modelEndpoint + "/{id}",
 					destroy : "/content/" + modelEndpoint + "/{id}"
 				}, {
-					_serialize : function(){
-						var namespace = this.constructor._shortName,
-							data      = this._super.apply(this, arguments),
-							returnData = {};
-						returnData[namespace] = data
-						return returnData;
+					init : function(){
+						if(this.isNew()){
+							this.attr('is_published', false);
+							this.attr('published_at', (new Date()))
+						}
 					}
 				})
 			}

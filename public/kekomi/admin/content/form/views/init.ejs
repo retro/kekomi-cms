@@ -7,22 +7,22 @@
 			<div class="publish-options">
 				<div class="control-group">
 					<label class="control-label checkbox">
-						<input type="checkbox" value="true" /> Publish
+						<input type="checkbox" name="content[is_published]" value="1" /> Publish
 					</label>
 					<div class="controls publish-controls clearfix">
-						<div class="publish-date-time">
+						<div class="publish-date-time attr-wrap">
 							<label>Publish at</label>
 							<input type="text" />
 							<i class="icon-calendar"></i>
 						</div>
-						<div class="section">
+						<div class="section attr-wrap">
 							<label>Section</label>
-							<select>
+							<select name="content[section_id]">
 								<option value="">Select section</option>
 								<%== pagesTree %>
 							</select>
 						</div>
-						<div class="tags">
+						<div class="tags attr-wrap">
 							<label>Tags</label>
 							<input type="hidden" name="content[tags]" class="tags-input" value="<%= (model.tags || []).join(",") %>">
 						</div>

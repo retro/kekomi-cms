@@ -29,7 +29,14 @@ Admin.controllers :content, :provides => :json do
     end
 
     def jsonify(item)
-      data = {id: item.id, created_at: item.created_at, tags: item.tags_array}
+      data = {
+        id: item.id, 
+        created_at: item.created_at,
+        representation: item.representation,
+        slug: item.slug,
+        published_at: item.published_at,
+        tags: item.tags_array
+      }
       item.class.serializable_fields.each_pair do |key, value|
         if value.to_s.split("::")[-2] == "Compound"
           compound = []
@@ -48,7 +55,7 @@ Admin.controllers :content, :provides => :json do
   end
 
   get "/:model" do
-    @items = resource.not_attached.page(params[:page] || 1)
+    @content_items = resource.not_attached.order_by_position.page(params[:page] || 1)
     render "content/index"
   end
 
@@ -57,8 +64,11 @@ Admin.controllers :content, :provides => :json do
     json_body.each_pair do |key, value|
       @item.send :"#{key}=", value
     end
-    @item.save
-    jsonify(@item)
+    if @item.save
+      jsonify(@item)
+    else
+      error 406, render("content/errors")
+    end
   end
 
   get "/:model/:id" do
