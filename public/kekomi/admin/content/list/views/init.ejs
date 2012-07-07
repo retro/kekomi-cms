@@ -1,6 +1,18 @@
-<a href="<%= can.route.url({action: "new"}, true) %>">New item</a>
-<ul>
-	<% for(var i = 0; i < items.length; i++){ %>
-		<li><a href="<%= can.route.url({action: "edit", id: items[i].id }, true) %>"><%= items[i].id %></a></li>
-	<% } %>
-</ul>
+<div class="paper-wrapper">
+	<table class="table table-striped table-bordered content-list">
+		<tr>
+			<th><%= contentType.representedWith %></th>
+			<th>Published</th>
+			<th>Published at</th>
+			<th></th>
+		</tr>
+		<% items.each(function(item){%>
+			<tr <%= item %>>
+				<td><%= item.representation %></td>
+				<td><%= item.is_published === "true" ? 'yes' : 'no' %></td>
+				<td><%= item.published_at || "" %></td>
+				<td></td>
+			</tr> 
+		<%})%>
+	</table>
+</div>

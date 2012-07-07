@@ -26,7 +26,8 @@ can.Model('Admin.Models.ContentType',
 					findOne : "/content/" + modelEndpoint + "/{id}", 
 					create  : "/content/" + modelEndpoint,
 					update  : "/content/" + modelEndpoint + "/{id}",
-					destroy : "/content/" + modelEndpoint + "/{id}"
+					destroy : "/content/" + modelEndpoint + "/{id}",
+					representedWith: contentTypes[i].represented_with
 				}, {
 					init : function(){
 						if(this.isNew()){

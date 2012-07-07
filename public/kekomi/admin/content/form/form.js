@@ -53,12 +53,13 @@ steal(
 		},
 		"form submit" : function(el, ev){
 			ev.preventDefault();
-			console.log(el.formParams().content)
 			this.options.model.attr(el.formParams().content)
 			this.options.model.attr('published_at', this.element.find('.publish-date-time input').datetimepicker('getDate'))
 			this.options.model.save(this.proxy('saved'), this.proxy('errors'))
 		},
-		saved : function(){},
+		saved : function(){
+			can.route.attr({action: 'list', type: 'content', content_type: can.route.attr('content_type')})
+		},
 		errors: function(xhr){
 			var errors = $.parseJSON(xhr.responseText);
 			showErrors.call(this, errors.errors);

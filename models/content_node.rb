@@ -25,12 +25,18 @@ class ContentNode
 
   slug :representation, reserve: ['list', 'archive']
 
+  before_save :cleanup_belongs
+
   def representation
     self.send self.class.represented_with
   end
 
   def must_be_attached_or_have_section
     errors.add(:section_id, "can't be empty") if section.blank? and page.blank?
+  end
+
+  def cleanup_belongs
+    self.page = nil unless self.section.nil?
   end
 
 end
