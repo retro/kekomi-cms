@@ -27,8 +27,27 @@ class ContentNode
 
   before_save :cleanup_belongs
 
+  def self.publish_state(state)
+    if state == "published"
+      where(is_published: true)
+    elsif state == "draft"
+      where(is_published: false)
+    else
+      where
+    end
+  end
+
+  def self.in_section(section_id)
+    section_id.blank?? where : where(section_id: section_id)
+  end
+
   def representation
     self.send self.class.represented_with
+  end
+
+  def move=(args)
+    action, id = args.to_a.flatten
+    move({action.to_sym => self.class.find(id)})
   end
 
   def must_be_attached_or_have_section
@@ -36,7 +55,7 @@ class ContentNode
   end
 
   def cleanup_belongs
-    self.page = nil unless self.section.nil?
+    self.page_id = nil unless self.section_id.nil?
   end
 
 end

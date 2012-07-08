@@ -1,5 +1,98 @@
+@import "../../style/elements/elements.less";
 .admin_content_list {
-	.paper {
-		padding: 20px;
+	position: absolute;
+	top: 40px;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	.table-wrap {
+		position: absolute;
+		top: 51px;
+		left: 0;
+		right: 0;
+		bottom: 51px;
+	}
+	.paginate {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		height: 50px;
+		background: #f6f6f6;
+		border-top: 1px solid #ccc;
+		.pagination {
+			margin: 11px 0 0 15px;
+			a {
+				line-height: 26px;
+				padding: 0 10px;
+			}
+		}
+	}
+	.filters {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		height: 50px;
+		background: #f0f0f0;
+		border-bottom: 1px solid #ccc;
+		.form-inline {
+			float: right;
+			padding-top: 14px;
+			.input-wrap {
+				float: left;
+				margin-right: 15px;
+				select {
+					height: 22px;
+					line-height: 22px;
+				}
+			}
+		}
+		.actions {
+			float: left;
+			padding: 15px;
+		}
+	}
+	.table {
+		margin: 0;
+		width: 100%;
+		.select {
+			width: 20px;
+			text-align: center;
+			padding-right: 0;
+		}
+		.is_published {
+			width: 70px;
+			text-align: center;
+		}
+		.published_at {
+			width: 150px;
+			font-size: 11px;
+		}
+		.path {
+			font-size: 11px;
+			width: 300px;
+		}
+		.actions {
+			width: 100px;
+			padding: 0;
+			.btn-group {
+				margin-top: 7px;
+				display: none;
+			}
+		}
+		tr:hover .actions .btn-group {
+			display: block;
+		}
+	}
+	.sort-cell, tr:nth-child(odd) .sort-cell {
+		width: 20px;
+		text-align: center;
+		.gradient(#f3f3f3, #f3f3f3, #fff);
+		border-right: 1px solid #ddd;
+		cursor: move;
+		&:hover {
+			background: #f0f0f0;
+		}
 	}
 }

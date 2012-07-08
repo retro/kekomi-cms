@@ -60,6 +60,13 @@ can.Model.List('Admin.Models.Page.List', {}, {
 			buildByParentId.call(this)
 		}
 		return this._byParentId[id] || [];
+	},
+	parentsOf : function(page){
+		var parents = [];
+		for(var i = 0; i < page.parent_ids.length; i++){
+			parents.push(this.get(page.parent_ids[i])[0])
+		}
+		return parents.reverse();
 	}
 })
 

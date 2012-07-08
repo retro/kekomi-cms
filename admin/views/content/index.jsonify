@@ -1,9 +1,10 @@
 json.data(@content_items) do |content_item|
   json.id             content_item.id
+  json.section_id     content_item.section_id
   json.representation content_item.representation
   json.slug           content_item.slug
   json.published_at   content_item.published_at
-  json.tags           content_item.tags_array
+  json.is_published   content_item.is_published
   json.position       content_item.position
 end
-json.count @content_items.count
+json.count @count

@@ -35,7 +35,9 @@ Admin.controllers :content, :provides => :json do
         representation: item.representation,
         slug: item.slug,
         published_at: item.published_at,
-        tags: item.tags_array
+        tags: item.tags,
+        is_published: item.is_published,
+        section_id: item.section_id
       }
       item.class.serializable_fields.each_pair do |key, value|
         if value.to_s.split("::")[-2] == "Compound"
@@ -55,7 +57,32 @@ Admin.controllers :content, :provides => :json do
   end
 
   get "/:model" do
-    @content_items = resource.not_attached.order_by_position.page(params[:page] || 1)
+    allowed_filters = %w(publish_state page in_section order_by)
+    filters = {
+      publish_state: "any",
+      page: 1
+    }.merge((params[:filters] || {}).symbolize_keys)
+
+    if filters[:in_section].nil?
+      filters[:order_by] ||= [:published_at, :desc]
+    else
+      filters[:order_by] ||= [:position, :desc]
+    end
+
+    page = filters.delete :page
+
+    @content_items = resource.not_attached
+
+    filters.each_pair do |key, value|
+      if allowed_filters.include? key.to_s
+        @content_items = @content_items.send key, value
+      end
+    end
+
+    @count = @content_items.count
+
+    @content_items = @content_items.page(page)
+
     render "content/index"
   end
 
@@ -88,6 +115,7 @@ Admin.controllers :content, :provides => :json do
   
 
   delete "/:model/:id" do
+    resource.find(params[:id]).destroy
   end
 
 end

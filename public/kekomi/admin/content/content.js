@@ -10,7 +10,9 @@ steal(
 			this.element.html(this.view("init.ejs")).addClass('has-header');
 			this.handleRouting();
 		},
-		"{can.route} change" : "handleRouting",
+		"{can.route} type change" : "handleRouting",
+		"{can.route} content_type change" : "handleRouting",
+		"{can.route} action change" : "handleRouting",
 		handleRouting : function(){
 
 			if(can.route.attr('type') === "content"){

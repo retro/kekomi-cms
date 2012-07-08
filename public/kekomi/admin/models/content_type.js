@@ -19,7 +19,7 @@ can.Model('Admin.Models.ContentType',
 			for(var i = 0; i < contentTypes.length; i++){
 
 				modelName     = contentTypes[i].name.replace(/ /g, '');
-				modelEndpoint = modelName.replace(/[A-Z]/g, function(caps){ return "_" + caps.toLowerCase() }).replace(/^_/, ""); // AdminTest => admin_test
+				modelEndpoint = modelName.underscore(); // AdminTest => admin_test
 
 				can.Model('Admin.Models.ContentTypes.' + modelName, {
 					findAll : "/content/" + modelEndpoint,
@@ -34,6 +34,11 @@ can.Model('Admin.Models.ContentType',
 							this.attr('is_published', false);
 							this.attr('published_at', (new Date()))
 						}
+					},
+					serialize : function(){
+						var data = this._super.apply(this, arguments);
+						delete data.representation;
+						return data;
 					}
 				})
 			}

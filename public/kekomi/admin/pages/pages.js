@@ -10,7 +10,8 @@ steal(
 			this.element.html(this.view("init.ejs"))
 			this.handleRouting()
 		},
-		"{can.route} change" : "handleRouting",
+		"{can.route} type change" : "handleRouting",
+		"{can.route} action change" : "handleRouting",
 		handleRouting : function(){
 			if(can.route.attr('type') === "pages"){
 				clearTimeout(this._action);

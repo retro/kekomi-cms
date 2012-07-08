@@ -36,14 +36,17 @@ steal(
 				model       : this.options.model,
 				pagesTree   : renderTree(this.pages)
 			})).addClass('paper-form')
+
+			this.element.find('form').formParams({content: this.options.model})
+
 			var datetimepicker = this.element.find('.publish-date-time input').datetimepicker();
-			console.log(this.options.model.attr('published_at'))
 			datetimepicker.datetimepicker('setDate', this.options.model.attr('published_at'));
 
 			this.element.find('.tags-input').tagit({
 				allowSpaces: true,
 				tagSource : Admin.Models.Tag.suggest
 			})
+
 		},
 		".publish-date-time .icon-calendar click" : function(el, ev){
 			el.siblings('input').focus();
@@ -55,6 +58,7 @@ steal(
 			ev.preventDefault();
 			this.options.model.attr(el.formParams().content)
 			this.options.model.attr('published_at', this.element.find('.publish-date-time input').datetimepicker('getDate'))
+			console.log(this.options.model.serialize())
 			this.options.model.save(this.proxy('saved'), this.proxy('errors'))
 		},
 		saved : function(){

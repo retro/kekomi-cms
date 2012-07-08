@@ -1,18 +1,5 @@
-<div class="paper-wrapper">
-	<table class="table table-striped table-bordered content-list">
-		<tr>
-			<th><%= contentType.representedWith %></th>
-			<th>Published</th>
-			<th>Published at</th>
-			<th></th>
-		</tr>
-		<% items.each(function(item){%>
-			<tr <%= item %>>
-				<td><%= item.representation %></td>
-				<td><%= item.is_published === "true" ? 'yes' : 'no' %></td>
-				<td><%= item.published_at || "" %></td>
-				<td></td>
-			</tr> 
-		<%})%>
-	</table>
+<div class="filters">
+	
 </div>
+<div class="table-wrap"></div>
+<div class="paginate"></div>

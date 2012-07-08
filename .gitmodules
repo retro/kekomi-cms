@@ -7,3 +7,6 @@
 [submodule "public/kekomi/can"]
 	path = public/kekomi/can
 	url = git@github.com:jupiterjs/canjs.git
+[submodule "public/kekomi/canui"]
+	path = public/kekomi/canui
+	url = git@github.com:jupiterjs/canui.git
