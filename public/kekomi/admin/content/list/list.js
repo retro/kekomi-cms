@@ -49,6 +49,7 @@ steal(
 				selected: this.options.selected
 			}))
 			this.element.find('.filters form').formParams({state: can.route.attr('state')})
+			this.element.find('.filters form select').chosen()
 		},
 		renderTable : function(items){
 			this.options.state.attr('count', items.count);
@@ -59,36 +60,41 @@ steal(
 				breadcrumbs : calculateBreadcrumbs(this.pages),
 				state       : this.options.state
 			}))
-			new can.ui.TableScroll(this.element.find('table'))
-			if(this.options.state.isSortable()){
-				this.element.find('tbody').sortable({
-					handle : ".sort-cell",
-					helper : function(e, tr){
-						var $originals = tr.children();
-						var $helper = tr.clone();
-						$helper.children().each(function(index){
-							if(index === 0){
-								$(this).css('borderLeft', "1px solid #ddd")
-							}
-							if(index === $originals.length - 1){
-								$(this).css('borderRight', "1px solid #ddd")
-							}
-							$(this).width($originals.eq(index).width()).css('borderBottom', "1px solid #ddd")
-						});
-						return $helper;
-					}
-				})
+			if(items.length > 0){
+				new can.ui.TableScroll(this.element.find('table'))
+				if(this.options.state.isSortable()){
+					this.element.find('tbody').sortable({
+						handle : ".sort-cell",
+						helper : function(e, tr){
+							var $originals = tr.children();
+							var $helper = tr.clone();
+							$helper.children().each(function(index){
+								if(index === 0){
+									$(this).css('borderLeft', "1px solid #ddd")
+								}
+								if(index === $originals.length - 1){
+									$(this).css('borderRight', "1px solid #ddd")
+								}
+								$(this).width($originals.eq(index).width()).css('borderBottom', "1px solid #ddd")
+							});
+							return $helper;
+						}
+					})
+				}
 			}
 		},
 		"td input[type=checkbox] change" : function(el, ev){
-			var model = el.closest('.' + can.route.attr('content_type')).model();
+			var row = el.closest('.' + can.route.attr('content_type'));
+			var model = row.model();
 			if(el.is(':checked')){
 				this.options.selected.push(model)
+				row.addClass('selected')
 			} else {
 				var index = this.options.selected.indexOf(model)
 				if(index > -1){
 					this.options.selected.splice(index, 1);
 				}
+				row.removeClass('selected')
 			}
 		},
 		applyFilters : function(){
@@ -101,9 +107,12 @@ steal(
 		"{can.route} state change" : function(){
 			this.element.find('.table-wrap').html("")
 			this.options.selected.splice(0, this.options.selected.length);
-			var state = this.options.state.serialize(),
-				route = can.route.attr('state');
-			this.options.state.attr($.extend(state, (route ? route.serialize() : {})));
+			var state  = this.options.state.serialize(),
+				route  = can.route.attr('state'),
+				merged = $.extend(state, (route ? route.serialize() : {}));
+			this.options.state.attr(merged);
+			this.element.find('.filters form').formParams({state: merged})
+			$('select').trigger('liszt:updated')
 			this.options.contentTypeModel.findAll({filters: this.options.state.serialize()}, this.proxy('renderTable'))
 		},
 		"table sortstop" : function(el, ev, ui){
@@ -131,6 +140,12 @@ steal(
 				}
 			}
 			
+		},
+		"td .delete click" : function(el, ev){
+			ev.preventDefault();
+			if(confirm('Are you sure?')){
+				el.closest('.' + can.route.attr('content_type')).model().destroy();
+			}
 		},
 		"{contentTypeModel} destroyed" : function(Klass, ev, model){
 			model.elements(this.element).remove();

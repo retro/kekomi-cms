@@ -13,7 +13,7 @@ steal(
 				pages: pages
 			})).addClass('has-header');
 			this.element.find('.pages-wrapper ol:first').nestedSortable({
-				handle: ".icon-reorder",
+				handle: ".icon-sort",
 				items: "li",
 				placeholder: 'placeholder',
 				helper:	'original',

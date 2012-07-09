@@ -11,6 +11,10 @@
 		left: 0;
 		right: 0;
 		bottom: 51px;
+		background: #f3f3f3;
+		.alert {
+			margin: 15px;
+		}
 	}
 	.paginate {
 		position: absolute;
@@ -36,6 +40,9 @@
 		height: 50px;
 		background: #f0f0f0;
 		border-bottom: 1px solid #ccc;
+		.btn-small {
+			padding: 2px 5px;
+		}
 		.form-inline {
 			float: right;
 			padding-top: 14px;
@@ -56,6 +63,7 @@
 	.table {
 		margin: 0;
 		width: 100%;
+		background: white;
 		.select {
 			width: 20px;
 			text-align: center;
@@ -83,6 +91,11 @@
 		}
 		tr:hover .actions .btn-group {
 			display: block;
+		}
+		tr.selected, tr.selected:nth-child(odd){
+			td {
+				background: #D9EDF7;
+			}
 		}
 	}
 	.sort-cell, tr:nth-child(odd) .sort-cell {

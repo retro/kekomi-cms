@@ -1,31 +1,35 @@
-<table class="table table-striped content-list">
-	<thead>
-		<tr>
-			<% if(state.isSortable()){ %><th class="reorder"></th><% } %>
-			<th></th>
-			<th><%= contentType.representedWith.humanize() %></th>
-			<th>Path</th>
-			<th>Published</th>
-			<th>Published at</th>
-			<th></th>
-		</tr>
-	</thead>
-	<tbody>
-		<% items.each(function(item){%>
-			<tr <%= item %>>
-				<% if(state.isSortable()){ %><td class="sort-cell"><i class="icon-sort"></i></td><% } %>
-				<td class="select"><input type="checkbox" /></td>
-				<td class="repr"><%= item.representation %></td>
-				<td class="path"><%== breadcrumbs[item.section_id] %></td>
-				<td class="is_published"><%== item.attr('is_published') === true ? '<i class="icon-ok"></i>' : '' %></td>
-				<td class="published_at"><%=  item.attr('is_published') === true ? moment(item.published_at).calendar() : "" %></td>
-				<td class="actions">
-					<div class="btn-group">
-						<a class="btn btn-mini edit" href="<%= can.route.url({type: "content", content_type: can.route.attr('content_type'), id: item.id, action: "edit"}) %>">Edit</a>
-						<button class="btn btn-mini btn-danger edit">Delete</button>
-					</div>
-				</td>
-			</tr> 
-		<%})%>
-	</tbody>
-</table>
+<% if(items.length > 0){ %>
+	<table class="table table-striped content-list">
+		<thead>
+			<tr>
+				<% if(state.isSortable()){ %><th class="reorder"></th><% } %>
+				<th></th>
+				<th><%= contentType.representedWith.humanize() %></th>
+				<th>Path</th>
+				<th>Published</th>
+				<th>Published at</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			<% items.each(function(item){%>
+				<tr <%= item %>>
+					<% if(state.isSortable()){ %><td class="sort-cell"><i class="icon-sort"></i></td><% } %>
+					<td class="select"><input type="checkbox" /></td>
+					<td class="repr"><%= item.representation %></td>
+					<td class="path"><%== breadcrumbs[item.section_id] %></td>
+					<td class="is_published"><%== item.attr('is_published') === true ? '<i class="icon-ok"></i>' : '' %></td>
+					<td class="published_at"><%=  item.attr('is_published') === true ? moment(item.published_at).calendar() : "" %></td>
+					<td class="actions">
+						<div class="btn-group">
+							<a class="btn btn-mini edit" href="<%= can.route.url({type: "content", content_type: can.route.attr('content_type'), id: item.id, action: "edit"}) %>">Edit</a>
+							<button class="btn btn-mini btn-danger delete">Delete</button>
+						</div>
+					</td>
+				</tr> 
+			<%})%>
+		</tbody>
+	</table>
+<% } else { %>
+	<div class="alert alert-info">Currently, there is no content that matches the selected criteria.</div>
+<% } %>
