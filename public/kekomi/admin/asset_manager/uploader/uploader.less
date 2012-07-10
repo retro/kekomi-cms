@@ -1,0 +1,94 @@
+@import "../../style/elements/elements.less";
+
+.admin_asset_manager_uploader {
+	.fileinput-button {
+		position: relative;
+		overflow: hidden;
+		float: right;
+		margin: 10px 10px 0 0;
+	}
+	.fileinput-button input {
+		position: absolute;
+		top: 0;
+		right: 0;
+		margin: 0;
+		border: solid transparent;
+		border-width: 0 0 100px 200px;
+		opacity: 0;
+		filter: alpha(opacity=0);
+		-moz-transform: translate(-300px, 0) scale(4);
+		direction: ltr;
+		cursor: pointer;
+	}
+	.upload-progress {
+		float: left;
+		padding: 10px 0 0 10px;
+		&:hover {
+			.uploads {
+				display: block;
+			}
+		}
+	}
+	.progress {
+		width: 130px;
+		height: 7px;
+	}
+	.no-upload {
+		line-height: 30px;
+		height: 30px;
+	}
+	.notice {
+		text-transform: uppercase;
+		font-size: 10px;
+		font-weight: bold;
+		color: #999;
+	}
+	.uploads {
+		position: absolute;
+		bottom: 45px;
+		width: 250px;
+		left: 10px;
+		background: white;
+		.rounded();
+		.drop-shadow(0,0,10px,0.1);
+		display: none;
+		.arrow, .arrow-shadow {
+			width: 0px;
+			height: 0px;
+			border-style: solid;
+			border-width: 10px 10px 0 10px;
+			border-color: #ffffff transparent transparent transparent;
+			line-height: 0px;
+			_border-color: #ffffff #000000 #000000 #000000;
+			_filter: progid:DXImageTransform.Microsoft.Chroma(color='#000000');
+			position: absolute;
+			bottom: 0;
+			left: 10px;
+			margin-bottom: -10px;
+		}
+		.notice {
+			text-transform: none;
+			font-size: 12px;
+			font-weight: normal;
+			color: #333;
+			display: block;
+			margin-bottom: 2px;
+		}
+		.progress {
+			width: 230px;
+			margin-bottom: 0;
+		}
+		ul {
+			max-height: 250px;
+			overflow-y: auto;
+			margin: 0;
+		}
+		li {
+			padding: 10px;
+			border-bottom: 1px solid #ddd;
+			&:last-child {
+				border-bottom: none;
+			}
+		}
+	}
+}

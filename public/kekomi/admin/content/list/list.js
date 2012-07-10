@@ -2,7 +2,8 @@ steal(
 'admin/mvc.js',
 'steal/less',
 'admin/vendor/moment',
-'canui/table_scroll'
+'canui/table_scroll',
+'admin/vendor/spin'
 ).then('./list.less', function(){
 	var State = can.Observe({
 
@@ -22,6 +23,28 @@ steal(
 			return parseInt(raw)
 		}
 	})
+
+	var spin = function(el){
+		var opts = {
+			lines: 10, // The number of lines to draw
+			length: 8, // The length of each line
+			width: 3, // The line thickness
+			radius: 6, // The radius of the inner circle
+			rotate: 0, // The rotation offset
+			color: '#666', // #rgb or #rrggbb
+			speed: 4, // Rounds per second
+			trail: 60, // Afterglow percentage
+			shadow: false, // Whether to render a shadow
+			hwaccel: false, // Whether to use hardware acceleration
+			className: 'spinner', // The CSS class to assign to the spinner
+			zIndex: 2e9, // The z-index (defaults to 2000000000)
+		};
+		setTimeout(function(){
+			new Spinner(opts).spin(el[0])
+		}, 1)
+		
+	}
+
 	can.Control('Admin.Content.List', {
 		defaults: {
 			selected: new can.Observe.List
@@ -34,6 +57,7 @@ steal(
 			this.options.state = new State($.extend({ publish_state: "any", page: 1 }, (can.route.attr('state') ? can.route.attr('state').serialize() : {})));
 			this.on();
 			$.when(this.options.contentTypeModel.findAll({filters: this.options.state.serialize()}), Admin.Models.Page.findAll({})).then(this.proxy('renderInitial'))
+			spin(this.element.find('.table-wrap'))
 		},
 		renderInitial : function(items, pages){
 			this.pages = pages[0]
@@ -105,7 +129,9 @@ steal(
 		".filters select change" : "applyFilters",
 		".filters input change" : "applyFilters",
 		"{can.route} state change" : function(){
-			this.element.find('.table-wrap').html("")
+			var tableWrap = this.element.find('.table-wrap');
+			tableWrap.html("")
+			spin(tableWrap)
 			this.options.selected.splice(0, this.options.selected.length);
 			var state  = this.options.state.serialize(),
 				route  = can.route.attr('state'),

@@ -2,13 +2,13 @@
 	<table class="table table-striped content-list">
 		<thead>
 			<tr>
-				<% if(state.isSortable()){ %><th class="reorder"></th><% } %>
-				<th></th>
-				<th><%= contentType.representedWith.humanize() %></th>
-				<th>Path</th>
-				<th>Published</th>
-				<th>Published at</th>
-				<th></th>
+				<% if(state.isSortable()){ %><th></th><% } %>
+				<th class="select"></th>
+				<th class="repr"><%= contentType.representedWith.humanize() %></th>
+				<th class="path">Path</th>
+				<th class="is_published">Published</th>
+				<th class="published_at">Published at</th>
+				<th class="actions"></th>
 			</tr>
 		</thead>
 		<tbody>

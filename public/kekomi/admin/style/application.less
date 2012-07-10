@@ -2,17 +2,7 @@
 
 body {
 	background: #333;
-}
-#_wrapper {
-	width: 1130px;
-	position: absolute;
-	top: 0;
-	bottom: 0;
-	left: 50%;
-	margin-left: -570px;
-	border-left: 5px solid white;
-	border-right: 5px solid white;
-	background: white;
+	overflow: hidden;
 }
 
 #navigation {
@@ -31,6 +21,15 @@ body {
 	right: 0;
 	bottom: 0;
 	background: white;
+}
+#uploader {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	width: 200px;
+	height: 50px;
+	border-top: 1px solid #ccc;
+	background: #f6f6f6;
 }
 .module-content {
 	top: 0;
@@ -114,4 +113,30 @@ body {
 	-moz-border-radius-bottomright: 3px;
 	border-top-right-radius: 3px;
 	border-bottom-right-radius: 3px;
+}
+#dragover-notice {
+	width: 300px;
+	height: 300px;
+	position: absolute;
+	background: rgba(0,0,0,0.5);
+	.rounded(10px);
+	top: 50%;
+	left: 50%;
+	margin-top: -150px;
+	margin-left: -150px;
+	color: white;
+	text-align: center;
+	display: none;
+	i {
+		font-size: 200px;
+		display: block;
+		line-height: 250px;
+		height: 250px;
+	}
+	span {
+		display: block;
+		font-weight: bold;
+		font-size: 14px;
+		margin-top: -10px;
+	}
 }

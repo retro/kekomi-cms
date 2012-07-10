@@ -1,0 +1,28 @@
+<div class="upload-progress">
+	<% if(uploader.uploads.attr('length') === 0){ %>
+		<span class="no-upload notice">No uploads</span>
+	<% } else { %>
+		<div class="uploads">
+			<ul class="unstyled">
+				<% list(uploader.attr('uploads'), function(upload){ %>
+					<% console.log(uploader.uploads.length); %>
+					<li>
+						<span class="notice"><%= upload.attr('filename') %></span>
+						<div class="progress progress-striped active">
+							<div class="bar" style="width: <%= upload.attr('progress') %>%;"></div>
+						</div>
+					</li>
+				<% }) %>
+			</ul>
+			<div class="arrow"></div>
+		</div>
+		<span class="notice">Uploading <%= uploader.uploads.attr('length') %> file<%= uploader.uploads.attr('length') > 1 ? "s" : ""%></span>
+		<div class="progress progress-striped active">
+			<div class="bar" style="width: <%= uploader.attr('progress') %>%;"></div>
+		</div>
+	<% } %>
+</div>
+<span class="btn fileinput-button">
+	<i class="icon-upload-alt"></i>
+	<input class="fileupload" type="file" name="files[]" data-url="/assets" multiple>
+</span>

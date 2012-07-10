@@ -1,0 +1,4 @@
+json.id         @asset_folder.id
+json.name       @asset_folder.name
+json.parent_id  @asset_folder.parent_id
+json.parent_ids @asset_folder.parent_ids
