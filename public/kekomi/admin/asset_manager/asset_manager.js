@@ -1,0 +1,1 @@
+steal('admin/asset_manager/uploader')

@@ -1,0 +1,7 @@
+json.data(@asset_folders) do |asset_folder|
+  json.id         asset_folder.id
+  json.name       asset_folder.name
+  json.parent_id  asset_folder.parent_id
+  json.parent_ids asset_folder.parent_ids
+end
+json.count @asset_folders.count

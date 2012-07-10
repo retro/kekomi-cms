@@ -29,6 +29,12 @@ GEM
     bson_ext (1.6.4)
       bson (~> 1.6.4)
     builder (3.0.0)
+    carrierwave (0.6.2)
+      activemodel (>= 3.2.0)
+      activesupport (>= 3.2.0)
+    carrierwave-mongoid (0.2.1)
+      carrierwave (~> 0.6.1)
+      mongoid (~> 2.1)
     erubis (2.7.0)
     h2o (0.3.2)
     haml (3.1.6)
@@ -140,6 +146,8 @@ PLATFORMS
 
 DEPENDENCIES
   bson_ext
+  carrierwave
+  carrierwave-mongoid
   h2o
   haml
   jsonify

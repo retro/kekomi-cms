@@ -4,6 +4,7 @@ steal(
 'admin/style',
 'admin/models',
 'admin/content',
+'admin/asset_manager',
 function(){
 	can.route.ready(false);
 	$.when(Admin.Models.ContentType.preload(), Admin.Models.FieldType.preload(), Admin.Models.Template.preload()).then(function(){
@@ -20,6 +21,7 @@ function(){
 
 
 		$('#navigation').admin_nav();
+		$('#uploader').admin_asset_manager_uploader();
 		can.route.ready(true);
 	})
 	

@@ -1,0 +1,1 @@
+steal('admin/vendor/jqueryui').then('./file_upload/js/jquery.fileupload.js')
