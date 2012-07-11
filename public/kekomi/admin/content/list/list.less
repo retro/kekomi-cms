@@ -1,7 +1,7 @@
 @import "../../style/elements/elements.less";
 .admin_content_list {
 	position: absolute;
-	top: 40px;
+	top: 0;
 	left: 0;
 	right: 0;
 	bottom: 0;
@@ -11,7 +11,7 @@
 		left: 0;
 		right: 0;
 		bottom: 51px;
-		background: #f3f3f3;
+		background: #f0f1f2;
 		.alert {
 			margin: 15px;
 		}
@@ -99,7 +99,13 @@
 		}
 		th, th.path, th.published_at {
 			font-size: 13px;
+			.gradient(#eee, #eee, #f6f6f6);
+			
 		}
+
+	}
+	.header th {
+		border-bottom: 1px solid #ccc;
 	}
 	.sort-cell, tr:nth-child(odd) .sort-cell {
 		width: 20px;

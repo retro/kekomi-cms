@@ -1,7 +1,17 @@
-<ul class="nav nav-list">
-	<li class="nav-header">Content</li>
-	<% for(var i = 0; i < contentTypes.length; i++){ %>
-		<li><a href="<%= can.route.url({type: "content", content_type: contentTypes[i].id, action: "list"}) %>"><i class="icon-file icon-large"></i> <%= contentTypes[i].name.pluralize() %></a></li>
-	<% } %>
-	<li><a href="<%= can.route.url({type: "pages", action: "list"}) %>"><i class="icon-sitemap icon-large"></i> Pages</a></li>
-</ul>
+
+	<a href="<%= can.route.url({type: "pages", action: "list"}) %>" class="btn nav-links"><i class="icon-sitemap icon-large"></i> Pages</a>
+	<div class="btn-group nav-links">
+		<a class="btn dropdown-toggle" data-toggle="dropdown" href="javascript://">
+			<i class="icon-file icon-large"></i>
+			Content
+			<span class="caret"></span>
+		</a>
+		<ul class="dropdown-menu">
+			<% for(var i = 0; i < contentTypes.length; i++){ %>
+				<li>
+					<a href="<%= can.route.url({type: "content", content_type: contentTypes[i].id, action: "list"}) %>"><%= contentTypes[i].name.pluralize() %></a>
+				</li>
+			<% } %>
+		</ul>
+	</div>
+	<a href="<%= can.route.url({type: "asset_manager", action: "list"}) %>" class="btn nav-links"><i class="icon-folder-open icon-large"></i> Assets</a>
