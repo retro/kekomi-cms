@@ -40,8 +40,10 @@ steal(
 			zIndex: 2e9, // The z-index (defaults to 2000000000)
 		};
 		setTimeout(function(){
-			new Spinner(opts).spin(el[0])
-		}, 1)
+			if(el.html() === ""){
+				new Spinner(opts).spin(el[0])
+			}
+		}, 0)
 		
 	}
 
@@ -56,8 +58,8 @@ steal(
 			}))
 			this.options.state = new State($.extend({ publish_state: "any", page: 1 }, (can.route.attr('state') ? can.route.attr('state').serialize() : {})));
 			this.on();
-			$.when(this.options.contentTypeModel.findAll({filters: this.options.state.serialize()}), Admin.Models.Page.findAll({})).then(this.proxy('renderInitial'))
 			spin(this.element.find('.table-wrap'))
+			$.when(this.options.contentTypeModel.findAll({filters: this.options.state.serialize()}), Admin.Models.Page.findAll({})).then(this.proxy('renderInitial'))
 		},
 		renderInitial : function(items, pages){
 			this.pages = pages[0]

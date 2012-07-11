@@ -7,7 +7,7 @@ steal(
 ).then('./pages.less', function(){
 	can.Control('Admin.Pages', {}, {
 		init : function(){
-			this.element.html(this.view("init.ejs"))
+			this.element.html(this.view("init.ejs")).addClass('has-header')
 			this.handleRouting()
 		},
 		"{can.route} type change" : "handleRouting",

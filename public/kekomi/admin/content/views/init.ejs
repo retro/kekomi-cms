@@ -1,10 +1,8 @@
-<div class="module-header navbar">
-	<div class="navbar-inner">
-		<ul class="nav">
-			<li class="active">
-				<a href="<%= can.route.url({action: "new", type: "content", content_type: can.route.attr('content_type')}) %>"><i class="icon-plus-sign"></i> Add Content</a>
-			</li>
-		</ul>
+<div class="module-header">
+	<div class="btn-group">
+		<a href="<%= can.route.url({action: "new", type: "content", content_type: can.route.attr('content_type')}) %>" class="btn btn-mini btn-inverse">
+			<i class="icon-plus-sign"></i> Add Content
+		</a>
 	</div>
 </div>
 <div class="module-content">

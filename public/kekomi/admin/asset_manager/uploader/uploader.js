@@ -26,6 +26,19 @@ steal(
 			this.element.find('.fileupload').fileupload({
 				dataType: 'json'
 			})
+			this.options.uploader.uploads.push(new Upload({
+				filename: "mamatijejama.png",
+				progress: 33
+			}))
+
+			this.options.uploader.uploads.push(new Upload({
+				filename: "mamatijejama.png",
+				progress: 33
+			}))
+			this.options.uploader.uploads.push(new Upload({
+				filename: "mamatijejama.png",
+				progress: 33
+			}))
 		},
 		".fileupload fileuploaddragover": function(el,ev){
 			this.options.notice.fadeIn(200);
@@ -49,6 +62,9 @@ steal(
 		".fileupload fileuploaddone" : function(el, ev, data){
 			for(var i = 0; i < data.files.length; i++){
 				this.options.uploader.uploads.remove(data.files[i].id);
+			}
+			if(this.options.uploader.uploads.length === 0){
+				this.options.uploader.attr('progress', 0);
 			}
 		},
 		".fileupload fileuploadprogress" : function(el, ev, data){

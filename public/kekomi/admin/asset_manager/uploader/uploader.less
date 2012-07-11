@@ -1,11 +1,12 @@
 @import "../../style/elements/elements.less";
 
+
 .admin_asset_manager_uploader {
 	.fileinput-button {
 		position: relative;
 		overflow: hidden;
 		float: right;
-		margin: 10px 10px 0 0;
+		margin: 10px 15px 0 0;
 	}
 	.fileinput-button input {
 		position: absolute;
@@ -45,26 +46,31 @@
 	}
 	.uploads {
 		position: absolute;
-		bottom: 45px;
+		top: 45px;
 		width: 250px;
-		left: 10px;
+		right: 10px;
 		background: white;
 		.rounded();
-		.drop-shadow(0,0,10px,0.1);
+		.drop-shadow(0,0,20px,0.5);
 		display: none;
+		border: 1px solid #888;
 		.arrow, .arrow-shadow {
-			width: 0px;
-			height: 0px;
-			border-style: solid;
-			border-width: 10px 10px 0 10px;
-			border-color: #ffffff transparent transparent transparent;
-			line-height: 0px;
-			_border-color: #ffffff #000000 #000000 #000000;
-			_filter: progid:DXImageTransform.Microsoft.Chroma(color='#000000');
 			position: absolute;
-			bottom: 0;
-			left: 10px;
-			margin-bottom: -10px;
+			top: 0;
+			margin-top: -14px;
+			font-size: 30px;
+			color: #fff;
+			text-align: center;
+			width: 100%;
+		}
+		.arrow {
+			z-index: 2;
+		}
+		.arrow-shadow {
+			color: #888;
+			margin-top: -15px;
+			z-index: 1;
+			text-shadow: 0 0 20px rgba(0,0,0,0.5);
 		}
 		.notice {
 			text-transform: none;
@@ -77,15 +83,19 @@
 		.progress {
 			width: 230px;
 			margin-bottom: 0;
+			background: white;
 		}
 		ul {
 			max-height: 250px;
 			overflow-y: auto;
 			margin: 0;
+			position: relative;
+			z-index: 10;
 		}
 		li {
 			padding: 10px;
 			border-bottom: 1px solid #ddd;
+			.gradient(#f6f6f6, #f6f6f6, #fff);
 			&:last-child {
 				border-bottom: none;
 			}

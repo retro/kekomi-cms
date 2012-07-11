@@ -1,10 +1,8 @@
-<div class="module-header navbar">
-	<div class="navbar-inner">
-		<ul class="nav">
-			<li class="active">
-				<a href="<%= can.route.url({type: "pages", action: "new"}) %>"><i class="icon-plus-sign"></i> Add page</a>
-			</li>
-		</ul>
+<div class="module-header">
+	<div class="btn-group">
+		<a href="<%= can.route.url({action: "new", type: "pages"}) %>" class="btn btn-mini btn-inverse">
+			<i class="icon-plus-sign"></i> Add Page
+		</a>
 	</div>
 </div>
 <div class="module-content">
