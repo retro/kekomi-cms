@@ -1,7 +1,6 @@
 steal(
 'admin/mvc.js',
 'admin/asset_manager/uploader',
-<<<<<<< HEAD
 'canui/selectable',
 'steal/less',
 'jquery/event/key',
@@ -76,13 +75,3 @@ steal(
 		}
 	})
 });
-=======
-'steal/less'
-).then('./asset_manager.less', function(){
-	can.Control('Admin.AssetManager', {}, {
-		init : function(){
-			this.element.html(this.view("init.ejs"))
-		}
-	})
-})
->>>>>>> 701834f098994796692ec4b9c7b90e3ec2d74e7c
