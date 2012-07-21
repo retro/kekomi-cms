@@ -2,9 +2,12 @@ class Asset
   include Mongoid::Document
   include Mongoid::Timestamps # adds created_at and updated_at fields
 
+<<<<<<< HEAD
   include Mongoid::TaggableWithContext
   include Mongoid::TaggableWithContext::AggregationStrategy::RealTime
 
+=======
+>>>>>>> 701834f098994796692ec4b9c7b90e3ec2d74e7c
   belongs_to :asset_folder
 
   # field <name>, :type => <type>, :default => <value>
@@ -17,6 +20,7 @@ class Asset
   # key :field <, :another_field, :one_more ....>
 
   field :file
+<<<<<<< HEAD
   field :name
   field :size
 
@@ -85,4 +89,9 @@ class Asset
     end
 
 
+=======
+  field :filename
+  
+  mount_uploader :file, Uploader
+>>>>>>> 701834f098994796692ec4b9c7b90e3ec2d74e7c
 end

@@ -1,10 +1,13 @@
 class Uploader < CarrierWave::Uploader::Base
 
+<<<<<<< HEAD
   include CarrierWave::MimeTypes
   include CarrierWave::RMagick
 
   process :set_content_type
 
+=======
+>>>>>>> 701834f098994796692ec4b9c7b90e3ec2d74e7c
   ##
   # Image manipulator library:
   #
@@ -35,7 +38,11 @@ class Uploader < CarrierWave::Uploader::Base
   # Directory where uploaded files will be stored (default is /public/uploads)
   #
   def store_dir
+<<<<<<< HEAD
     "uploads/#{model.name[0, 2].downcase}/#{model.id}"
+=======
+    "uploads/#{model.filename[0, 2].downcase}/#{model.id}"
+>>>>>>> 701834f098994796692ec4b9c7b90e3ec2d74e7c
   end
 
   ##
@@ -71,7 +78,11 @@ class Uploader < CarrierWave::Uploader::Base
   # White list of extensions which are allowed to be uploaded:
   #
   def extension_white_list
+<<<<<<< HEAD
     %w(jpg jpeg gif png avi mkv mp3 flac aac wav midi pdf doc docx xls xlsx ppt pptx rtf txt)
+=======
+    %w(jpg jpeg gif png avi mkv pdf doc docx rtf txt)
+>>>>>>> 701834f098994796692ec4b9c7b90e3ec2d74e7c
   end
 
   ##
@@ -80,6 +91,7 @@ class Uploader < CarrierWave::Uploader::Base
   # def filename
   #   "something.jpg" if original_filename
   # end
+<<<<<<< HEAD
   version :thumb, :if => :image? do
     process :resize_to_limit => [200, 200]
   end
@@ -88,4 +100,6 @@ class Uploader < CarrierWave::Uploader::Base
     def image?(new_file)
       new_file.content_type.include? 'image'
     end
+=======
+>>>>>>> 701834f098994796692ec4b9c7b90e3ec2d74e7c
 end

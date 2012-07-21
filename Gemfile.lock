@@ -35,9 +35,12 @@ GEM
     carrierwave-mongoid (0.2.1)
       carrierwave (~> 0.6.1)
       mongoid (~> 2.1)
+<<<<<<< HEAD
     color (1.4.1)
     color_namer (0.1.0)
       color (>= 1.4.1)
+=======
+>>>>>>> 701834f098994796692ec4b9c7b90e3ec2d74e7c
     erubis (2.7.0)
     exifr (1.1.3)
     h2o (0.3.2)
@@ -153,8 +156,11 @@ DEPENDENCIES
   bson_ext
   carrierwave
   carrierwave-mongoid
+<<<<<<< HEAD
   color_namer
   exifr
+=======
+>>>>>>> 701834f098994796692ec4b9c7b90e3ec2d74e7c
   h2o
   haml
   jsonify

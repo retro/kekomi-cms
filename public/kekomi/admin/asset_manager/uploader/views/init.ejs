@@ -5,6 +5,10 @@
 		<div class="uploads">
 			<ul class="unstyled">
 				<% list(uploader.attr('uploads'), function(upload){ %>
+<<<<<<< HEAD
+=======
+					<% console.log(uploader.uploads.length); %>
+>>>>>>> 701834f098994796692ec4b9c7b90e3ec2d74e7c
 					<li>
 						<span class="notice"><%= upload.attr('filename') %></span>
 						<div class="progress progress-striped active">
@@ -24,5 +28,9 @@
 </div>
 <span class="btn fileinput-button">
 	<i class="icon-upload-alt"></i>
+<<<<<<< HEAD
 	<input class="fileupload" type="file" name="file" data-url="/assets" multiple>
+=======
+	<input class="fileupload" type="file" name="files[]" data-url="/assets" multiple>
+>>>>>>> 701834f098994796692ec4b9c7b90e3ec2d74e7c
 </span>
