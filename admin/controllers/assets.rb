@@ -20,14 +20,21 @@ Admin.controllers :assets do
   #   "Hello world!"
   # end
 
+  get "/" do
+    @assets = Asset.order_by(:created_at => :desc).all
+    render "assets/index"
+  end
+
   post "/" do
-    params[:files].each do |file|
-      asset = Asset.new
-      asset.file = file
-      asset.filename = file[:filename]
-      asset.save
-    end
-    ""
+    @asset = Asset.new
+    @asset.file = params[:file]
+    @asset.name = params[:file][:filename]
+    @asset.save
+    render "assets/item"
   end
   
+  delete "/:id" do
+    Asset.find(params[:id]).destroy
+  end
+
 end

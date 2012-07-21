@@ -23,6 +23,11 @@ gem 'kaminari', :require => 'kaminari/sinatra'
 gem "yajl-ruby", :require => 'yajl'
 gem 'mongoid_acts_as_list', '~> 0.0.5'
 gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
+
+gem 'rmagick'
+gem 'mime-types'
+gem 'exifr'
+gem 'color_namer'
 # Test requirements
 
 # Padrino Stable Gem

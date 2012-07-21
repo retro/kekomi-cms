@@ -97,22 +97,24 @@
 				background: #D9EDF7;
 			}
 		}
-		th, th.path, th.published_at {
-			font-size: 13px;
-			.gradient(#eee, #eee, #f6f6f6);
-			
-		}
 
 	}
-	.header th {
-		border-bottom: 1px solid #ccc;
+	.header {
+		th, th.path, th.published_at  {
+			border-bottom: 1px solid #ccc;
+			font-size: 13px;
+			.gradient(#eee, #eee, #f6f6f6);
+			.box-shadow(inset 0px 1px 0 0 #fff);
+			text-shadow: 0 1px #fff;
+		}
 	}
 	.sort-cell, tr:nth-child(odd) .sort-cell {
 		width: 20px;
 		text-align: center;
-		.gradient(#f3f3f3, #f3f3f3, #fff);
+		.gradient(#eee, #eee, #fff);
 		border-right: 1px solid #ddd;
 		cursor: move;
+
 		&:hover {
 			background: #f0f0f0;
 		}

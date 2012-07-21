@@ -26,7 +26,7 @@ steal(
 			this.element.find('.fileupload').fileupload({
 				dataType: 'json'
 			})
-			this.options.uploader.uploads.push(new Upload({
+			/*this.options.uploader.uploads.push(new Upload({
 				filename: "mamatijejama.png",
 				progress: 33
 			}))
@@ -38,7 +38,7 @@ steal(
 			this.options.uploader.uploads.push(new Upload({
 				filename: "mamatijejama.png",
 				progress: 33
-			}))
+			}))*/
 		},
 		".fileupload fileuploaddragover": function(el,ev){
 			this.options.notice.fadeIn(200);
@@ -60,6 +60,12 @@ steal(
 			}
 		},
 		".fileupload fileuploaddone" : function(el, ev, data){
+			var json, model;
+			if(data.jqXHR.status === 200){
+				json  = $.parseJSON(data.jqXHR.responseText);
+				model = new Admin.Models.Asset(json)
+				model.created();
+			}
 			for(var i = 0; i < data.files.length; i++){
 				this.options.uploader.uploads.remove(data.files[i].id);
 			}

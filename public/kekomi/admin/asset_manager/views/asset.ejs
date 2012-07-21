@@ -1,0 +1,11 @@
+<div <%= asset %> tabindex="<%= tabindex %>">
+	<div class="delete"><i class="icon-remove-sign"></i></div>
+	<div class="thumb<%= typeof asset.thumb !== "undefined" ? ' checkered' : '' %>">
+		<% if(typeof asset.thumb !== "undefined"){ %>
+			<img src="<%= asset.thumb %>" />
+		<% } else { %>
+			<i class="<%= icons[asset.media_type] || "icon-file" %>"></i>
+		<% } %>
+	</div>
+	<div class="filename"><%= asset.name %></div> 
+</div>

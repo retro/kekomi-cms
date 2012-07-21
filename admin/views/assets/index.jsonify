@@ -1,0 +1,16 @@
+json.data(@assets) do |asset|
+  json.id         asset.id
+  json.name       asset.name
+  json.url        asset.file.url
+  json.exif       asset.exif
+  json.gps        asset.gps
+  json.width      asset.width
+  json.height     asset.height
+  json.size       asset.size
+  json.mime_type  asset.mime_type
+  json.media_type asset.media_type
+  if asset.has_thumb?
+    json.thumb asset.file.thumb
+  end
+end
+json.count @assets.count

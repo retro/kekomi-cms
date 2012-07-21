@@ -1,4 +1,8 @@
 <div class="module-content">
 	<div class="folders"></div>
-	<div class="asset-list"></div>
+	<div class="asset-list">
+		<% list(assets, function(asset, tabindex){ %>
+			<%== can.view.render("//admin/asset_manager/views/asset.ejs", {asset: asset, icons: icons, tabindex: tabindex}) %>
+		<% }) %>
+	</div>
 </div>

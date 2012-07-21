@@ -1,6 +1,8 @@
+@import "../style/elements/elements.less";
+
 .admin_asset_manager {
 	.folders {
-		background: #e1e4e6;
+		background: #333;
 		border-right: 1px solid #000;
 		position: absolute;
 		top: 0;
@@ -14,6 +16,125 @@
 		bottom: 0;
 		right: 0;
 		top: 0;
-		background: #333;
+		padding: 10px;
+		background: #222;
+		overflow-y: auto;
+		.asset {
+			float: left;
+			background: #333;
+			width: 150px;
+			height: 170px;
+			padding: 10px;
+			.rounded;
+			margin: 5px;
+			position: relative;
+			cursor: pointer;
+			-moz-user-select: -moz-none;
+				-khtml-user-select: none;
+				-webkit-user-select: none;
+				/*
+				  Introduced in IE 10.
+				  See http://ie.microsoft.com/testdrive/HTML5/msUserSelect/
+				*/
+				-ms-user-select: none;
+				user-select: none;
+			&:hover {
+				background: #666;
+				position: relative;
+				width: 170px;
+				height: 190px;
+				margin: -5px;
+				z-index: 1000;
+				-webkit-box-shadow: 0 0 20px rgba(0,0,0, 0.6);
+				-moz-box-shadow: 0 0 20px rgba(0,0,0, 0.6);
+				box-shadow: 0 0 20px rgba(0,0,0, 0.6);
+				.delete {
+					display: block;
+				}
+				.thumb {
+					width: 150px;
+					height: 150px;
+					line-height: 150px;
+					i {
+						color: #999;
+						width: 150px;
+						height: 150px;
+						font-size: 130px;
+					}
+				}
+				.filename {
+					color: #fff;
+				}
+			}
+			&:focus {
+				outline: none;
+			}
+			&.activated {
+				background: #0088cc;
+				.delete {
+					background: #0088cc;
+					color: #48c2ff;
+					&:hover {
+						color: white;
+					}
+				}
+				.thumb i {
+					color: white;
+				}
+				.filename {
+					color: white;
+				}
+			}
+			.filename {
+				text-overflow: ellipsis;
+				overflow: hidden;
+				margin-top: 5px;
+				font-size: 12px;
+				color: #777;
+			}
+			.delete {
+				font-size: 24px;
+				position: absolute;
+				top: 0;
+				right: 0;
+				width: 30px;
+				height: 30px;
+				background: #666;
+				line-height: 30px;
+				text-align: center;
+				.rounded;
+				display: none;
+				color: #999;
+				&:hover {
+					color: #fff;
+					cursor: pointer;
+				}
+			}
+			.checkered {
+				background: url(images/checkers.png);
+				background-position: 50% 50%;
+			}
+			.thumb {
+				width: 130px;
+				height: 130px;
+				line-height: 130px;
+				text-align: center;
+				padding: 10px;
+				.rounded;
+
+				img {
+					vertical-align: middle;
+				}
+				i {
+					height: 130px;
+					width: 130px;
+					
+					
+					font-size: 120px;
+					color: #666;
+					display: block;
+				}
+			}
+		}
 	}
 }
