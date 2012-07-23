@@ -1,0 +1,1 @@
+steal('admin/vendor/jqueryui').then('./halloeditor.js')

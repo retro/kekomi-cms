@@ -1,7 +1,8 @@
 steal(
 'admin/mvc.js',
 'can/observe/compute',
-'jquery/event/key'
+'jquery/event/key',
+'admin/content/types/atom/rte'
 ).then(function(){
 	can.Control('Admin.Content.Types.Atom', {
 		defaults : {

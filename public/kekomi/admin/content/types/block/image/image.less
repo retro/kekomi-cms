@@ -97,13 +97,11 @@
 			padding-left: 160px;
 			margin-right: -3px;
 		}
-		.admin_content_types_block .admin_content_types_block_image .block-fields {
+		.admin_content_types_block .admin_content_types_block_image .block-fields,
+		.admin_content_types_block .admin_content_types_block .admin_content_types_block_image .block-fields,
+		.admin_content_types_collection .admin_content_types_block .admin_content_types_block_image .block-fields {
 			margin-top: 0;
 			padding-left: 0;
-		}
-		.admin_content_types_block .admin_content_types_block .admin_content_types_block_image .block-fields {
-			padding-left: 0;
-			margin-right: 0;
 		}
 		.admin_content_types_collection .admin_content_types_block_image,
 		.admin_content_types_compound .compound-values > .admin_content_types_collection  .admin_content_types_block_image {
@@ -116,7 +114,9 @@
 				padding-left: 0;
 			}
 		}
-
+		.admin_content_types_compound .compound-values > .admin_content_types_collection  .admin_content_types_block_image {
+			padding-top: 10px;
+		}
 	}
 }
 
