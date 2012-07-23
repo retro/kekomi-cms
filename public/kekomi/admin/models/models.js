@@ -13,4 +13,13 @@ steal(
 		this.splice.apply(this, newValues);
 		return this;
 	}
+	can.Observe.prototype.readAttr = function(attr){
+		var path = attr.split("."),
+			val  = this[path.shift()];
+		while(typeof val !== "undefined" || path.length > 0){
+			if(typeof val === "undefined") return;
+			val = val[path.shift()];
+		}
+		return val;
+	}
 })

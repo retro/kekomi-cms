@@ -2,8 +2,7 @@ steal(
 'admin/mvc.js',
 'admin/content/form',
 'admin/content/list',
-'steal/less',
-'admin/content/types/atom'
+'steal/less'
 ).then(function(){
 	can.Control('Admin.Content', {}, {
 		init : function(){

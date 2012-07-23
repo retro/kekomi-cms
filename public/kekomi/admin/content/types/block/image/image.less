@@ -1,0 +1,150 @@
+@import "../../../../style/elements/elements.less";
+
+.admin_content_types_block_image {
+	.image-field-wrap {
+		margin-top: 5px;
+	}
+	.image {
+		width: 100%;
+		height: 150px;
+		line-height: 148px;
+		text-align: center;
+		background-image: url(images/checkers.png);
+		background-position: 50% 50%;
+		border: 1px solid #ddd;
+		margin: 5px 0 0;
+		position: relative;
+		z-index: 0;
+		.rounded(3px);
+		.inner-shadow(0,0,10px,0.1);
+		&:hover {
+			.gravity {
+				display: block;
+			}
+		}
+		.gravity {
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			left:0;
+			right: 0;
+			display: none;
+			table {
+				width: 100%;
+				height: 150px;
+				line-height: 40px;
+				td {
+					border: 1px dotted #bbb;
+					width: 33%;
+					padding: 0;
+					&:first-child {
+						border-left: none;
+					}
+					&:last-child {
+						border-right: none;
+					}
+					i {
+						visibility: hidden;
+					}
+					&:hover, &.selected {
+						background: rgba(0,0,0,0.6);
+						color: white;
+						cursor: pointer;
+						i {
+							visibility: visible;
+						}
+					}
+					&:hover {
+						background: rgba(0,0,0,0.8);
+					}
+				}
+				tr:first-child td {
+					border-top: none;
+				}
+				tr:last-child td {
+					border-bottom: none;
+				}
+			}
+		}
+		img {
+			vertical-align: middle;
+			max-height: 140px;
+			max-width: 95%;
+		}
+	}
+	.image-info {
+		float: right;
+		margin: -19px -1px 0 0;
+		background: #f0f0f0;
+		padding-right: 10px;
+		.rounded;
+		.info-block {
+			float: left;
+			margin-left: 10px;
+			font-size: 11px;
+		}
+	}
+	.image-info, .image-toolbar {
+		position: relative;
+		z-index: 10;
+	}
+}
+
+.admin_content_form {
+	.content-form {
+		.admin_content_types_block_image .block-fields {
+			margin-top: -23px;
+			padding-left: 160px;
+			margin-right: -3px;
+		}
+		.admin_content_types_block .admin_content_types_block_image .block-fields {
+			margin-top: 0;
+			padding-left: 0;
+		}
+		.admin_content_types_block .admin_content_types_block .admin_content_types_block_image .block-fields {
+			padding-left: 0;
+			margin-right: 0;
+		}
+		.admin_content_types_collection .admin_content_types_block_image,
+		.admin_content_types_compound .compound-values > .admin_content_types_collection  .admin_content_types_block_image {
+			margin-bottom: 15px;
+			&:last-child {
+				margin-bottom: 0;
+			}
+			.block-fields {
+				margin-top: 0;
+				padding-left: 0;
+			}
+		}
+
+	}
+}
+
+.asset-manager-modal {
+	width: 80%;
+	height: 80%;
+	left: 0;
+	top: 0;
+	margin-left: 10%;
+	margin-top: 10%;
+	border: none;
+	.rounded();
+	.drop-shadow(0,0,20px,0.5);
+	background: #333;
+	.admin_asset_manager {
+		position: absolute;
+		top: 40px;
+		left: 0;
+		right: 0;
+		bottom: 40px;
+		border-top: 1px solid black;
+		border-bottom: 1px solid black;
+	}
+	.footer {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		height: 40px;
+	}
+}

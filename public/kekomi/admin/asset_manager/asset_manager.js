@@ -60,7 +60,6 @@ steal(
 				}
 				if(newIndex < 0) newIndex = 0;
 				if(newIndex > assets.length - 1) newIndex = assets.length - 1;
-				console.log(newIndex, index)
 				if(newIndex !== index){
 					activated.trigger('deactivate')
 					assets.eq(newIndex).trigger('activate')

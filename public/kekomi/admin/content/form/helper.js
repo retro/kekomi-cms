@@ -4,7 +4,8 @@ steal('admin/mvc.js', 'can/view/ejs', function(){
 		var fieldType  = Admin.Models.FieldType.all().get(field['type'])[0],
 			controller = "admin_content_types_" + fieldType.type;
 
-		controller = $.fn[controller + '_' + field['name']] ? controller + '_' + field['name'] : controller;
+
+		controller = $.fn[controller + '_' + field.type] ? controller + '_' + field.type : controller;
 		var options = $.extend({field: field, model: model, attr: attr, fieldType: fieldType}, (opts || {}))
 		$(el)[controller](options)
 	}

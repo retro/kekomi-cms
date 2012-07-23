@@ -1,6 +1,7 @@
 steal(
 'admin/mvc.js',
-'can/observe/compute'
+'can/observe/compute',
+'jquery/event/key'
 ).then(function(){
 	can.Control('Admin.Content.Types.Atom', {
 		defaults : {
@@ -24,6 +25,12 @@ steal(
 		"textarea change" : 'inputChanged',
 		inputChanged : function(el, ev){
 			this.options.model.attr(this.options.attr, el.val());
+		},
+		".integer-field keydown" : function(el, ev){
+			var charCode = ev.which;
+			if (charCode > 31 && (charCode < 48 || charCode > 57) && [37, 38, 39, 40].indexOf(charCode) === -1){
+				ev.preventDefault();
+			}
 		},
 		"{model} change" : function(Model, ev, attr, how, val, oldVal){
 			if(attr === this.options.attr){

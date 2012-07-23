@@ -1,0 +1,45 @@
+<div class="control-group form-vertical">
+	<label>
+		<span class="label-text">
+			<% if(this.collection){ %>
+				<i class="icon-sort"></i>
+			<% } %>
+			<%= collection ? fieldType.name : attr %>
+		</span>
+		<% if(this.collection){ %>
+			<span class="remove"><i class="icon-remove-sign"></i> Remove</span>
+		<% } %>
+	</label>
+	<div class="block-fields">
+		<div class="image-field-wrap">
+			<div class="image-toolbar btn-group">
+				<a href="javascript://" class="select-image btn btn-mini"><i class="icon-picture"></i></a>
+				<% if(this.model.attr(this.attr + ".url")){ %>
+					<a href="javascript://" class="remove-image btn btn-mini"><i class="icon-remove"></i></a>
+				<% } %>
+			</div>
+			<% if(this.model.attr(this.attr + ".url")){ %>
+				<div class="image-info">
+					<span class="info-block"><i class="icon-magnet"></i> <%= gravityLabels[this.model.attr(this.attr + ".gravity")] %></span>
+					<span class="info-block"><i class="icon-resize-full"></i> <%= this.model.attr(this.attr + '.width') %>x<%= this.model.attr(this.attr + '.height') %>px</span>
+				</div>
+				<div class="image">
+					<div class="gravity">
+						<table>
+							<% for(var i = 0; i < gravities.length; i++){ %>
+								<tr>
+									<% for(var j = 0; j < gravities[i].length; j++){ %>
+										<td data-gravity="<%= gravities[i][j]%>">
+											<i class="icon-magnet" />
+										</td>
+									<% } %>
+								</tr>
+							<% } %>
+						</table>
+					</div>
+					<img src="<%= this.model.attr(this.attr + '.url') %>" />
+				</div>
+			<% } %>
+		</div>
+	</div>
+</div>
