@@ -1,1 +1,14 @@
-contains.ejs
+<div class="rule-wrap form-inline clearfix contains-rule">
+	<select>
+		<% for(var field in fields){ %>
+			<% if(fields.hasOwnProperty(field) && fields[field] === "string"){ %>
+				<option value="<%= field %>"><%= field %></option>
+			<% } %>
+		<% } %>
+	</select>
+	<label>
+		<span>contains</span>
+		<input type="text" class="input-small" />
+	</label>
+	<a href="javascript://" class="btn btn-small remove-rule"><i class="icon-minus"></i></a>
+</div>

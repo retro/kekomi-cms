@@ -1,4 +1,4 @@
-<div class="rule-wrap form-inline clearfix date-equal-rule">
+<div class="rule-wrap form-inline clearfix date-period">
 	<select>
 		<% for(var field in fields){ %>
 			<% if(fields.hasOwnProperty(field) && fields[field] === "date"){ %>
@@ -7,8 +7,9 @@
 		<% } %>
 	</select>
 	<label>
-		<span>has a date equal to</span>
+		<span>has a date between</span>
 		<input type="text" class="input-small" <%= (el)-> el.datepicker(); el.datepicker('setDate', "+0") %> />
+		<input type="text" class="input-small right-input" <%= (el)-> el.datepicker(); el.datepicker('setDate', "+0") %> />
 	</label>
 	<a href="javascript://" class="btn btn-small remove-rule"><i class="icon-minus"></i></a>
 </div>

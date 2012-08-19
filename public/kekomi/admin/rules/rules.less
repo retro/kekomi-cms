@@ -1,9 +1,83 @@
 .admin_rules {
-	margin-bottom: 20px;
 	.rule {
-		width: 550px;
+		width: 605px;
 	}
-	.add-rule {
+	.add-rule, .remove-rule {
 		float: right;
+		height: 14px;
+		line-height: 14px;
+	}
+	.rule-wrap {
+		margin-top: 3px;
+		margin-bottom: 12px;
+	}
+	.contains-rule,
+	.starts-with-rule,
+	.ends-with-rule,
+	.equals-rule,
+	.date-after-rule,
+	.date-equal-rule,
+	.date-before-rule,
+	.date-period {
+		select, label {
+			float: left;
+		}
+		label {
+			span {
+				display: inline-block;
+				width: 150px;
+				margin-left: 10px;
+			}
+			input {
+				width: 213px;
+			}
+		}
+	}
+	.date-period label input {
+		width: 94px;
+		margin-right: 15px;
+	}
+	.date-period label input.right-input {
+		margin-right: 0;
+	}
+	.tagged-with-rule {
+		label {
+			float: left;
+			width: 604px;
+		}
+		input {
+			float: right;
+			width: 367px;
+		}
+	}
+	.or-rule {
+		.or-wrap {
+			float: left;
+			width: 604px;
+			text-align: center;
+			height: 26px;
+			line-height: 26px;
+			position: relative;
+			hr {
+				border: none;
+				border-top: 2px solid #bbb;
+				margin-top: 12px;
+				position: absolute;
+				width: 605px;
+			}
+			span {
+				display: block;
+				position: absolute;
+				width: 40px;
+				height: 26px;
+				line-height: 26px;
+				text-align: center;
+				left: 50%;
+				margin-left: -25px;
+				background: white;
+				font-weight: bold;
+				color: #bbb;
+			}
+		}
 	}
 }

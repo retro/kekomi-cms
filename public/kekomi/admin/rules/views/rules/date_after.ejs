@@ -1,1 +1,14 @@
-date_after.ejs
+<div class="rule-wrap form-inline clearfix date-after-rule">
+	<select>
+		<% for(var field in fields){ %>
+			<% if(fields.hasOwnProperty(field) && fields[field] === "date"){ %>
+				<option value="<%= field %>"><%= field %></option>
+			<% } %>
+		<% } %>
+	</select>
+	<label>
+		<span>has a date after</span>
+		<input type="text" class="input-small" <%= (el)-> el.datepicker(); el.datepicker('setDate', "+0") %> />
+	</label>
+	<a href="javascript://" class="btn btn-small remove-rule"><i class="icon-minus"></i></a>
+</div>
