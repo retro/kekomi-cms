@@ -32,6 +32,16 @@ steal(
 		return templates;
 	}
 
+	var renderTree = function(pages, id){
+		id = id || "_";
+		var html = [], leafPages = pages.childrenOf(id);
+		for(var i = 0; i < leafPages.length; i++){
+			html.push('<option value="' + leafPages[i].id + '">' + Array(leafPages[i].parent_ids.length + 2).join('-') + " " + leafPages[i].name + '</option>')
+			html.push(renderTree(pages, leafPages[i].id));
+		}
+		return html.join("");
+	}
+
 	can.Control('Admin.Pages.Form', {}, {
 		init : function(){
 			window.page = this.options.page
@@ -167,13 +177,4 @@ steal(
 			this.element.remove();
 		}
 	})
-	var renderTree = function(pages, id){
-		id = id || "_";
-		var html = [], leafPages = pages.childrenOf(id);
-		for(var i = 0; i < leafPages.length; i++){
-			html.push('<option value="' + leafPages[i].id + '">' + Array(leafPages[i].parent_ids.length + 2).join('-') + " " + leafPages[i].name + '</option>')
-			html.push(renderTree(pages, leafPages[i].id));
-		}
-		return html.join("");
-	}
 })

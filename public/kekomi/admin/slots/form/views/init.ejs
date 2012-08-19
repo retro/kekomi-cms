@@ -1,0 +1,35 @@
+<div class="form-wrapper">
+	<form class="form-horizontal">
+		<fieldset>
+			<div class="basic-wrap">
+				<div class="control-group">
+					<label class="control-label" for="slot_name">Name</label>
+					<div class="controls">
+						<input id="slot_name" class="span3" type="text" size="16" name="slot[name]">
+					</div>
+				</div>
+			</div>
+			<div class="basic-wrap">
+				<div class="control-group">
+					<label class="control-label">Source Sections</label>
+					<div class="controls">
+						<% for(var i = 0; i < pages.childrenOf("_").length; i++){ %>
+							<%== can.view.render('//admin/slots/form/views/section.ejs', {section: pages.childrenOf("_")[i], pages: pages}) %>
+						<% } %>
+					</div>
+				</div>
+				<div class="behaviors-wrapper clearfix"></div>
+			</div>
+			<div class="basic-wrap">
+				<div class="control-group">
+					<label class="control-label">Rules</label>
+					<div class="controls" <%= (el)-> el.admin_rules() %>></div>
+				</div>
+				<div class="behaviors-wrapper clearfix"></div>
+			</div>
+		</fieldset>
+		<div class="actions-bar clearfix">
+			<input type="submit" value="Save Slot" class="btn btn-primary" />
+		</div>
+	</form>
+</div>

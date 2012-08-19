@@ -1,12 +1,12 @@
-json.id                @page.id
-json.name              @page.name
-json.slug              @page.slug
-json.template          @page.template
-json.parent_id         @page.parent_id
-json.parent_ids        @page.parent_ids
-json.content_node_type @page.content_node_type
+json.id                   @page.id
+json.name                 @page.name
+json.slug                 @page.slug
+json.template             @page.template
+json.parent_id            @page.parent_id
+json.parent_ids           @page.parent_ids
+json.content_node_type    @page.content_node_type
 json.section_content_type @page.section_content_type
-json.behaviors         @page.behaviors
+json.behaviors            @page.behaviors
 if @page.content_node
   json.content_node_id @page.content_node.id
 end

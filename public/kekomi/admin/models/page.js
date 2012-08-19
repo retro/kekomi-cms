@@ -28,6 +28,12 @@ can.Model('Admin.Models.Page',
 			serialized.parent_id = "";
 		}
 		return serialized;
+	},
+	hasBehaviors : function(){
+		return !$.isEmptyObject(this.attr('behaviors').attr())
+	},
+	hasSectionContentType : function(){
+		return this.section_content_type !== "";
 	}
 });
 

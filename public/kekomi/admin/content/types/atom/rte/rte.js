@@ -27,5 +27,8 @@ function(){
 				}
 			})
 		},
+		" mousedown" : function(el, ev){
+			ev.stopPropagation();
+		}
 	})
 })
