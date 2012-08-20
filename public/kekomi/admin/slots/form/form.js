@@ -18,8 +18,20 @@ steal(
 			var values = this.element.find('.source-section:checked').map(function(){
 				return this.value;
 			}).get().unique();
-			this.element.find('.admin_rules').admin_rules({selectedContentTypes: values});
+			if(typeof this.rules === "undefined"){
+				this.rules = new Admin.Rules(this.element.find('.admin_rules'), {selectedContentTypes: values});
+			} else {
+				this.element.find('.admin_rules').admin_rules({selectedContentTypes: values})
+			}
+			
 			this.element.find('.admin-rules-wrap').toggle(values.length !== 0);
+		},
+		'form submit' : function(el, ev){
+			ev.preventDefault();
+			var rules = this.rules.serialize();
+			if(rules !== false){
+
+			}
 		}
 	})
 })

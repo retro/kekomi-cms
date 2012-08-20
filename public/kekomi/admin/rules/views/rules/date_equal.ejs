@@ -1,5 +1,7 @@
-<div class="rule-wrap form-inline clearfix date-equal-rule">
-	<select>
+<div class="rule-wrap form-inline clearfix date-equal-rule" data-rule="date_equal">
+	<div class="error"><i class="icon-warning-sign"></i></div>
+	<select class="date-fields">
+		<option value="">Select Field</option>
 		<% for(var field in fields){ %>
 			<% if(fields.hasOwnProperty(field) && fields[field] === "date"){ %>
 				<option value="<%= field %>"><%= field %></option>

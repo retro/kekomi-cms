@@ -1,5 +1,7 @@
-<div class="rule-wrap form-inline clearfix ends-with-rule">
-	<select>
+<div class="rule-wrap form-inline clearfix ends-with-rule" data-rule="ends_width">
+	<div class="error"><i class="icon-warning-sign"></i></div>
+	<select class="string-fields">
+		<option value="">Select Field</option>
 		<% for(var field in fields){ %>
 			<% if(fields.hasOwnProperty(field) && fields[field] === "string"){ %>
 				<option value="<%= field %>"><%= field %></option>
