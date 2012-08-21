@@ -14,6 +14,14 @@ steal(
 			if(slots.length > 0){
 				new can.ui.TableScroll(this.element.find('table'));
 			}
+		},
+		'.delete click' : function(el, ev){
+			if(confirm('Are you sure?')){
+				el.closest('.slot').model().destroy();
+			}
+		},
+		'{Admin.Models.Slot} destroyed' : function(Slot, ev, slot){
+			slot.elements(this.element).remove();
 		}
 	})
 })

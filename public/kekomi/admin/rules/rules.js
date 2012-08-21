@@ -12,7 +12,9 @@ steal(
 		render : function(contentTypes){
 			this.reorderTimeouts = {}
 			this.contentTypes    = contentTypes;
-			this.element.html(this.view('init'));
+			this.element.html(this.view('init', {
+
+			}));
 			this.recalculateRules();
 			this.renderExistingRules();
 			this.element.find('.rules').sortable({
@@ -32,14 +34,21 @@ steal(
 			if(this.options.rules && this.options.rules.length){
 				for(var i = 0; i < this.options.rules.length; i++){
 					rule = this.options.rules[i];
-					rendered.push(can.view.render('//admin/rules/views/rules/' + rule.rule + ".ejs", {
-						fields         : this.sharedFields(),
-						selectedField  : rule.field,
-						value          : rule.value
-					}))
+					if(rule.rule !== 'order'){
+						rendered.push(can.view.render('//admin/rules/views/rules/' + rule.rule + ".ejs", {
+							fields         : this.sharedFields(),
+							selectedField  : rule.field,
+							value          : rule.value
+						}))
+					} else {
+						this.element.find('.sort-field').val(rule.value.field);
+						this.element.find('.sort-dir').val(rule.value.dir);
+					}
+					
 				}
 			}
 			this.element.find('.rules').html(rendered.join(''));
+
 		},
 		recalculateRules : function(){
 			delete this.sharedFieldsList;
@@ -48,6 +57,9 @@ steal(
 			var sharedFields  = this.sharedFields();
 			var self          = this;
 			var fieldsPerType = this.fieldsPerType();
+			var sortFields    = ['<option value="published_at">published_at</option>'];
+			var sortSelect    = this.element.find('.sort-field');
+			var sortValue     = sortSelect.val();
 			if(this.options.selectedContentTypes.length === 0){
 				this.element.find('.rules').empty();
 			}
@@ -81,6 +93,12 @@ steal(
 					})(fieldType, fieldsPerType[fieldType]);
 				}
 			}
+			for(var field in sharedFields){
+				if(field !== 'published_at' && field !== 'tags'){
+					sortFields.push('<option value="'+field+'">'+field+'</option>');
+				}
+			}
+			sortSelect.html(sortFields.join('')).val(sortValue);
 		},
 		sharedFields : function(){
 			if(typeof this.sharedFieldsList === "undefined"){
@@ -228,6 +246,13 @@ steal(
 					})
 				}
 				
+			})
+			rules.push({
+				rule: 'order',
+				value: {
+					field: this.element.find('.sort-field').val(),
+					dir  : this.element.find('.sort-dir').val()
+				}
 			})
 			return hasErrors ? false : rules;
 		},
