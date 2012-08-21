@@ -32,11 +32,19 @@ steal(
 			} else {
 				this.element.find('.admin_rules').admin_rules(rulesOptions);
 			}
-			
-			this.element.find('.admin-rules-wrap').toggle(values.length !== 0);
+			this.element.find('.admin-rules-wrap').toggle((values.length !== 0 && this.element.find('[name="slot[type]"]:checked').val() === "automatic"));
 		},
 		'.source-section change' : function(){
-			this.loadRules();
+			if(this.element.find('[name="slot[type]"]:checked').val() === "automatic"){
+				this.loadRules();
+			}
+		},
+		'[name="slot[type]"] change' : function(el, ev){
+			if(el.val() === "manual"){
+				this.element.find('.admin-rules-wrap').hide();
+			} else {
+				this.loadRules();
+			}
 		},
 		'form submit' : function(el, ev){
 			ev.preventDefault();
@@ -44,7 +52,7 @@ steal(
 			var data  = el.formParams().slot;
 			this.options.slot.attr(data)
 			if(rules !== false){
-				this.options.slot.attr('rules', rules);
+				this.options.slot.attr('rules', (this.options.slot.attr('type') === "automatic" ? rules : null));
 				this.options.slot.save(function(){
 					can.route.attr({type: 'slots', action: 'list'})
 				});

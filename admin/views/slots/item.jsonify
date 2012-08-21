@@ -1,4 +1,5 @@
 json.id       @slot.id
 json.name     @slot.name
 json.sections @slot.sections
+json.type     @slot.type
 json.rules    @slot.rules

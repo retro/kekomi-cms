@@ -5,5 +5,5 @@ class Slot
   field :name
   field :sections, :type => Array
   field :rules, :type => Array
-
+  field :type
 end
