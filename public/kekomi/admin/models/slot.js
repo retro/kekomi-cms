@@ -9,7 +9,10 @@ steal('can/model', 'can/observe/attributes', function(){
 can.Model('Admin.Models.Slot',
 /* @Static */
 {
-	findAll: "/slots",
+	findAll : "/slots",
+	findOne : "/slots/{id}", 
+	create  : "/slots",
+	update  : "/slots/{id}",
 	destroy : "/slots/{id}"
 },
 /* @Prototype */

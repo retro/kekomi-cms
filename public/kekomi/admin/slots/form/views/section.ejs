@@ -1,5 +1,5 @@
 <label class="checkbox section <%= !section.hasSectionContentType() ? 'disabled' : '' %>">
-	<input type="checkbox" name="slot[section][]" value="<%= section.section_content_type %>" class="source-section" style="margin-right: <%= (section.parent_ids.length) * 20 + 5 %>px" <%= !section.hasSectionContentType() ? 'disabled' : '' %> /> <%= section.name %>
+	<input type="checkbox" name="slot[sections]" value="<%= section.id %>" class="source-section" style="margin-right: <%= (section.parent_ids.length) * 20 + 5 %>px" <%= !section.hasSectionContentType() ? 'disabled' : '' %> data-type="<%= section.section_content_type %>" /> <%= section.name %>
 </label>
 <% for(var i = 0; i < pages.childrenOf(section.id).length; i++){ %>
 	<%== can.view.render('//admin/slots/form/views/section.ejs', {section: pages.childrenOf(section.id)[i], pages: pages}) %>

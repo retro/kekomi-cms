@@ -1,23 +1,35 @@
 Admin.controllers :slots, :provides => :json do
-  # get :index, :map => "/foo/bar" do
-  #   session[:foo] = "bar"
-  #   render 'index'
-  # end
+  
+  get "/" do
+    @slots = Slot.all
+    render "slots/list"
+  end
 
-  # get :sample, :map => "/sample/url", :provides => [:any, :js] do
-  #   case content_type
-  #     when :js then ...
-  #     else ...
-  # end
+  post "/" do
+    @slot = Slot.new json_body
+    @slot.save
+    render "slots/item"
+  end
 
-  # get :foo, :with => :id do
-  #   "Maps to url '/foo/#{params[:id]}'"
-  # end
+  get "/:id" do
+    @slot = Slot.find params[:id]
+    render "slots/item"
+  end
+  
+  put "/:id" do
+    @slot = Slot.find params[:id]
+    if @slot
+      @slot.update_attributes json_body
+      render "slots/item"
+    else
+      halt 404
+    end
+  end
 
-  # get "/example" do
-  #   "Hello world!"
-  # end
-
-
+  delete "/:id" do
+    @slot = Slot.find params[:id]
+    @slot.destroy
+    render "slots/item"
+  end
   
 end

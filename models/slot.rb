@@ -3,6 +3,7 @@ class Slot
   include Mongoid::Timestamps
 
   field :name
+  field :sections, :type => Array
   field :rules, :type => Array
 
 end

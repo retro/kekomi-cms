@@ -1,0 +1,63 @@
+@import "../../style/elements/elements.less";
+
+.admin_slots_list {
+	.table-wrap {
+		position: absolute;
+		top: 0px;
+		left: 0;
+		right: 0;
+		bottom: 0px;
+		background: #f0f1f2;
+		.alert {
+			margin: 15px;
+		}
+	}
+	.table {
+		margin: 0;
+		width: 100%;
+		background: white;
+		.select {
+			width: 20px;
+			text-align: center;
+			padding-right: 0;
+		}
+		.is_published {
+			width: 70px;
+			text-align: center;
+		}
+		.published_at {
+			width: 150px;
+			font-size: 11px;
+		}
+		.path {
+			font-size: 11px;
+			width: 300px;
+		}
+		.actions {
+			width: 100px;
+			padding: 0;
+			.btn-group {
+				margin-top: 7px;
+				display: none;
+			}
+		}
+		tr:hover .actions .btn-group {
+			display: block;
+		}
+		tr.selected, tr.selected:nth-child(odd){
+			td {
+				background: #D9EDF7;
+			}
+		}
+
+	}
+	.header {
+		th, th.path, th.published_at  {
+			border-bottom: 1px solid #ccc;
+			font-size: 13px;
+			.gradient(#eee, #eee, #f6f6f6);
+			.box-shadow(inset 0px 1px 0 0 #fff);
+			text-shadow: 0 1px #fff;
+		}
+	}
+}

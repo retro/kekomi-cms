@@ -26,21 +26,13 @@ function(){
 			this.element.find('.module-content').html($('<div/>').admin_slots_form({
 				slot: new Admin.Models.Slot
 			}));
-		}/*,
-		editAction : function(){
-			Admin.Models.Page.findOne({id: can.route.attr('id')}, this.proxy(function(page){
-				this.element.find('.module-content').html($('<div/>').admin_pages_form({
-					page: page
-				}));
-			}))
 		},
-		contentAction : function(){
-			Admin.Models.Page.findOne({id: can.route.attr('id')}, this.proxy(function(page){
-				this.element.find('.module-content').html($('<div/>').admin_pages_content({
-					page: page
+		editAction : function(){
+			Admin.Models.Slot.findOne({id: can.route.attr('id')}, this.proxy(function(slot){
+				this.element.find('.module-content').html($('<div/>').admin_slots_form({
+					slot: slot
 				}));
 			}))
-			
-		}*/
+		}
 	})
 })

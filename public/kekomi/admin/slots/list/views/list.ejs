@@ -1,0 +1,28 @@
+<% if(slots.length > 0){ %>
+	<table class="table table-striped content-list">
+		<thead>
+			<tr>
+				<th class="select"></th>
+				<th class="repr">Slot name</th>
+				<th class="actions"></th>
+			</tr>
+		</thead>
+		<tbody>
+			<% slots.each(function(slot){%>
+				<% console.log(slot) %>
+				<tr <%= slot %>>
+					<td class="select"><input type="checkbox" /></td>
+					<td class="repr"><%= slot.name %></td>
+					<td class="actions">
+						<div class="btn-group">
+							<a class="btn btn-mini edit" href="<%= can.route.url({type: "slots", id: slot.id, action: "edit"}) %>">Edit</a>
+							<button class="btn btn-mini btn-danger delete">Delete</button>
+						</div>
+					</td>
+				</tr> 
+			<%})%>
+		</tbody>
+	</table>
+<% } else { %>
+	<div class="alert alert-info">Currently, there no slots in the database.</div>
+<% } %>
