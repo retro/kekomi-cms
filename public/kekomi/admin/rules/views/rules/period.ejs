@@ -1,0 +1,24 @@
+<div class="rule-wrap form-inline clearfix date-period" data-rule="period">
+	<div class="reorder-handle"><i class="icon-sort"></i></div>
+	<div class="error"><i class="icon-warning-sign"></i></div>
+	<select class="date-fields">
+		<option value="">Select Field</option>
+		<% for(var field in fields){ %>
+			<% if(fields.hasOwnProperty(field) && fields[field] === "date"){ %>
+				<option value="<%= field %>" <%= field === selectedField ? "selected" : "" %>><%= field %></option>
+			<% } %>
+		<% } %>
+	</select>
+	<label>
+		<span>has a date in the last</span>
+		<input type="text" class="input-small range" name="start[]" value="<%== value && value['ammount'] ? value['ammount'] : 1 %>" />
+	</label>
+	<select class="period">
+		<option value="hours" <%= value && value['unit'] && value['unit'] === 'hours' ? "selected" : "" %>>Hour(s)</option>
+		<option value="days" <%= value && value['unit'] && value['unit'] === 'days' ? "selected" : "" %>>Day(s)</option>
+		<option value="weeks" <%= value && value['unit'] && value['unit'] === 'weeks' ? "selected" : "" %>>Week(s)</option>
+		<option value="months" <%= value && value['unit'] && value['unit'] === 'months' ? "selected" : "" %>>Month(s)</option>
+		<option value="years" <%= value && value['unit'] && value['unit'] === 'years' ? "selected" : "" %>>Year(s)</option>
+	</select>
+	<a href="javascript://" class="btn btn-small remove-rule"><i class="icon-minus"></i></a>
+</div>

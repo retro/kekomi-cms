@@ -2,6 +2,7 @@
 
 	.rule {
 		width: 605px;
+		margin-left: 20px;
 	}
 	.add-rule, .remove-rule {
 		float: right;
@@ -11,6 +12,7 @@
 	.rule-wrap {
 		margin-top: 3px;
 		margin-bottom: 12px;
+		padding-left: 20px;
 	}
 	.contains-rule,
 	.starts-with-rule,
@@ -19,7 +21,8 @@
 	.date-after-rule,
 	.date-equal-rule,
 	.date-before-rule,
-	.date-period {
+	.date-period,
+	.date-range {
 		select, label {
 			float: left;
 		}
@@ -34,12 +37,18 @@
 			}
 		}
 	}
-	.date-period label input {
-		width: 94px;
-		margin-right: 15px;
-	}
-	.date-period label input.right-input {
-		margin-right: 0;
+	.date-period, .date-range {
+		label input, select.period {
+			width: 94px;
+			margin-right: 15px;
+			&.right-input {
+				margin-right: 0;
+			}
+		}
+		select.period {
+			width: 100px;
+		}
+
 	}
 	.tagged-with-rule {
 		label {
@@ -81,11 +90,23 @@
 			}
 		}
 	}
-	.error {
+	.error, .reorder-handle {
 		float: left;
 		margin: 3px 0 0 -20px;
 		font-size: 16px;
 		color: red;
+		display: none;
+	}
+	.reorder-handle {
+		color: black;
+		font-size: 12px;
+		margin: 4px 0 0 -15px;
+		cursor: move;
+	}
+	.rule-wrap:hover .reorder-handle {
+		display: block;
+	}
+	.rule-wrap.has-errors:hover .reorder-handle {
 		display: none;
 	}
 	.has-errors .error {
@@ -95,6 +116,5 @@
 .form-horizontal {
 	.admin_rules {
 		margin-left: 140px;
-		padding-left: 20px;
 	}
 }

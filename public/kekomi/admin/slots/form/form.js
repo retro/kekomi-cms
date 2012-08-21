@@ -13,31 +13,41 @@ steal(
 			this.element.html(this.view('init', {
 				pages : pages
 			})).addClass('paper-form');
-			console.log(this.options.slot.attr())
-			this.element.find('form').formParams({ slot: this.options.slot.attr() })
-			//this.element.find('input[type=checkbox]').prop('checked', true).filter(':first').trigger('change')
+			this.element.find('form').formParams({ slot: this.options.slot.attr() });
+			this.loadRules();
+			if(!this.options.slot.isNew()){
+				this.loadRules();
+			}
 		},
-		'.source-section change' : function(){
+		loadRules : function(){
 			var values = this.element.find('.source-section:checked').map(function(){
 				return $(this).data('type');
 			}).get().unique();
+			var rulesOptions = {
+				selectedContentTypes: values,
+				rules: this.options.slot.attr('rules')
+			};
 			if(typeof this.rules === "undefined"){
-				this.rules = new Admin.Rules(this.element.find('.admin_rules'), {selectedContentTypes: values});
+				this.rules = new Admin.Rules(this.element.find('.admin_rules'), rulesOptions);
 			} else {
-				this.element.find('.admin_rules').admin_rules({selectedContentTypes: values})
+				this.element.find('.admin_rules').admin_rules(rulesOptions);
 			}
 			
 			this.element.find('.admin-rules-wrap').toggle(values.length !== 0);
 		},
+		'.source-section change' : function(){
+			this.loadRules();
+		},
 		'form submit' : function(el, ev){
 			ev.preventDefault();
-			var rules = this.rules.serialize();
+			var rules = this.rules ? this.rules.serialize() : null;
 			var data  = el.formParams().slot;
-			console.log(data); return;
-			var slot  = new Admin.Models.Slot(data);
+			this.options.slot.attr(data)
 			if(rules !== false){
-				slot.attr('rules', rules);
-				slot.save();
+				this.options.slot.attr('rules', rules);
+				this.options.slot.save(function(){
+					can.route.attr({type: 'slots', action: 'list'})
+				});
 			}
 		}
 	})

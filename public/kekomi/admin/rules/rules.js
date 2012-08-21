@@ -10,13 +10,36 @@ steal(
 			Admin.Models.ContentType.findAll({}, this.proxy('render'));
 		},
 		render : function(contentTypes){
-			this.contentTypes = contentTypes;
+			this.reorderTimeouts = {}
+			this.contentTypes    = contentTypes;
 			this.element.html(this.view('init'));
 			this.recalculateRules();
+			this.renderExistingRules();
+			this.element.find('.rules').sortable({
+				handle: '.reorder-handle'
+			});
+			this.isRendered = true;
 		},
 		update : function(){
-			this._super.apply(this, arguments);
-			this.recalculateRules();
+			if(this.isRendered === true){
+				this._super.apply(this, arguments);
+				this.recalculateRules();
+			}
+		},
+		renderExistingRules : function(){
+			var rendered = [];
+			var rule;
+			if(this.options.rules && this.options.rules.length){
+				for(var i = 0; i < this.options.rules.length; i++){
+					rule = this.options.rules[i];
+					rendered.push(can.view.render('//admin/rules/views/rules/' + rule.rule + ".ejs", {
+						fields         : this.sharedFields(),
+						selectedField  : rule.field,
+						value          : rule.value
+					}))
+				}
+			}
+			this.element.find('.rules').html(rendered.join(''));
 		},
 		recalculateRules : function(){
 			delete this.sharedFieldsList;
@@ -157,7 +180,7 @@ steal(
 							value : value.getTime(),
 							rule  : rule
 						})
-					} else if(rule === 'date_period'){
+					} else if(rule === 'date_range'){
 						var start = $el.find('input:first').datepicker('getDate');
 						var end   = $el.find('input:last').datepicker('getDate');
 						if(field === "" || start === null || end === null){
@@ -168,6 +191,22 @@ steal(
 						rules.push({
 							field : field,
 							value : [start.getTime(), end.getTime()],
+							rule  : rule
+						})
+					} else if(rule === "period") {
+						var ammount = $el.find('input').val();
+						var unit    = $el.find('select.period').val();
+						if(field === ""){
+							hasErrors = true;
+							$el.closest('.rule-wrap').addClass('has-errors');
+							return;
+						}
+						rules.push({
+							field : field,
+							value : {
+								ammount: ammount,
+								unit   : unit
+							},
 							rule  : rule
 						})
 					} else if(rule === "or"){
@@ -196,7 +235,9 @@ steal(
 			var rule = this.element.find('.rule').val();
 			if(rule !== ""){
 				this.element.find('.rules').append(this.view('rules/' + rule, {
-					fields : this.sharedFields()
+					fields : this.sharedFields(),
+					selectedField  : null,
+					value  : null
 				}))
 			}
 		},

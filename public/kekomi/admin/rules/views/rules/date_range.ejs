@@ -1,4 +1,4 @@
-<div class="rule-wrap form-inline clearfix date-equal-rule" data-rule="date_equal">
+<div class="rule-wrap form-inline clearfix date-range" data-rule="date_range">
 	<div class="reorder-handle"><i class="icon-sort"></i></div>
 	<div class="error"><i class="icon-warning-sign"></i></div>
 	<select class="date-fields">
@@ -10,8 +10,11 @@
 		<% } %>
 	</select>
 	<label>
-		<span>has a date equal to</span>
-		<input type="text" class="input-small" <%= (el)-> el.datepicker(); el.datepicker('setDate', (value ? new Date(value) : "+0")) %> />
+		<span>has a date in range</span>
+		<input type="text" class="input-small range" name="start[]" <%= (el)-> el.datepicker(); el.datepicker('setDate', (value && value[0] ? new Date(value[0]) : "+0")) %> />
+	</label>
+	<label>
+		<input type="text" class="input-small right-input range" name="end[]" <%= (el)-> el.datepicker(); el.datepicker('setDate', (value && value[1] ? new Date(value[1]) : "+0")) %> />
 	</label>
 	<a href="javascript://" class="btn btn-small remove-rule"><i class="icon-minus"></i></a>
 </div>

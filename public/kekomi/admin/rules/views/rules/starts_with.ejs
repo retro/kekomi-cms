@@ -1,16 +1,17 @@
 <div class="rule-wrap form-inline clearfix starts-with-rule" data-rule="starts_with">
+	<div class="reorder-handle"><i class="icon-sort"></i></div>
 	<div class="error"><i class="icon-warning-sign"></i></div>
 	<select class="string-fields">
 		<option value="">Select Field</option>
 		<% for(var field in fields){ %>
 			<% if(fields.hasOwnProperty(field) && fields[field] === "string"){ %>
-				<option value="<%= field %>"><%= field %></option>
+				<option value="<%= field %>" <%= field === selectedField ? "selected" : "" %>><%= field %></option>
 			<% } %>
 		<% } %>
 	</select>
 	<label>
 		<span>starts with</span>
-		<input type="text" class="input-small" />
+		<input type="text" class="input-small" value="<%= value %>" />
 	</label>
 	<a href="javascript://" class="btn btn-small remove-rule"><i class="icon-minus"></i></a>
 </div>
