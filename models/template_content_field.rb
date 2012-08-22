@@ -50,7 +50,6 @@ class TemplateContentField
     def fields_from_string(str)
       block_fields = {}
       str.scan(/\{%\s*field\s+([a-zA-Z0-9_-]*)\s*,\s*([a-zA-Z0-9_-]*)/).map do |s|
-        puts s.first.upcase
         block_fields[s.first.to_sym] = s.last
       end
       block_fields

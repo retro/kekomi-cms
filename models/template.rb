@@ -76,7 +76,7 @@ class Template
         :url => "/archive/<year>/<month>/<day>"
       }
     ]
-    allowed_ext = %w(html json rss xml js)
+    allowed_ext = %w(html json js rss xml)
     # Go through all templates
     local_templates.each do |t|
       # Convert from "/folder/file.html" to "file"
