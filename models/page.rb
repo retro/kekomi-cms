@@ -111,7 +111,7 @@ class Page
 
     templates_behavior = self.templates
     exts               = %w(html json js rss xml)
-    fields    = {}
+    fields             = {}
     templates_behavior.each_pair do |key, val|
       fields[key] = {}
       exts.each do |ext|
@@ -119,14 +119,15 @@ class Page
           fields[key].reverse_merge! TemplateContentField.new(val[ext]).fields
         end
       end
+      fields.delete(key) if fields[key].blank?
     end
     fields.blank?? nil : fields
 
   end
 
-  def content_klass_for_behavior(behavior)
+  def content_klass_for_behavior(behavior, klass_definition = nil)
     behavior = behavior.underscore
-    klass_definition = template_fields[behavior]
+    klass_definition ||= template_fields[behavior]
     klass_name = name_for_content_klass(behavior)
     if Object.const_defined? klass_name
       if Padrino.env == :development
@@ -140,6 +141,27 @@ class Page
         field field_name, type: type
       end
     end
+  end
+
+  def content_klasses_for_behaviors
+    klasses = []
+    template_fields.each_pair do |behavior, fields|
+      klasses << content_klass_for_behavior(behavior, fields)
+    end
+    klasses
+  end
+
+  def has_editable_fields?
+    templates_behavior = self.templates
+    exts               = %w(html json js rss xml)
+    templates_behavior.each_pair do |key, val|
+      exts.each do |ext|
+        unless val[ext].nil?
+          return true unless TemplateContentField.new(val[ext]).fields.blank?
+        end
+      end
+    end
+    return false
   end
 
   private

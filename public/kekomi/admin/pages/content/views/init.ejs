@@ -1,0 +1,7 @@
+<div class="form-wrapper">
+	<ul class="nav nav-tabs">
+		<% for(var i = 0; i < models.length; i++){ %>
+			<li><a href="javascript://" <%= (el)-> el.data('contentTypeModel', models[i]) %>><%= models[i].humanizedName() %></a></li>
+		<% } %>
+	</ul>
+</div>

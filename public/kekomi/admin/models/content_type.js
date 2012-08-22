@@ -2,6 +2,40 @@ steal('can/model', 'can/observe/validations', 'can/model/list', 'can/model/eleme
 
 var contentTypesCache;
 
+var generateContentTypeClass = function(contentType){
+	var modelName, modelEndpoint;
+	modelName     = contentType.name.replace(/ /g, '');
+	modelEndpoint = modelName.underscore(); // AdminTest => admin_test
+
+	return can.Model('Admin.Models.ContentTypes.' + modelName, {
+		findAll : "/content/" + modelEndpoint,
+		findOne : "/content/" + modelEndpoint + "/{id}", 
+		create  : "/content/" + modelEndpoint,
+		update  : "/content/" + modelEndpoint + "/{id}",
+		destroy : "/content/" + modelEndpoint + "/{id}",
+		representedWith: contentType.represented_with,
+		humanizedName : function(){
+			var match = this._shortName.match(/page_content_(\w+)_behavior/);
+			if(match !== null){
+				return match[1].humanize();
+			}
+			return this._shortName.humanize();
+		}
+	}, {
+		init : function(){
+			if(this.isNew()){
+				this.attr('is_published', false);
+				this.attr('published_at', (new Date()))
+			}
+		},
+		serialize : function(){
+			var data = this._super.apply(this, arguments);
+			delete data.representation;
+			return data;
+		}
+	})
+}
+
 /**
  * @class Admin.Models.ContentType
  * @parent index
@@ -14,38 +48,24 @@ can.Model('Admin.Models.ContentType',
 	findAll : "/content_types",
 	preload : function(){
 		return this.findAll({}, function(contentTypes){
-			var modelName, modelEndpoint;
 			contentTypesCache = contentTypes;
 			for(var i = 0; i < contentTypes.length; i++){
-
-				modelName     = contentTypes[i].name.replace(/ /g, '');
-				modelEndpoint = modelName.underscore(); // AdminTest => admin_test
-
-				can.Model('Admin.Models.ContentTypes.' + modelName, {
-					findAll : "/content/" + modelEndpoint,
-					findOne : "/content/" + modelEndpoint + "/{id}", 
-					create  : "/content/" + modelEndpoint,
-					update  : "/content/" + modelEndpoint + "/{id}",
-					destroy : "/content/" + modelEndpoint + "/{id}",
-					representedWith: contentTypes[i].represented_with
-				}, {
-					init : function(){
-						if(this.isNew()){
-							this.attr('is_published', false);
-							this.attr('published_at', (new Date()))
-						}
-					},
-					serialize : function(){
-						var data = this._super.apply(this, arguments);
-						delete data.representation;
-						return data;
-					}
-				})
+				generateContentTypeClass(contentTypes[i]);
 			}
 		})
 	},
 	all : function(){
 		return contentTypesCache;
+	},
+	pageContentTypes : function(pageId, success){
+		return $.get("/content_types/" + pageId, function(contentTypes){
+			contentTypes = Admin.Models.ContentType.models(contentTypes)
+			var contentTypeModels = [];
+			for(var i = 0; i < contentTypes.length; i++){
+				contentTypeModels.push(generateContentTypeClass(contentTypes[i]))
+			}
+			success(contentTypeModels);
+		}, 'json');
 	}
 },
 /* @Prototype */
