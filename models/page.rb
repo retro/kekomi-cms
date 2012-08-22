@@ -18,27 +18,77 @@ class Page
   field :template
   field :position, :type => Integer
   field :template
-  field :content_node_type
   field :section_content_type
   field :behaviors
 
-  has_one :content_node
+
+  # This code will define accessor methods for content for all possible behaviors
+  # We reuse Kekomi::ContentTypes here to get all the goodnes like getters and setters,
+  # but code will be converted to simple hash before document is saved
+
+  %w(section list details archive_year archive_month archive_day).each do |behavior|
+
+    define_method "#{behavior}_content=" do |content|
+
+      @_serialize_content ||= []
+      @_serialize_content << behavior unless @_serialize_content.include? behavior
+
+      if content.class.to_s != name_for_content_klass(behavior)
+        content = content_klass_for_behavior(behavior).new(content)
+      end
+      
+      write_attribute "#{behavior}_content", content
+
+    end
+
+    define_method "#{behavior}_content" do 
+
+      @_serialize_content ||= []
+      @_serialize_content << behavior unless @_serialize_content.include? behavior
+
+      content = read_attribute "#{behavior}_content"
+
+      return nil if content.nil?
+
+      if content.class.to_s != name_for_content_klass(behavior)
+        content = content_klass_for_behavior(behavior).new(content)
+      end
+
+      write_attribute "#{behavior}_content", content
+
+      content
+
+    end
+
+  end
+
+
   has_many :items, :class_name => 'ContentNode'
 
+  before_save :serialize_behavior_content
+
   before_create :set_position
+
+  # This code will serialize content of all behaviors that
+  # were changed. It will convert it from the class to the 
+  # simple hash that can be easily saved in the MongoDB
+  def serialize_behavior_content
+    unless @_serialize_content.blank?
+      @_serialize_content.each do |behavior|
+        attribute = "#{behavior}_content".to_sym
+        content = self.send(attribute)
+        attribute_will_change! attribute
+        content.serialize_fields
+        attrs = content.attributes
+        attrs.delete "_id"
+        attributes[attribute] = attrs
+      end
+    end
+  end
 
   def set_position
     self.position = self.siblings.size
   end
-
-  def content_node_with_set_class=(content)
-    unless content.class < ContentNode
-      content = self.content_node_type.classify.constantize.new(content)
-    end
-    self.content_node_without_set_class = content
-  end
-
-  alias_method_chain :content_node=, :set_class
 
   def templates
 
@@ -57,27 +107,27 @@ class Page
 
   end
 
-  def fields
+  def template_fields
 
     templates_behavior = self.templates
     exts               = %w(html json js rss xml)
-    template_fields    = {}
+    fields    = {}
     templates_behavior.each_pair do |key, val|
-      template_fields[key] = {}
+      fields[key] = {}
       exts.each do |ext|
         unless val[ext].nil?
-          template_fields[key].reverse_merge! TemplateContentField.new(val[ext]).fields
+          fields[key].reverse_merge! TemplateContentField.new(val[ext]).fields
         end
       end
     end
-    template_fields.blank?? nil : template_fields
+    fields.blank?? nil : fields
 
   end
 
   def content_klass_for_behavior(behavior)
     behavior = behavior.underscore
-    klass_definition = fields[behavior]
-    klass_name = generate_name_for_content_klass(behavior)
+    klass_definition = template_fields[behavior]
+    klass_name = name_for_content_klass(behavior)
     if Object.const_defined? klass_name
       if Padrino.env == :development
         Object.send :remove_const, klass_name.to_sym
@@ -92,9 +142,9 @@ class Page
     end
   end
 
-  #private
+  private
 
-    def generate_name_for_content_klass(behavior)
+    def name_for_content_klass(behavior)
       return "PageContent#{behavior.to_s.classify}Behavior#{id}"
     end
 
