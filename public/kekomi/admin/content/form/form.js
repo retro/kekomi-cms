@@ -24,6 +24,9 @@ steal(
 	can.Control('Admin.Content.Form', {
 		save : function(){
 			this.options.model.save();
+		},
+		defaults : {
+			isInsideTab : true
 		}
 	}, {
 		init : function(){
@@ -35,7 +38,12 @@ steal(
 				contentType : this.options.contentType,
 				model       : this.options.model,
 				pagesTree   : renderTree(this.pages)
-			})).addClass('paper-form')
+			}))
+			
+			if(this.options.isInsideTab === true){
+				this.element.addClass('paper-form')
+			}
+			
 
 			this.element.find('form').formParams({content: this.options.model})
 
@@ -56,13 +64,19 @@ steal(
 		},
 		"form submit" : function(el, ev){
 			ev.preventDefault();
-			this.options.model.attr(el.formParams().content)
-			this.options.model.attr('published_at', this.element.find('.publish-date-time input').datetimepicker('getDate'))
-			console.log(this.options.model.serialize())
+			if(!this.options.model.attr('isPageContent')){
+				this.options.model.attr(el.formParams().content)
+				this.options.model.attr('published_at', this.element.find('.publish-date-time input').datetimepicker('getDate'))
+			}
 			this.options.model.save(this.proxy('saved'), this.proxy('errors'))
 		},
 		saved : function(){
-			can.route.attr({action: 'list', type: 'content', content_type: can.route.attr('content_type')})
+			if(typeof this.options.savedUrl === "undefined"){
+				can.route.attr({action: 'list', type: 'content', content_type: can.route.attr('content_type')})
+			} else {
+				can.route.attr(this.options.savedUrl)
+			}
+			
 		},
 		errors: function(xhr){
 			var errors = $.parseJSON(xhr.responseText);

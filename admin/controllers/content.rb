@@ -28,17 +28,24 @@ Admin.controllers :content, :provides => :json do
       @resource
     end
 
-    def jsonify(item)
+    def build_item(item, page_content = false)
       data = {
-        id: item.id, 
-        created_at: item.created_at,
-        representation: item.representation,
-        slug: item.slug,
-        published_at: item.published_at,
-        tags: item.tags,
-        is_published: item.is_published,
-        section_id: item.section_id
+        id: (item.respond_to?(:page_content_id) ? item.page_content_id : item.id), 
       }
+
+      if !page_content
+        additional_data =  {
+          created_at: item.created_at,
+          representation: item.representation,
+          slug: item.slug,
+          published_at: item.published_at,
+          tags: item.tags,
+          is_published: item.is_published,
+          section_id: item.section_id
+        }
+        data.merge! additional_data
+      end
+
       item.class.serializable_fields.each_pair do |key, value|
         if value.to_s.split("::")[-2] == "Compound"
           compound = []
@@ -51,7 +58,12 @@ Admin.controllers :content, :provides => :json do
           data[key] = item.send(key)
         end
       end
-      data.to_json
+
+      data
+    end
+
+    def jsonify(item)
+      build_item(item).to_json
     end
 
   end
@@ -112,10 +124,32 @@ Admin.controllers :content, :provides => :json do
     jsonify(@item)
   end
 
-  
-
   delete "/:model/:id" do
     resource.find(params[:id]).destroy
+  end
+
+  get "/page/behaviors/:id/:behavior" do
+    page     = Page.find(params[:id])
+    content  = page.send("#{params[:behavior]}_content")
+    unless content.nil?
+      content.page_content_id = params[:behavior]
+    end
+    content.nil?? { id: params[:behavior] }.to_json : build_item(content, true).to_json
+  end
+
+  put "/page/behaviors/:id/:behavior" do
+    page     = Page.find(params[:id])
+    content  = page.send("#{params[:behavior]}_content")
+    if content.nil?
+      content = page.content_klass_for_behavior(params[:behavior])
+    end
+    json_body.each_pair do |key, value|
+      content.send(:"#{key}=", value) if key != "id" and content.respond_to? key
+    end
+    page.send("#{params[:behavior]}_content=", content)
+    page.save
+    content.page_content_id = params[:behavior]
+    build_item(content, true).to_json
   end
 
 end

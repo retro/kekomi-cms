@@ -1,7 +1,10 @@
 <div class="form-wrapper">
 	<ul class="nav nav-tabs">
-		<% for(var i = 0; i < models.length; i++){ %>
-			<li><a href="javascript://" <%= (el)-> el.data('contentTypeModel', models[i]) %>><%= models[i].humanizedName() %></a></li>
-		<% } %>
+		<% $.each(models, function(i, model){ %>
+			<li <%= i == 0 ? "class=active" : "" %>>
+				<a href="javascript://" class="open-page-content-form" <%= (el)-> el.data('contentType', model) %>><%= model.contentTypeModel().humanizedName() %> page</a>
+			</li>
+		<% }) %>
 	</ul>
+	<div class="form-panel"></div>
 </div>

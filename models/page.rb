@@ -21,12 +21,13 @@ class Page
   field :section_content_type
   field :behaviors
 
+  BEHAVIORS = %w(section list details archive_year archive_month archive_day)
 
   # This code will define accessor methods for content for all possible behaviors
   # We reuse Kekomi::ContentTypes here to get all the goodnes like getters and setters,
   # but code will be converted to simple hash before document is saved
 
-  %w(section list details archive_year archive_month archive_day).each do |behavior|
+  BEHAVIORS.each do |behavior|
 
     define_method "#{behavior}_content=" do |content|
 
@@ -137,9 +138,13 @@ class Page
       end
     end
     Kekomi::ContentTypes.add_without_base klass_name do
+
+      attr_accessor :page_content_id
+
       klass_definition.each_pair do |field_name, type|
         field field_name, type: type
       end
+
     end
   end
 
@@ -162,6 +167,18 @@ class Page
       end
     end
     return false
+  end
+
+  def content
+    pages = []
+    BEHAVIORS.each do |behavior|
+      content = self.send "#{behavior}_content"
+      unless content.nil?
+        content.page_content_id = name_for_content_klass(behavior).underscore
+        pages << content
+      end
+    end
+    pages
   end
 
   private

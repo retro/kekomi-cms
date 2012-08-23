@@ -3,7 +3,7 @@
 		<% list(contentType.attr('fields'), function(field, i){ %>
 			<div <%= (el)-> renderField(el, field, model, field.name)%> class="content-type-level"></div>
 		<% }) %>
-		<% if(typeof model.page_id === "undefined" || model.page_id === ""){ %>
+		<% if(!model.attr('isPageContent')){ %>
 			<div class="publish-options">
 				<div class="control-group">
 					<label class="control-label checkbox">
