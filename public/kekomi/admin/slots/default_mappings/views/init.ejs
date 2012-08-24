@@ -1,0 +1,25 @@
+<div class="form-wrapper">
+	<form class="form-horizontal">
+		<fieldset>
+			<div class="basic-wrap">
+				<div class="control-group">
+					<label class="control-label" for="slot_name">Default slot mappings</label>
+					<div class="controls slots">
+						<% $.each(defaults.slots, function(i, slot){ %>
+							<div class="clearfix slot-wrap">
+								<span><%= slot.template_slot.humanize() %></span>
+								<input type="hidden" name="slots[<%= i %>][template_slot]" value="<%= slot.template_slot %>" />
+								<select <%= (el)-> el.val(slot.slot_id || "") %> name="slots[<%= i %>][slot_id]">
+									<%== slots %>
+								</select>
+							</div>
+						<% }) %>
+					</div>
+				</div>
+			</div>
+		</fieldset>
+		<div class="actions-bar clearfix">
+			<input type="submit" value="Save Mappings" class="btn btn-primary" />
+		</div>
+	</form>
+</div>

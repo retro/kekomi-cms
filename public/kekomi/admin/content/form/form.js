@@ -26,11 +26,16 @@ steal(
 			this.options.model.save();
 		},
 		defaults : {
-			isInsideTab : true
+			isPageContent : false
 		}
 	}, {
 		init : function(){
-			$.when(Admin.Models.Page.findAll({})).then(this.proxy('render'));
+			if(this.options.isPageContent){
+				this.render([]);
+			} else {
+				$.when(Admin.Models.Page.findAll({})).then(this.proxy('render'));
+			}
+			
 		},
 		render : function(pages){
 			this.pages = pages
@@ -40,7 +45,7 @@ steal(
 				pagesTree   : renderTree(this.pages)
 			}))
 			
-			if(this.options.isInsideTab === true){
+			if(this.options.isPageContent === false){
 				this.element.addClass('paper-form')
 			}
 			
@@ -84,6 +89,9 @@ steal(
 		}
 	})
 	var renderTree = function(pages, id){
+		if(pages.length === 0){
+			return "";
+		}
 		id = id || "_";
 		var html = [], leafPages = pages.childrenOf(id), isSectionForContentType, indent;
 		for(var i = 0; i < leafPages.length; i++){

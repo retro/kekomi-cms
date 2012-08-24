@@ -20,12 +20,14 @@ steal(
 			}
 		},
 		loadRules : function(){
-			var values = this.element.find('.source-section:checked').map(function(){
+			var sections = this.element.find('.source-section:checked');
+			var values   = sections.map(function(){
 				return $(this).data('type');
 			}).get().unique();
 			var rulesOptions = {
 				selectedContentTypes: values,
-				rules: this.options.slot.attr('rules')
+				rules: this.options.slot.attr('rules'),
+				sectionsCount : sections.length
 			};
 			if(typeof this.rules === "undefined"){
 				this.rules = new Admin.Rules(this.element.find('.admin_rules'), rulesOptions);

@@ -57,7 +57,7 @@ steal(
 			var sharedFields  = this.sharedFields();
 			var self          = this;
 			var fieldsPerType = this.fieldsPerType();
-			var sortFields    = ['<option value="published_at">published_at</option>'];
+			var sortFields    = ['<option value="published_at">Published at</option>'];
 			var sortSelect    = this.element.find('.sort-field');
 			var sortValue     = sortSelect.val();
 			if(this.options.selectedContentTypes.length === 0){
@@ -83,7 +83,7 @@ steal(
 							var options = ['<option value="">Select Field</option>'];
 							var value   = select.val();
 							for(var i = 0; i < fields.length; i++){
-								options.push('<option value="' + fields[i] + '">' + fields[i] + '</option>')
+								options.push('<option value="' + fields[i] + '">' + fields[i].titleize() + '</option>')
 							}
 							select.html(options.join('')).val(value);
 							if(select.val() !== value){
@@ -95,8 +95,12 @@ steal(
 			}
 			for(var field in sharedFields){
 				if(field !== 'published_at' && field !== 'tags'){
-					sortFields.push('<option value="'+field+'">'+field+'</option>');
+					sortFields.push('<option value="'+field+'">'+field.titleize()+'</option>');
 				}
+			}
+			if(this.options.sectionsCount === 1){
+				sortFields.unshift('<option value="position">Position</option>');
+				sortValue = 'position';
 			}
 			sortSelect.html(sortFields.join('')).val(sortValue);
 		},

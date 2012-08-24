@@ -1,7 +1,9 @@
 Admin.controllers :content_types, :provides => :json do
   
   get :index do
-    @content_types = Kekomi::ContentTypes::Store.instance.content_types_metadata
+    @content_types = Kekomi::ContentTypes::Store.instance.content_types_metadata.select do |metadata|
+      metadata[:name].match(/PageContent\w+Behavior\w+/).nil?
+    end
     render "content_types/index"
   end
 

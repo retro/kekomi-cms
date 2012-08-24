@@ -3,6 +3,7 @@ steal(
 'steal/less',
 'admin/slots/list',
 'admin/slots/form',
+'admin/slots/default_mappings',
 function(){
 	can.Control('Admin.Slots', {}, {
 		init : function(){
@@ -12,9 +13,11 @@ function(){
 		"{can.route} type change" : "handleRouting",
 		"{can.route} action change" : "handleRouting",
 		handleRouting : function(){
+			var actionName;
 			if(can.route.attr('type') === "slots"){
+				actionName = can.route.attr('action').camelize().replace(/^[A-Z]{1}/, function(letter){ return letter.toLowerCase() })
 				clearTimeout(this._action);
-				this._action = setTimeout(this.proxy(this[can.route.attr('action') + "Action"]), 1);
+				this._action = setTimeout(this.proxy(this[actionName + "Action"]), 1);
 			}
 			
 		},
@@ -31,6 +34,14 @@ function(){
 			Admin.Models.Slot.findOne({id: can.route.attr('id')}, this.proxy(function(slot){
 				this.element.find('.module-content').html($('<div/>').admin_slots_form({
 					slot: slot
+				}));
+			}))
+		},
+		defaultMappingsAction : function(){
+			$.when(Admin.Models.Slot.findAll({}), Admin.Models.TemplateSlot.defaultSlots()).then(this.proxy(function(slots, defaults){
+				this.element.find('.module-content').html($('<div/>').admin_slots_default_mappings({
+					slots: slots[0],
+					defaults: defaults[0]
 				}));
 			}))
 		}

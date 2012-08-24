@@ -5,7 +5,7 @@
 		<option value="">Select Field</option>
 		<% for(var field in fields){ %>
 			<% if(fields.hasOwnProperty(field) && fields[field] === "string"){ %>
-				<option value="<%= field %>" <%= field === selectedField ? "selected" : "" %>><%= field %></option>
+				<option value="<%= field %>" <%= field === selectedField ? "selected" : "" %>><%= field.titleize() %></option>
 			<% } %>
 		<% } %>
 	</select>

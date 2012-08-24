@@ -1,4 +1,4 @@
-steal('can/model',  function(){
+steal('can/model', 'can/observe/attributes', function(){
 
 /**
  * @class Admin.Models.TemplateSlot
@@ -9,7 +9,12 @@ steal('can/model',  function(){
 can.Model('Admin.Models.TemplateSlot',
 /* @Static */
 {
-	findAll: "/template_slots",
+	findAll      : "/template_slots",
+	findOne      : "/template_slots/{id}",
+	update       : "/template_slots/{id}",
+	defaultSlots : function(success, error){
+		return this.findOne({id: 'default'}, success, error)
+	}
 },
 /* @Prototype */
 {

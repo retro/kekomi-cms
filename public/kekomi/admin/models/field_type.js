@@ -1,4 +1,4 @@
-steal('can/model', 'can/observe/validations', 'can/model/list', 'can/model/elements', function(){
+steal('can/model', 'can/observe/attributes', 'can/observe/validations', 'can/model/list', 'can/model/elements', function(){
 
 var fieldTypesCache;
 

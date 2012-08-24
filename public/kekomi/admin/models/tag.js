@@ -1,4 +1,4 @@
-steal('can/model',  function(){
+steal('can/model', 'can/observe/attributes', function(){
 
 /**
  * @class Admin.Models.TemplateSlot

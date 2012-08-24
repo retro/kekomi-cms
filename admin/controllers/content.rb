@@ -101,7 +101,7 @@ Admin.controllers :content, :provides => :json do
   post "/:model" do
     @item = resource.new
     json_body.each_pair do |key, value|
-      @item.send :"#{key}=", value
+      @item.send :"#{key}=", value if @item.respond_to? key and !value.nil?
     end
     if @item.save
       jsonify(@item)
@@ -141,10 +141,12 @@ Admin.controllers :content, :provides => :json do
     page     = Page.find(params[:id])
     content  = page.send("#{params[:behavior]}_content")
     if content.nil?
-      content = page.content_klass_for_behavior(params[:behavior])
+      content = page.content_klass_for_behavior(params[:behavior]).new
     end
     json_body.each_pair do |key, value|
-      content.send(:"#{key}=", value) if key != "id" and content.respond_to? key
+      if key != "id" and content.respond_to? key and !value.nil?
+        content.send(:"#{key}=", value) 
+      end
     end
     page.send("#{params[:behavior]}_content=", content)
     page.save

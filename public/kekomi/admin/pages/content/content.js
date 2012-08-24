@@ -18,12 +18,15 @@ steal(
 			this.element.find('.open-page-content-form:first').click();
 		},
 		'.open-page-content-form click' : function(el, ev){
-			var contentType = el.data('contentType');
-			contentType.contentTypeModel().findOne({}, this.proxy(function(model){
+			var contentType   = el.data('contentType');
+			var contentModel  = contentType.contentTypeModel();
+			this.element.find('.nav-tabs li.active').removeClass('active');
+			el.closest('li').addClass('active')
+			contentModel.findOne({}, this.proxy(function(model){
 				this.element.find('.form-panel').html($('<div/>').admin_content_form({
 					model: model,
 					contentType: contentType,
-					isInsideTab: false,
+					isPageContent: true,
 					savedUrl : {type: 'pages', action: "list"}
 				}))
 			}))
