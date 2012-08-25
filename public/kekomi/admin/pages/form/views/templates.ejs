@@ -8,37 +8,37 @@
 					<span class="path"><%= path %></span><%= this.behavior.url %><%= exts[j] !== "html" ? "." + exts[j] : "" %>
 				</span>
 				<span class="template-filename"><%= this.behavior.templates[exts[j]] %></span>
-				<% var templateSlots = slots.get(this.behavior.templates[exts[j]])[0] %>
-				<% if(templateSlots.slots.length > 0){ %>
-					<div class="template-slots clearfix">
-						<div class="template-slots-table-wrap">
-							<table>
-								<tr>
-									<th><label>Template slot</label></th>
-									<th><label>Assigned slot</label></th>
-								</tr>
-								<% for(var i = 0; i < templateSlots.slots.length; i++){ %>
-									<% var template = this.behavior.templates[exts[j]].replace(/\./g, "*") %>
-									<% var value = page.readAttr("behaviors."+behavior.id+"."+template+"."+templateSlots.slots[i]) %>
-									<tr>
-										<td class="slot-name"><%= templateSlots.slots[i] %></td>
-										<td class="pick-slot">
-											<select name="page[behaviors][<%= this.behavior.id %>][<%= template %>][<%= templateSlots.slots[i] %>]">
-												<option value="">Empty</option>
-												<% for(var k; k < availableSlots.length; k++){ %>
-													<option value="<%= availableSlots[k].id %>" <%= value == availableSlots[k].id ? "selected" : "" %>>
-														<%= availableSlots[k].name %>
-													</option>
-												<% } %>
-											</select>
-										</td>
-									</tr>
-								<% } %>
-							</table>
-						</div>
-					</div>
-				<% } %>
 			</li>
 		<% } %>
 	<% } %>
+	<li>
+		<% var templateSlots = slots.normalizedSlots() %>
+		<% if(templateSlots.length > 0){ %>
+			<div class="template-slots clearfix">
+				<div class="template-slots-table-wrap">
+					<table>
+						<tr>
+							<th><label>Template slot</label></th>
+							<th><label>Assigned slot</label></th>
+						</tr>
+						<% for(var i = 0; i < templateSlots.length; i++){ %>
+							<tr>
+								<td class="slot-name"><%= templateSlots[i] %></td>
+								<td class="pick-slot">
+									<select name="">
+										<option value="">Empty</option>
+										<% for(var k; k < availableSlots.length; k++){ %>
+											<option value="<%= availableSlots[k].id %>" <%= value == availableSlots[k].id ? "selected" : "" %>>
+												<%= availableSlots[k].name %>
+											</option>
+										<% } %>
+									</select>
+								</td>
+							</tr>
+						<% } %>
+					</table>
+				</div>
+			</div>
+		<% } %>
+	</li>
 </ul>

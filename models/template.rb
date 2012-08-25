@@ -46,7 +46,7 @@ class Template
     # This method lists available behaviors for the template group
     behavior_list = [
       {
-        :id => :section,
+        :id => :page,
         :templates => {},
         :url => ""
       },

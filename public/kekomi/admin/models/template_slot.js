@@ -21,5 +21,14 @@ can.Model('Admin.Models.TemplateSlot',
 	
 });
 
+can.Model.List('Admin.Models.TemplateSlot.List', {}, {
+	normalizedSlots : function(){
+		return this.map(function(template_slot){
+			var slots = template_slot.attr('slots');
+			return slots ? slots.attr() : [];
+		}).flatten().unique().sort();
+	}
+})
+
 
 })

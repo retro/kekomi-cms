@@ -33,26 +33,6 @@
 				<div class="control-group acts-as-content-section-wrap">
 					<div class="controls">
 						<label class="checkbox">
-							<input type="checkbox" class="enable-page-content" <%= typeof page.content_node_type === "undefined" || page.content_node_type === "" ? "" : "checked" %>> Enable page content
-						</label>
-					</div>
-				</div>
-				<div class="control-group page-content-type-wrap" style="<%= typeof page.content_node_type === "undefined" || page.content_node_type === "" ? "display:none": "" %>">
-					<label class="control-label" for="page_content_node_type">Page content type</label>
-					<div class="controls">
-						<select id="page_content_node_type" name="page[content_node_type]">
-							<option value="">None</option>
-							<% for(var i = 0; i < content_types.length; i++){ %>
-								<option value="<%= content_types[i].id %>"><%= content_types[i].name %></option>
-							<% } %>
-						</select>
-					</div>
-				</div>
-			</div>
-			<div class="checkbox-wrap clearfix">
-				<div class="control-group acts-as-content-section-wrap">
-					<div class="controls">
-						<label class="checkbox">
 							<input type="checkbox" class="enable-acts-as-section" <%= typeof page.section_content_type === "undefined" || page.section_content_type === "" ? "" : "checked" %>> Acts as content section
 						</label>
 					</div>

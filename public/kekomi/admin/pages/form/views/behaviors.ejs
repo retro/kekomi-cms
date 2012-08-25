@@ -2,7 +2,7 @@
 	<label>Section behaviors</label>
 	<div class="behaviors">
 		<% for(var i = 0; i < this.behaviors.length; i++){ %>
-			<% if(this.behaviors[i].id === "section" || (typeof page.section_content_type !== "undefined" && page.section_content_type !== "")){ %>
+			<% if(this.behaviors[i].id === "page" || (typeof page.section_content_type !== "undefined" && page.section_content_type !== "")){ %>
 				<div class="behavior clearfix">
 					<input type="checkbox" class="behavior-toggle" value="true" data-behavior="<%= this.behaviors[i].id %>" <%= page.behaviors[this.behaviors[i].id] ? "checked" : "" %>/> 
 					<b><%= this.behaviors[i].name %></b>

@@ -52,6 +52,9 @@ steal(
 			ev.preventDefault();
 			var rules = this.rules ? this.rules.serialize() : null;
 			var data  = el.formParams().slot;
+			if(!$.isArray(data.sections)){
+				data.sections = [data.sections];
+			}
 			this.options.slot.attr(data)
 			if(rules !== false){
 				this.options.slot.attr('rules', (this.options.slot.attr('type') === "automatic" ? rules : null));

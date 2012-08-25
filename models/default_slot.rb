@@ -31,16 +31,16 @@ class DefaultSlot
     default_slots.each do |slot|
       default_slots_paired[slot.template_slot] = slot
     end
-    slots.each do |slot|
-      pp slot
+    slots.map do |slot|
       unless slot["slot_id"].blank?
         default_slot               = default_slots_paired[slot["template_slot"]] || DefaultSlot.new
         default_slot.template_slot = slot["template_slot"]
         default_slot.slot_id       = slot["slot_id"]
         default_slot.save
       end
+      slot["slot_id"] = nil if slot["slot_id"].blank?
+      slot
     end
-    slots
   end
 
 end

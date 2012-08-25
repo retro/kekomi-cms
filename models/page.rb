@@ -21,7 +21,7 @@ class Page
   field :section_content_type
   field :behaviors
 
-  BEHAVIORS = %w(section list details archive_year archive_month archive_day)
+  BEHAVIORS = %w(page list details archive_year archive_month archive_day)
 
   # This code will define accessor methods for content for all possible behaviors
   # We reuse Kekomi::ContentTypes here to get all the goodnes like getters and setters,
