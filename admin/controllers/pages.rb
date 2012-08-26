@@ -26,7 +26,7 @@ Admin.controllers :pages, :provides => :json do
   post "/" do
     @page = Page.new json_body
     @page.save
-    #render "pages/create"
+    render "pages/create"
   end
 
   get "/:id" do
@@ -37,6 +37,7 @@ Admin.controllers :pages, :provides => :json do
   put "/:id" do
     @page = Page.find params[:id]
     if @page
+      puts json_body
       @page.update_attributes json_body
       render "pages/create"
     else

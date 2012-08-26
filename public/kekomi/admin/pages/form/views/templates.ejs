@@ -11,9 +11,10 @@
 			</li>
 		<% } %>
 	<% } %>
-	<li>
-		<% var templateSlots = slots.normalizedSlots() %>
-		<% if(templateSlots.length > 0){ %>
+	<% var templateSlots = slots.normalizedSlots() %>
+	<% if(templateSlots.length > 0){ %>
+			<li>
+		
 			<div class="template-slots clearfix">
 				<div class="template-slots-table-wrap">
 					<table>
@@ -23,13 +24,19 @@
 						</tr>
 						<% for(var i = 0; i < templateSlots.length; i++){ %>
 							<tr>
-								<td class="slot-name"><%= templateSlots[i] %></td>
+								<td class="slot-name"><%= templateSlots[i].humanize() %></td>
 								<td class="pick-slot">
-									<select name="">
+									<select name="page[slots][<%= behavior.id %>][<%= templateSlots[i] %>]">
 										<option value="">Empty</option>
-										<% for(var k; k < availableSlots.length; k++){ %>
-											<option value="<%= availableSlots[k].id %>" <%= value == availableSlots[k].id ? "selected" : "" %>>
-												<%= availableSlots[k].name %>
+										<% console.log(defaultSlots.defaultSlotFor(templateSlots[i]), templateSlots[i]) %>
+										<% if(defaultSlots.defaultSlotFor(templateSlots[i]) !== null){ %>
+											<option value="default" <%= this.page.readAttr('slots.' + behavior.id + '.' + templateSlots[i]) === "default" ? "selected" : "" %>>
+												-- Default (<%= availableSlots.get(defaultSlots.defaultSlotFor(templateSlots[i]))[0].name %>)
+											</option>
+										<% } %>
+										<% for(var k = 0; k < availableSlots.length; k++){ %>
+											<option value="<%= availableSlots[k].id %>" <%= this.page.readAttr('slots.' + behavior.id + '.' + templateSlots[i]) == availableSlots[k].id ? "selected" : "" %>>
+												-- <%= availableSlots[k].name %>
 											</option>
 										<% } %>
 									</select>
@@ -39,6 +46,6 @@
 					</table>
 				</div>
 			</div>
-		<% } %>
-	</li>
+		</li>
+	<% } %>
 </ul>

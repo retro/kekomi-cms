@@ -136,13 +136,14 @@ steal(
 			if(typeof this.options.page.attr("behaviors." + behaviorName) === "undefined"){
 				this.options.page.attr("behaviors." + behaviorName, {});
 			}
-			
+			window.page = this.options.page
 			el.closest('.behavior').find('.templates').html(this.view('templates.ejs', {
 				behavior: behavior,
 				path: this.calculatePath(this.element.find('#page_slug').val()),
 				slots: Admin.Models.TemplateSlot.findAll({ids: getTemplatesAsArray(behavior.templates)}),
 				page: this.options.page,
-				availableSlots: []
+				availableSlots: Admin.Models.Slot.findAll({}),
+				defaultSlots  : Admin.Models.TemplateSlot.defaultSlots()
 			})).show()
 		},
 		showBehaviors : function(path){

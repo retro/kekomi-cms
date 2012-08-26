@@ -18,7 +18,15 @@ can.Model('Admin.Models.TemplateSlot',
 },
 /* @Prototype */
 {
-	
+	defaultSlotFor: function(slotName){
+		if(typeof this._defaultSlotMappings === "undefined"){
+			this._defaultSlotMappings = {};
+			for(var i = 0; i < this.slots.length; i++){
+				this._defaultSlotMappings[this.slots[i].template_slot] = this.slots[i].slot_id;
+			}
+		}
+		return this._defaultSlotMappings[slotName] ? this._defaultSlotMappings[slotName] : null;
+	}
 });
 
 can.Model.List('Admin.Models.TemplateSlot.List', {}, {

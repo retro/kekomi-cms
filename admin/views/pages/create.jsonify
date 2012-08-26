@@ -6,4 +6,5 @@ json.parent_id            @page.parent_id
 json.parent_ids           @page.parent_ids
 json.section_content_type @page.section_content_type
 json.behaviors            @page.behaviors
+json.slots                @page.slots
 json.has_editable_fields  @page.has_editable_fields?

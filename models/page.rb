@@ -14,7 +14,7 @@ class Page
 
   field :slug
   field :title
-  field :slots
+  field :slots, :type => Hash
   field :template
   field :position, :type => Integer
   field :template
