@@ -118,7 +118,7 @@ Admin.controllers :content, :provides => :json do
   put "/:model/:id" do
     @item = resource.find(params[:id])
     json_body.each_pair do |key, value|
-      @item.send :"#{key}=", value
+      @item.send(:"#{key}=", value) unless key.nil?
     end
     @item.save
     jsonify(@item)

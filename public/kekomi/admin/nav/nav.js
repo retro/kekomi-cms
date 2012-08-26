@@ -19,6 +19,13 @@ steal('admin/mvc.js', 'admin/vendor/inflection', 'steal/less').then('./nav.less'
 			} else {
 				$('#content').html("Controller <b>" + control + "</b> doesn't exist!")
 			}
+		},
+		'{Admin.Models.Page} created' : function(Page, ev, page){
+			var contentType;
+			if(page.section_content_type && page.section_content_type !== ""){
+				contentType = Admin.Models.ContentType.all().get(page.section_content_type)[0];
+				contentType.attr('assigned', true);
+			}
 		}
 	})
 })

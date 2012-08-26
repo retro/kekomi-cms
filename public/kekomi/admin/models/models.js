@@ -20,6 +20,7 @@ function(){
 			val  = this[path.shift()];
 		while(typeof val !== "undefined" && path.length > 0){
 			if(typeof val === "undefined") return;
+			if(val === null) return null;
 			val = val[path.shift()];
 		}
 		return val;

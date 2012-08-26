@@ -28,7 +28,6 @@
 								<td class="pick-slot">
 									<select name="page[slots][<%= behavior.id %>][<%= templateSlots[i] %>]">
 										<option value="">Empty</option>
-										<% console.log(defaultSlots.defaultSlotFor(templateSlots[i]), templateSlots[i]) %>
 										<% if(defaultSlots.defaultSlotFor(templateSlots[i]) !== null){ %>
 											<option value="default" <%= this.page.readAttr('slots.' + behavior.id + '.' + templateSlots[i]) === "default" ? "selected" : "" %>>
 												-- Default (<%= availableSlots.get(defaultSlots.defaultSlotFor(templateSlots[i]))[0].name %>)

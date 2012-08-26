@@ -45,7 +45,11 @@ var generateContentTypeClass = function(contentType, isPageContent){
 		serialize : function(){
 			var data = this._super.apply(this, arguments);
 			delete data.representation;
+			delete data.isPageContent;
 			return data;
+		},
+		tagsArray : function(){
+			return this.tags.split(',');
 		}
 	})
 }

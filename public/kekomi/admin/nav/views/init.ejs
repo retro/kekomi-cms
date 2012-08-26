@@ -7,11 +7,15 @@
 			<span class="caret"></span>
 		</a>
 		<ul class="dropdown-menu">
-			<% for(var i = 0; i < contentTypes.length; i++){ %>
-				<li>
-					<a href="<%= can.route.url({type: "content", content_type: contentTypes[i].id, action: "list"}) %>"><%= contentTypes[i].name.pluralize() %></a>
-				</li>
-			<% } %>
+			<% contentTypes.each(function(contentType){ %>
+				<% if(contentType.attr('assigned')){ %>
+					<li>
+						<a href="<%= can.route.url({type: "content", content_type: contentType.attr('id'), action: "list"}) %>">
+							<%= contentType.attr('name').pluralize() %>
+						</a>
+					</li>
+				<% } %>
+			<% }) %>
 		</ul>
 	</div>
 	<a href="<%= can.route.url({type: "asset_manager", action: "list"}) %>" class="btn nav-links"><i class="icon-folder-open icon-large"></i> Assets</a>

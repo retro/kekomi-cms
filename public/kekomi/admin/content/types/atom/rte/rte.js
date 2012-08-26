@@ -36,6 +36,14 @@ function(){
 		},
 		" mousedown" : function(el, ev){
 			ev.stopPropagation();
+		},
+		destroy : function(){
+			(function(e){
+				setTimeout(function(){
+					e.destroy();
+				}, 1)
+			})(this.editor);
+			this._super.apply(this, arguments);
 		}
 	})
 })

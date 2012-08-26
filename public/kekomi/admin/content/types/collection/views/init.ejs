@@ -3,7 +3,7 @@
 		<% if(this.collection){ %>
 			<i class="icon-sort"></i>
 		<% } %>
-		<%= collection ? field.name : attr %>
+		<%= collection ? field.name.humanize() : attr.humanize() %>
 	</span>
 	<% if(this.collection){ %>
 		<span class="remove"><i class="icon-remove-sign"></i> Remove</span>

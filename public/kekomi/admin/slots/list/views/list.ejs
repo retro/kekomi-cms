@@ -4,15 +4,16 @@
 			<tr>
 				<th class="select"></th>
 				<th class="repr">Slot name</th>
+				<th>Type</th>
 				<th class="actions"></th>
 			</tr>
 		</thead>
 		<tbody>
 			<% slots.each(function(slot){%>
-				<% console.log(slot) %>
 				<tr <%= slot %>>
 					<td class="select"><input type="checkbox" /></td>
 					<td class="repr"><%= slot.name %></td>
+					<td><%= slot.type.humanize() %></td>
 					<td class="actions">
 						<div class="btn-group">
 							<a class="btn btn-mini edit" href="<%= can.route.url({type: "slots", id: slot.id, action: "edit"}) %>">Edit</a>

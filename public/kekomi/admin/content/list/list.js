@@ -162,6 +162,7 @@ steal(
 			}
 		},
 		".delete-selected click" : function(el, ev){
+			if(this.options.selected.length === 0) return;
 			if(confirm("Are you sure?")){
 				for(var i = 0; i < this.options.selected.length; i++){
 					this.options.selected[i].destroy();

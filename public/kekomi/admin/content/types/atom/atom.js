@@ -10,9 +10,8 @@ steal(
 		}
 	}, {
 		init : function(){
-			//console.log(this.options.attr)
 			var curVal = this.options.model.attr(this.options.attr);
-			if(typeof curVal === "undefined"){
+			if(typeof curVal === "undefined" || curVal === null){
 				this.options.model.attr(this.options.attr, "")
 			}
 			this.element.html(this.view(this.options.field.type + ".ejs", {
