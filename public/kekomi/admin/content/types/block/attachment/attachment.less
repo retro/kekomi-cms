@@ -1,0 +1,49 @@
+@import "../../../../style/elements/elements.less";
+
+.admin_content_types_block_attachment {
+	.attachment-field-wrap {
+		margin-top: 5px;
+	}
+	.attachment {
+		margin-top: 10px;
+		.info {
+			margin-top: 5px;
+			font-size: 11px;
+			font-style: oblique;
+			color: #666;
+		}
+	}
+	.attachment-info, .attachment-toolbar {
+		position: relative;
+	}
+}
+
+.admin_content_form {
+	.content-form {
+		.admin_content_types_block_attachment .block-fields {
+			margin-top: -23px;
+			padding-left: 160px;
+			margin-right: -3px;
+		}
+		.admin_content_types_block .admin_content_types_block_attachment .block-fields,
+		.admin_content_types_block .admin_content_types_block .admin_content_types_block_attachment .block-fields,
+		.admin_content_types_collection .admin_content_types_block .admin_content_types_block_attachment .block-fields {
+			margin-top: 0;
+			padding-left: 0;
+		}
+		.admin_content_types_collection .admin_content_types_block_attachment,
+		.admin_content_types_compound .compound-values > .admin_content_types_collection  .admin_content_types_block_attachment {
+			margin-bottom: 15px;
+			&:last-child {
+				margin-bottom: 0;
+			}
+			.block-fields {
+				margin-top: 0;
+				padding-left: 0;
+			}
+		}
+		.admin_content_types_compound .compound-values > .admin_content_types_collection  .admin_content_types_block_attachment {
+			padding-top: 10px;
+		}
+	}
+}

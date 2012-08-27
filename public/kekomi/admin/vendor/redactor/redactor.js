@@ -1,0 +1,1 @@
+steal('can/construct').then('./redactor/redactor.js', './redactor/redactor.css')

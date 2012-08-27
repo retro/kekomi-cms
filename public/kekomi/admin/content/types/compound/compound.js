@@ -28,6 +28,9 @@ steal(
 			this.element.find('.compound-values').sortable({
 				items: ".compound-value"
 			})
+			if(this.options.model.attr(this.options.attr).length === 0){
+				this.element.find('.add-to-compound').click();
+			}
 		},
 		".compound-values sortstop" : function(el, ev, ui){
 			var values     = this.element.find('.compound-value'),

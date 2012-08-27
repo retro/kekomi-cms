@@ -1,7 +1,8 @@
 steal(
 'admin/mvc.js',
 'admin/content/form/helper.js',
-'admin/content/types/block/image'
+'admin/content/types/block/image',
+'admin/content/types/block/attachment'
 ).then(function(){
 	can.Control('Admin.Content.Types.Block', {
 		defaults: {
