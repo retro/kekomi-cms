@@ -21,7 +21,7 @@ steal(
 	}, {
 		init : function(){
 			var curVal = this.options.model.attr(this.options.attr);
-			if(typeof curVal === "undefined"){
+			if(typeof curVal === "undefined" || curVal === null){
 				this.options.model.attr(this.options.attr, [])
 			}
 			this.allowed = Admin.Models.FieldType.all().get(this.options.fieldType.allowed)[0];

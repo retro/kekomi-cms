@@ -20,8 +20,8 @@
 			</div>
 			<% if(this.model.attr(this.attr + ".url")){ %>
 				<div class="attachment">
-					<input type='text' value="<%= this.model.readAttr(this.attr + '.name') %>" class="full-width" /> 
 					<div class="info"><%= this.model.readAttr(this.attr + ".url").split('/').pop() %> (<%= humanizedBytes(this.model.readAttr(this.attr + ".size")) %>)</div>
+					<input type='text' value="<%= this.model.readAttr(this.attr + '.name') %>" class="full-width" />
 				</div>
 			<% } %>
 		</div>
