@@ -21,7 +21,7 @@ class Page
   field :section_content_type
   field :behaviors
 
-  BEHAVIORS = %w(page list details archive_year archive_month archive_day)
+  BEHAVIORS = Behavior::Registry.behaviors.map { |behavior| behavior.id }
 
   # This code will define accessor methods for content for all possible behaviors
   # We reuse Kekomi::ContentTypes here to get all the goodnes like getters and setters,
@@ -62,7 +62,6 @@ class Page
     end
 
   end
-
 
   has_many :items, :class_name => 'ContentNode'
 

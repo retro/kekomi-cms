@@ -1,6 +1,8 @@
 class ArchiveByYearBehavior
   include Behavior
 
+  pattern "/archive/<year>"
+
   def render(args)
     path, year = context.params[:captures]
     slug = extract_slug(path)

@@ -35,6 +35,17 @@ module Behavior
       end
     end
 
+    def id
+      self.to_s[0..-9].underscore
+    end
+
+    def pattern(p = nil)
+      @pattern = p unless p.nil?
+      @pattern || ""
+    end
+
+
+
   end
 
   class Registry
@@ -56,6 +67,7 @@ module Behavior
           !behavior.is_a? String
         }.freeze
       end
+
     end
 
   end
