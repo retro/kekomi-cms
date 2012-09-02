@@ -13,6 +13,51 @@ class TemplateContentField
     end
   end
 
+  def self.find(folder, type, behavior)
+    content_fields = {}
+    behavior       = TemplateGroup.from_folder(folder, type).behaviors.select { |b| b[:id] === behavior.to_sym }
+    return nil if behavior.blank?
+    behavior.first[:templates].each_pair do |type, template|
+      content_fields[type] = self.new File.join(folder, template)
+    end
+    content_fields.blank?? nil : content_fields
+  end
+
+  def self.content_type_for(folder, type, behavior)
+    content_fields = self.find(folder, type, behavior)
+    fields         = {}
+    return nil if content_fields.nil?
+    
+    TemplateGroup::ALLOWED_EXTENSIONS.each do |ext|
+      unless content_fields[ext].blank?
+        fields.reverse_merge! content_fields[ext].fields
+      end
+    end
+
+    klass_name = self.content_type_name(folder, type, behavior)
+    if Object.const_defined? klass_name
+      if Padrino.env == :development
+        Object.send :remove_const, klass_name.to_sym
+      else
+        return klass_name.to_s.constantize
+      end
+    end
+
+    Kekomi::ContentTypes.add_without_base klass_name do
+
+      attr_accessor :page_content_id
+
+      fields.each_pair do |field_name, type|
+        field field_name, type: type
+      end
+
+    end
+  end
+
+  def self.content_type_name(folder,type,behavior)
+    "TemplateContentType0#{folder.classify}0#{type.classify}0#{behavior.classify}"
+  end
+
   def initialize(file)
     @file     = file.gsub(':', '/')
     @id       = file
@@ -54,5 +99,23 @@ class TemplateContentField
       end
       block_fields
     end
+
+end
+
+class Object
+
+  class << self 
+    def const_missing_with_template_content_type_autoload(const)
+      match = const.to_s.scan(/TemplateContentType(.*)/)
+      if match.empty?
+        return const_missing_without_template_content_type_autoload(const)
+      else
+        placeholder, folder, type, behavior = const.to_s.split('0')
+        TemplateContentField.content_type_for(folder.underscore, type.underscore, behavior.underscore)
+      end
+    end
+
+    alias_method_chain :const_missing, :template_content_type_autoload
+  end
 
 end

@@ -1,6 +1,0 @@
-json.data(@templates) do |template|
-	json.id        template.id
-	json.path      template.path
-	json.behaviors template.behaviors
-end
-json.count @templates.size

@@ -1,0 +1,4 @@
+json.data(@template_groups) do |template|
+	json.id        template.id
+end
+json.count @template_groups.size

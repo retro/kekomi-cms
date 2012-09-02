@@ -19,23 +19,23 @@ Admin.controllers :pages, :provides => :json do
   # end
 
   get "/" do
-    @pages = Page.asc(:position)
+    @pages = Node.asc(:position)
     render "pages/index"
   end
 
   post "/" do
-    @page = Page.new json_body
+    @page = Node.new json_body
     @page.save
     render "pages/create"
   end
 
   get "/:id" do
-    @page = Page.find params[:id]
+    @page = Node.find params[:id]
     render "pages/create"
   end
   
   put "/:id" do
-    @page = Page.find params[:id]
+    @page = Node.find params[:id]
     if @page
       puts json_body
       @page.update_attributes json_body
@@ -46,7 +46,7 @@ Admin.controllers :pages, :provides => :json do
   end
 
   delete "/:id" do
-    @page = Page.find params[:id]
+    @page = Node.find params[:id]
     @page.destroy
     render "pages/create"
   end

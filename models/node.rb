@@ -114,11 +114,16 @@ class Node
     self.position = self.siblings.size
   end
 
+  def node_type
+    self.class.to_s.demodulize.underscore[0..-6]
+  end
+
   def templates
-    TemplateGroup.from_folder(template, self.class.to_s.demodulize.underscore[0..-6])
+    TemplateGroup.from_folder(template, node_type)
   end
 
   def template_fields
+
     fields = {}
 
     templates.behaviors.to_a.each do |b|
@@ -139,34 +144,9 @@ class Node
     template_fields.keys.map(&:to_s)
   end
 
-  def content_klass_for_behavior(behavior, klass_definition = nil)
-    behavior = behavior.underscore.to_sym
-    klass_definition ||= template_fields[behavior]
-    klass_name = name_for_content_klass(behavior)
-    if Object.const_defined? klass_name
-      if Padrino.env == :development
-        Object.send :remove_const, klass_name.to_sym
-      else
-        return klass_name.to_s.constantize
-      end
-    end
-    Kekomi::ContentTypes.add_without_base klass_name do
-
-      attr_accessor :page_content_id
-
-      klass_definition.each_pair do |field_name, type|
-        field field_name, type: type
-      end
-
-    end
-  end
-
-  def content_klasses_for_behaviors
-    klasses = []
-    template_fields.each_pair do |behavior, fields|
-      klasses << content_klass_for_behavior(behavior, fields)
-    end
-    klasses
+  def content_klass_for_behavior(behavior)
+    return nil unless behaviors_with_content.include? behavior
+    TemplateContentField.content_type_for(template, node_type, behavior)
   end
 
   def has_editable_fields?
@@ -198,24 +178,5 @@ class Node
     def name_for_content_klass(behavior)
       return "PageContent#{behavior.to_s.classify}Behavior#{id}"
     end
-
-end
-
-
-class Object
-
-  class << self 
-    def const_missing_with_page_content_klass_autoload(const)
-      match = const.to_s.scan(/PageContent(\w+)Behavior(\w+)/)
-      if match.empty?
-        return const_missing_without_page_content_klass_autoload(const)
-      else
-        behavior, id = match.first
-        Node.find(id).content_klass_for_behavior(behavior)
-      end
-    end
-
-    alias_method_chain :const_missing, :page_content_klass_autoload
-  end
 
 end

@@ -6,14 +6,7 @@ var generateContentTypeClass = function(contentType, isPageContent){
 	var modelName, modelEndpoint, match, actions = {};
 	isPageContent = isPageContent || false;
 	modelName     = contentType.name.replace(/ /g, '');
-	if(isPageContent === true){
-		match = modelName.match(/PageContent(\w+)Behavior(\w+)$/);
-		modelEndpoint = 'page/behaviors/' + match[2] + "/" + match[1].underscore();
-		actions = {
-			findOne : "/content/" + modelEndpoint, 
-			update  : "/content/" + modelEndpoint
-		}
-	} else {
+	if(isPageContent === false){
 		modelEndpoint = modelName.underscore(); // AdminTest => admin_test
 		actions = {
 			findAll : "/content/" + modelEndpoint,
@@ -75,13 +68,12 @@ can.Model('Admin.Models.ContentType',
 	all : function(){
 		return contentTypesCache;
 	},
-	pageContentTypes : function(pageId, success){
-		return $.get("/content_types/" + pageId, function(contentTypes){
-			contentTypes = Admin.Models.ContentType.models(contentTypes)
-			for(var i = 0; i < contentTypes.length; i++){
-				generateContentTypeClass(contentTypes[i], true)
-			}
-			success(contentTypes);
+	templateContentType : function(folder, type, behavior, success){
+		var url = can.sub("/content_types/{folder}/{type}/{behavior}", {folder: folder, type: type, behavior: behavior});
+		return $.get(url, function(contentType){
+			contentType = Admin.Models.ContentType.model(contentType)
+			generateContentTypeClass(contentType, true)
+			success(contentType);
 		}, 'json');
 	}
 },

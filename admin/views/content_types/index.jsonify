@@ -2,7 +2,6 @@ json.data(@content_types) do |content_type|
   json.id               content_type[:name].underscore
   json.name             content_type[:name]
   json.represented_with content_type[:name].constantize.represented_with
-  json.assigned         content_type[:assigned]
   json.fields           content_type[:fields].map {|f| { name: f.first, type: f.last } }
 end
 json.count @content_types.count
