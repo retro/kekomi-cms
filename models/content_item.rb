@@ -1,4 +1,4 @@
-class ContentNode
+class ContentItem
   include Mongoid::Document
   include Mongoid::Timestamps # adds created_at and updated_at fields
   include Mongoid::ActsAsList
@@ -11,9 +11,7 @@ class ContentNode
   field :published_at, type: DateTime
 
 
-  belongs_to :section, :class_name => 'Page'
-
-  belongs_to :page
+  belongs_to :section, class_name: "NodeTypes::SectionNode"
 
   acts_as_list :scope => :section
 
@@ -24,8 +22,6 @@ class ContentNode
   validate :must_be_attached_or_have_section
 
   slug :representation, reserve: ['list', 'archive']
-
-  before_save :cleanup_belongs
 
   def self.publish_state(state)
     if state == "published"
@@ -41,6 +37,14 @@ class ContentNode
     section_id.blank?? where : where(section_id: section_id)
   end
 
+  def self.defined
+    klass_name = "#{self.to_s}Node"
+    klass      = Class.new(NodeTypes::SectionNode)
+    NodeTypes.const_set(klass_name, klass)
+    klass.register_node_type(self.to_s.underscore)
+    klass.has_many :items, class_name: self.to_s
+  end
+
   def representation
     self.send self.class.represented_with
   end
@@ -52,10 +56,6 @@ class ContentNode
 
   def must_be_attached_or_have_section
     errors.add(:section_id, "can't be empty") if section.blank? and page.blank?
-  end
-
-  def cleanup_belongs
-    self.page_id = nil unless self.section_id.nil?
   end
 
 end

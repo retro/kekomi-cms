@@ -27,7 +27,7 @@ end
 #
 Padrino.after_load do
   #Admin.prerequisites << Padrino.root('theme/models/**/*.rb')
-  Kekomi::ContentTypes.base = ContentNode
+  Kekomi::ContentTypes.base = ContentItem
   Padrino.require_dependencies(Padrino.root("theme/models/**/*.rb"))
   Kaminari.configure do |config|
     config.default_per_page = 50

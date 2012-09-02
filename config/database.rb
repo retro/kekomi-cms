@@ -9,7 +9,7 @@ database_name = case Padrino.env
   when :test        then 'kekomi_test'
 end
 
-Mongoid.database = Mongo::Connection.new(host, port).db(database_name)
+Mongoid.database = Mongo::Connection.new(host, port, :logger => Padrino.logger).db(database_name)
 
 # You can also configure Mongoid this way
 # Mongoid.configure do |config|
