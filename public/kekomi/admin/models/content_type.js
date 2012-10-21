@@ -29,6 +29,12 @@ var generateContentTypeClass = function(contentType, isPageContent){
 	return can.Model('Admin.Models.ContentTypes.' + modelName, $.extend(actions, {
 		humanizedName : function(){
 			return this._shortName.humanize();
+		},
+		contentTypeDefinition : function(){
+			var self = this;
+			return $.grep(contentTypesCache, function(contentType){
+				return contentType.name === self.shortName;
+			})[0];
 		}
 	})
 	, {
@@ -80,10 +86,8 @@ can.Model('Admin.Models.ContentType',
 				"json templatecontenttypes": function(data){
 					var types = [];
 					for(var i = 0; i < data.data.length; i++){
-						if(data.data[i].fields.length > 0){
-							contentTypesCache.push(Admin.Models.ContentType.model(data.data[i]))
-							types.push(generateContentTypeClass(data.data[i], true))
-						}
+						contentTypesCache.push(Admin.Models.ContentType.model(data.data[i]))
+						types.push(generateContentTypeClass(data.data[i], true))
 					}
 					return types;
 				}

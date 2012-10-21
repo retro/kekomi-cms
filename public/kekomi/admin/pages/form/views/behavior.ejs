@@ -1,0 +1,6 @@
+<% if(contentType.fields.length === 0){ %>
+	<div class="alert alert-info">This template group has no editable fields.</div>
+<% } else { %>
+	<h4>Content</h4>
+	<div <%= (el)-> el.admin_content_form({model: model, contentType: contentType, isPageContent: true})%>></div>
+<% } %>

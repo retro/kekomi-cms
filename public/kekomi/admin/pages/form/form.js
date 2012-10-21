@@ -77,7 +77,7 @@ steal(
 				if(this.type !== "" && this.templateGroup === ""){
 					this.element.find('.template-group-wrap').show();
 				} else if(this.type !== "" && this.templateGroup !== ""){
-					$.when(Admin.Models.ContentType.templateContentTypes(this.templateGroup, this.type)).then(this.proxy('renderTemplates'))
+					$.when(Admin.Models.ContentType.templateContentTypes(this.templateGroup, this.type), {}).then(this.proxy('renderTemplates'))
 				} else {
 					this.element.find('.template-group-wrap').hide();
 				}
@@ -97,8 +97,32 @@ steal(
 			} else {
 				this.element.find('.content-slots-categories').html(this.view('content_slots_categories', {
 					behaviors: behaviors[0],
-					type: this.type
+					type: this.type,
+					loadFirstTab : this.proxy('loadFirstContentTab')
 				}));
+			}
+		},
+		loadFirstContentTab : function(ul){
+			var hash = ul.find('a:first').attr('href');
+			if(window.location.hash !== hash){
+				window.location.hash = hash;
+			} else {
+				this.loadContentTab();
+			}
+		},
+		"{can.route} settings change" : "loadContentTab",
+		"{can.route} behavior change" : "loadContentTab",
+		loadContentTab : function(){
+			this.element.find('ul.content-tabs li.active').removeClass('active');
+			this.element.find('ul.content-tabs a[href$="'+window.location.hash+'"]').closest('li').addClass('active')
+			if(can.route.attr('settings') === "behaviors"){
+				var behavior = can.route.attr('behavior');
+				var contentTypeName = ["TemplateContentType", this.templateGroup.classify(), this.type.classify(), behavior.classify()].join('0');
+				var contentType = Admin.Models.ContentTypes[contentTypeName]
+				this.element.find('.tab-content').html(this.view('behavior', {
+					model: (new contentType),
+					contentType : contentType.contentTypeDefinition()
+				}))
 			}
 		}
 		
