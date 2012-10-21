@@ -11,4 +11,13 @@ class NodeTypeRegistry
     @types || {}
   end
 
+  def self.all
+    types.map do |name, klass|
+      {
+        id: name,
+        name: klass.to_s.demodulize[0..-5].humanize
+      }
+    end
+  end
+
 end

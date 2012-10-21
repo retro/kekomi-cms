@@ -24,6 +24,17 @@ class TemplateSlot
     all_slots.uniq.sort
   end
 
+  def self.from_folder(folder)
+    templates_dir = File.join(PADRINO_ROOT, 'theme', 'templates', folder)
+    glob          = File.join(templates_dir, '*.{html,json,js,rss,xml}')
+    all_slots     = []
+    Dir.glob(glob).each do |file|
+      slots = TemplateSlot.new(file.split('/')[-2..-1].join('/')).slots
+      all_slots += slots
+    end
+    all_slots.uniq.sort
+  end
+
   def initialize(file)
     @file     = file.gsub(':', '/')
     @id       = file

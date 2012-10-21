@@ -7,7 +7,6 @@
 					<label class="control-label" for="page_name">Name</label>
 					<div class="controls">
 						<input id="page_name" class="span3" type="text" size="16" name="page[name]">
-						<p class="help-block calculated-url"></p>
 					</div>
 				</div>
 				<div class="clearfix">
@@ -28,40 +27,30 @@
 						</div>
 					</div>
 				</div>
-			</div>
-			<div class="checkbox-wrap clearfix">
-				<div class="control-group acts-as-content-section-wrap">
-					<div class="controls">
-						<label class="checkbox">
-							<input type="checkbox" class="enable-acts-as-section" <%= typeof page.section_content_type === "undefined" || page.section_content_type === "" ? "" : "checked" %>> Acts as content section
-						</label>
-					</div>
-				</div>
-				<div class="control-group content-section-wrap" style="<%= typeof page.section_content_type === "undefined" || page.section_content_type === "" ? "display:none": "" %>">
-					<label class="control-label" for="page_template">Section Content type</label>
-					<div class="controls">
-						<select id="page_section_content_type" name="page[section_content_type]">
-							<option value="">None</option>
-							<% for(var i = 0; i < content_types.length; i++){ %>
-								<option value="<%= content_types[i].id %>"><%= content_types[i].name %></option>
-							<% } %>
-						</select>
-					</div>
-				</div>
-			</div>
-			<div class="template-wrap">
 				<div class="control-group">
-					<label class="control-label" for="page_template">Template Group</label>
+					<label for="page_node_type" class="control-label">Type</label>
 					<div class="controls">
-						<select id="page_template" name="page[template]">
-							<option value="">Select template group</option>
-							<% for(var i = 0; i < templates.length; i++){ %>
-								<option value="<%= templates[i].path %>"><%= templates[i].name %></option>
+						<select name="page[node_type]" id="page_node_type">
+							<option value="">Select Type</option>
+							<% for(var i = 0; i < nodeTypes.length; i++){ %>
+								<option value="<%= nodeTypes[i].id %>"><%= nodeTypes[i].name %></option>
 							<% } %>
 						</select>
 					</div>
 				</div>
-				<div class="behaviors-wrapper clearfix"></div>
+				<div class="control-group template-group-wrap">
+					<label for="page_template_group" class="control-label">Template Group</label>
+					<div class="controls">
+						<select name="page[template_group]" id="page_template_group">
+							<option value="">Select Template Group</option>
+							<% for(var i = 0; i < templateGroups.length; i++){ %>
+								<option value="<%= templateGroups[i].id %>"><%= templateGroups[i].id.humanize() %></option>
+							<% } %>
+						</select>
+					</div>
+				</div>
+				<div class="content-slots-categories">
+				</div>
 			</div>
 		</fieldset>
 		<div class="actions-bar clearfix">

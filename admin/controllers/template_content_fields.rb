@@ -1,24 +1,10 @@
+require "pp"
 Admin.controllers :template_content_fields, :provides => :json do
-  # get :index, :map => "/foo/bar" do
-  #   session[:foo] = "bar"
-  #   render 'index'
-  # end
+  get "/:group/:type" do
+    @template_group = TemplateGroup.from_folder(params[:group], params[:type])
+    @behaviors      = @template_group.behaviors
 
-  # get :sample, :map => "/sample/url", :provides => [:any, :js] do
-  #   case content_type
-  #     when :js then ...
-  #     else ...
-  # end
-
-  # get :foo, :with => :id do
-  #   "Maps to url '/foo/#{params[:id]}'"
-  # end
-
-  # get "/example" do
-  #   "Hello world!"
-  # end
-
-  get :id do
-
+    render "template_content_fields/list"
+    
   end
 end

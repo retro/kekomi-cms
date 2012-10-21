@@ -12,11 +12,11 @@ class TemplateGroup
     end
   end
 
-  def self.all
+  def self.all(type = :page) 
     Dir.glob(File.join(PADRINO_ROOT, "theme", "templates", '*')).select { |f|
       File.directory? f
       }.map { |folder| 
-        self.new(folder)
+        self.new(folder, type)
       }
   end
 
@@ -35,7 +35,7 @@ class TemplateGroup
   end
 
   def behaviors
-    return nil if node_type.type_behaviors.nil?
+    return [] if node_type.type_behaviors.nil?
 
     Behavior::Registry.behaviors.map { |behavior|
       # List all registered behaviors and create hash from each
@@ -60,6 +60,14 @@ class TemplateGroup
       end
       behavior
     }.reject { |behavior| behavior[:templates].blank? } # filter out behaviors without assigned templates
+  end
+
+  def content_type_for_behavior(behavior)
+    TemplateContentField.content_type_name(base_folder, @type, behavior)
+  end
+
+  def base_folder
+    @folder.split(File.join(PADRINO_ROOT, "theme", "templates")).last[1..-1]
   end
 
   def templates

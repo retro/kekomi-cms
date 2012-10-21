@@ -1,0 +1,5 @@
+json.data(@behaviors) do |behavior|
+  json.id behavior[:id]
+  json.content_template @template_group.content_type_for_behavior(behavior[:id])
+end
+json.count @behaviors.count

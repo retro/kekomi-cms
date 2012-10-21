@@ -1,0 +1,5 @@
+json.data(@node_types) do |node_type|
+  json.id node_type[:id]
+  json.name node_type[:name]
+end
+json.count @node_types.count

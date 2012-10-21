@@ -30,11 +30,13 @@ steal(
 		}
 	}, {
 		init : function(){
-			if(this.options.isPageContent){
+			/*if(this.options.isPageContent){
 				this.render([]);
 			} else {
 				$.when(Admin.Models.Page.findAll({})).then(this.proxy('render'));
-			}
+			}*/
+			console.log(this.options.model)
+			this.render([])
 			
 		},
 		render : function(pages){

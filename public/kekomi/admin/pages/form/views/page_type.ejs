@@ -1,0 +1,5 @@
+<% if(this.model){ %>
+	<div <%= (el)-> console.log(el.admin_content_form({model: (new model), contentType: contentType, isPageContent: true })) %>></div>
+<% } else { %>
+	<div class="alert alert-info">This template group has no editable fields.</div>
+<% } %>

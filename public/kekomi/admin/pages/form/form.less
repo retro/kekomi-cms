@@ -1,16 +1,9 @@
 @import "../../style/elements/elements.less";
 
 .admin_pages_form {
-
-	
 	.calculated-path {
 		margin-bottom: 0;
 		font-size: 11px;
-	}
-	.acts-as-content-section-wrap {
-		float: left;
-		width: 220px;
-		margin-right: 15px;
 	}
 	.content-section-wrap, .page-content-type-wrap {
 		padding-top: 5px;
@@ -18,96 +11,28 @@
 			width: 565px;
 		}
 	}
-	.behaviors-wrapper {
-		.templates {
-			margin-left: 17px;
-			.unstyled {
-				margin: 0;
-				li {
-					margin-bottom: 5px;
-					background: #f0f0f0;
-					padding: 5px;
-					.rounded();
-					&:last-child {
-						margin-bottom: 0;
-					}
-				}
-			}
+	select#page_node_type, select#page_template_group {
+		width: 798px;
+	}
+	.content-slots-categories ul.nav-tabs {
+		margin-left: -20px;
+		margin-right: -20px;
+		padding: 0 20px;
+	}
+	.template-group-wrap {
+		display: none;
+	}
+	#page_link_url {
+		width: 790px;
+	}
+	.admin_content_form {
+		margin: 0 0 0 -20px;
+		.form-wrapper {
+			margin: 0;
+			.box-shadow(none);
 		}
-		.behaviors {
-			margin: 0 -20px;
-			padding: 0 20px;
-			.behavior {
-				border-bottom: 1px solid #e0e0e0;
-				padding: 10px 0 10px; 
-				clear: both;
-
-				&:last-child {
-					border-bottom: none;
-				}
-			}
-			.behavior-path {
-				font-size: 11px;
-				font-family: Monaco, Consolas, "Courier New" monospace;
-				font-weight: bold;
-				display: inline-block;
-				margin-top: -2px;
-				line-height: 15px;
-				color: #666;
-			}
-
-			span.label {
-				width: 30px;
-				height: 12px;
-				line-height: 12px;
-				text-align: center;
-				text-transform: uppercase;
-				font-size: 10px;
-				display: inline-block;
-				margin-right: 3px;
-			}
-			.template-filename {
-				font-size: 11px;
-				color: #666;
-				display: inline-block;
-				float: right;
-				margin-right: 5px;
-			}
-			.template-slots {
-				margin: 0;
-				.template-slots-table-wrap {
-					margin: -3px -2px;
-					table {
-						width: 100%;
-						border-collapse: collapse;
-						.slot-name {
-							
-						}
-						th {
-							padding: 5px 5px 2px;
-						}
-						td {
-							padding: 3px 5px;
-							background: white;
-							border: 3px solid #f0f0f0;
-							&.pick-slot {
-								width: 200px;
-								padding: 3px;
-								select {
-									margin: 0;
-									height: 20px;
-									width: 200px;
-									padding: 0;
-								}
-								&:hover {
-									color: #0088cc;
-								}
-							}
-						}
-					}
-				}
-				
-			}
+		form {
+			margin-bottom: -1px;
 		}
 	}
 }

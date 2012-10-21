@@ -1,19 +1,19 @@
 steal('can/model', 'can/observe/attributes', 'can/observe/validations', 'can/model/list', 'can/model/elements', function(){
 
-
 /**
- * @class Admin.Models.Template
+ * @class Admin.Models.NodeType
  * @parent index
  * @inherits can.Model
- * Wraps backend page services.  
+ * Wraps backend node type services.  
  */
-can.Model('Admin.Models.Template',
+can.Model('Admin.Models.TemplateGroup',
 /* @Static */
 {
-	findAll : "/templates/{group}/{type}"
+	findAll : "/template_groups"
 },
 /* @Prototype */
 {
+
 });
 
 

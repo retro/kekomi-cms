@@ -44,6 +44,68 @@ steal(
 
 	can.Control('Admin.Pages.Form', {}, {
 		init : function(){
+			$.when(Admin.Models.Page.findAll({}), 
+				   Admin.Models.NodeType.findAll({}), 
+				   Admin.Models.TemplateGroup.findAll({})).then(this.proxy("render"))
+		},
+		render : function(nodes, nodeTypes, templateGroups){
+			nodes          = nodes[0];
+			nodeTypes      = nodeTypes[0];
+			templateGroups = templateGroups[0];
+
+			this.element.html(this.view('init', {
+				page           : this.options.page,
+				tree           : renderTree(nodes),
+				nodeTypes      : nodeTypes,
+				templateGroups : templateGroups
+			})).addClass('paper-form');
+
+			this.element.find('form').admin_util_form({
+				model: this.options.page
+			})
+		},
+		'#page_node_type change' : 'loadTemplates',
+		'#page_template_group change' : 'loadTemplates',
+		loadTemplates : function(){
+			this.type = this.element.find('#page_node_type').val();
+			this.templateGroup = this.element.find('#page_template_group').val();
+			if(this.type === "link"){
+				this.element.find('.template-group-wrap').hide();
+				this.element.find('.content-slots-categories').html(this.view('link_type'));
+			} else {
+				this.element.find('.content-slots-categories').empty();
+				if(this.type !== "" && this.templateGroup === ""){
+					this.element.find('.template-group-wrap').show();
+				} else if(this.type !== "" && this.templateGroup !== ""){
+					$.when(Admin.Models.ContentType.templateContentTypes(this.templateGroup, this.type)).then(this.proxy('renderTemplates'))
+				} else {
+					this.element.find('.template-group-wrap').hide();
+				}
+			}
+			
+		},
+		renderTemplates: function(behaviors, slots){
+			if(this.type === "page"){
+				var contentTypeName = "TemplateContentType0" + this.templateGroup.classify() + "0Page0Page";
+				var contentType     = $.grep(Admin.Models.ContentType.all(), function(contentType){
+					return contentType.name === contentTypeName
+				})[0];
+				this.element.find('.content-slots-categories').html(this.view('page_type', {
+					model: Admin.Models.ContentTypes[contentTypeName],
+					contentType: contentType
+				}))
+			} else {
+				this.element.find('.content-slots-categories').html(this.view('content_slots_categories', {
+					behaviors: behaviors[0],
+					type: this.type
+				}));
+			}
+		}
+		
+	})
+
+	/*
+		init : function(){
 			window.page = this.options.page
 			if(typeof this.options.page.attr('behaviors') === "undefined"){
 				this.options.page.attr('behaviors', {});
@@ -57,15 +119,7 @@ steal(
 
 			this.template = Admin.Models.Template.all().getByPath(this.options.page.template)[0]
 
-			this.element.html(this.view('init', {
-				page          : this.options.page,
-				tree          : renderTree(this.pages),
-				templates     : this.templates,
-				content_types : Admin.Models.ContentType.all()
-			})).addClass('paper-form');
-			this.element.find('form').admin_util_form({
-				model: this.options.page
-			})
+			
 			this.updatePath(this.options.page.slug);
 			this.showBehaviors();
 			if(!this.options.page.isNew()){
@@ -177,5 +231,5 @@ steal(
 		" hidden" : function(){
 			this.element.remove();
 		}
-	})
+	*/
 })

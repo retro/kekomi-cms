@@ -1,5 +1,3 @@
-require 'pp'
-
 class TemplateContentField
 
   attr_reader :parent, :id
@@ -13,7 +11,7 @@ class TemplateContentField
     end
   end
 
-  def self.find(folder, type, behavior)
+  def self.fields_for_behavior(folder, type, behavior)
     content_fields = {}
     behavior       = TemplateGroup.from_folder(folder, type).behaviors.select { |b| b[:id] === behavior.to_sym }
     return nil if behavior.blank?
@@ -24,7 +22,7 @@ class TemplateContentField
   end
 
   def self.content_type_for(folder, type, behavior)
-    content_fields = self.find(folder, type, behavior)
+    content_fields = self.fields_for_behavior(folder, type, behavior)
     fields         = {}
     return nil if content_fields.nil?
     
@@ -55,7 +53,11 @@ class TemplateContentField
   end
 
   def self.content_type_name(folder,type,behavior)
-    "TemplateContentType0#{folder.classify}0#{type.classify}0#{behavior.classify}"
+    "TemplateContentType0#{folder.to_s.classify}0#{type.to_s.classify}0#{behavior.to_s.classify}"
+  end
+
+  def self.fields_for_template_group(folder, type)
+    behaviors = TemplateGroup.from_folder(folder, type)
   end
 
   def initialize(file)

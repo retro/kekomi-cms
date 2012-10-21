@@ -3,9 +3,12 @@ steal('can/model', 'can/observe/attributes', 'can/observe/validations', 'can/mod
 var contentTypesCache;
 
 var generateContentTypeClass = function(contentType, isPageContent){
-	var modelName, modelEndpoint, match, actions = {};
+	var modelName, modelEndpoint, match, nameParts = [], actions = {};
 	isPageContent = isPageContent || false;
-	modelName     = contentType.name.replace(/ /g, '');
+
+
+	modelName = contentType.name.replace(/ /g, '');
+	
 	if(isPageContent === false){
 		modelEndpoint = modelName.underscore(); // AdminTest => admin_test
 		actions = {
@@ -16,17 +19,18 @@ var generateContentTypeClass = function(contentType, isPageContent){
 			destroy : "/content/" + modelEndpoint + "/{id}",
 			representedWith: contentType.represented_with
 		}
+	} else {
+		actions = {
+			behavior: contentType.behavior
+		}
 	}
 	
 
 	return can.Model('Admin.Models.ContentTypes.' + modelName, $.extend(actions, {
 		humanizedName : function(){
-			var match = this._shortName.match(/page_content_(\w+)_behavior/);
-			if(match !== null){
-				return match[1].humanize();
-			}
 			return this._shortName.humanize();
-		}})
+		}
+	})
 	, {
 		init : function(){
 			if(this.isNew() && !isPageContent){
@@ -68,13 +72,24 @@ can.Model('Admin.Models.ContentType',
 	all : function(){
 		return contentTypesCache;
 	},
-	templateContentType : function(folder, type, behavior, success){
-		var url = can.sub("/content_types/{folder}/{type}/{behavior}", {folder: folder, type: type, behavior: behavior});
-		return $.get(url, function(contentType){
-			contentType = Admin.Models.ContentType.model(contentType)
-			generateContentTypeClass(contentType, true)
-			success(contentType);
-		}, 'json');
+	templateContentTypes : function(folder, type){
+		var url = can.sub("/content_types/{folder}/{type}", {folder: folder, type: type});
+		return $.ajax(url, {
+			dataType: "templatecontenttypes",
+			converters: {
+				"json templatecontenttypes": function(data){
+					var types = [];
+					for(var i = 0; i < data.data.length; i++){
+						if(data.data[i].fields.length > 0){
+							contentTypesCache.push(Admin.Models.ContentType.model(data.data[i]))
+							types.push(generateContentTypeClass(data.data[i], true))
+						}
+					}
+					return types;
+				}
+			}
+		})
+
 	}
 },
 /* @Prototype */
