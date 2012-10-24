@@ -12,12 +12,20 @@ class NodeTypeRegistry
   end
 
   def self.all
-    types.map do |name, klass|
-      {
+    order = [:site, :page, :link]
+    types.each do |name, klass|
+      node_type = {
         id: name,
         name: klass.to_s.demodulize[0..-5].humanize
       }
+      index = order.index(name.to_sym)
+      if index.nil?
+        order << node_type
+      else
+        order[index] = node_type
+      end
     end
+    order
   end
 
 end

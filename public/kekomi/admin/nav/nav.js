@@ -1,8 +1,11 @@
 steal('admin/mvc.js', 'admin/vendor/inflection', 'steal/less').then('./nav.less', function(){
 	can.Control('Admin.Nav', {}, {
 		init : function(){
+			this.contentTypes = Admin.Models.ContentType.all().grep(function(contentType){
+				return contentType.attr('assigned') === true;
+			});
 			this.element.html(this.view('init', {
-				contentTypes: Admin.Models.ContentType.all()
+				contentTypes: this.contentTypes
 			}))
 		},
 		".dropdown-toggle click" : function(el, ev){
@@ -22,9 +25,12 @@ steal('admin/mvc.js', 'admin/vendor/inflection', 'steal/less').then('./nav.less'
 		},
 		'{Admin.Models.Page} created' : function(Page, ev, page){
 			var contentType;
-			if(page.section_content_type && page.section_content_type !== ""){
-				contentType = Admin.Models.ContentType.all().get(page.section_content_type)[0];
-				contentType.attr('assigned', true);
+			if(page.node_type && page.node_type !== ""){
+				contentType = Admin.Models.ContentType.all().get(page.node_type)[0];
+				if(contentType){
+					contentType.attr('assigned', true);
+					this.contentTypes.push(contentType)
+				}
 			}
 		}
 	})

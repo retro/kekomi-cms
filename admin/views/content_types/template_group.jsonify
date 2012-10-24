@@ -2,6 +2,7 @@ json.data(@content_types) do |content_type|
   json.id               content_type[:name].underscore
   json.name             content_type[:name]
   json.behavior         content_type[:name].split('0').last.underscore
+  json.rendered_with    content_type[:rendered_with]
   json.represented_with content_type[:name].constantize.represented_with
   json.fields           content_type[:fields].map {|f| { name: f.first, type: f.last } }
 end

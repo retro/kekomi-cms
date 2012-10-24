@@ -35,7 +35,6 @@ steal(
 			} else {
 				$.when(Admin.Models.Page.findAll({})).then(this.proxy('render'));
 			}*/
-			console.log(this.options.model)
 			this.render([])
 			
 		},

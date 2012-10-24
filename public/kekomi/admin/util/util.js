@@ -21,4 +21,9 @@ steal('./slugify.js', function(){
 			return this;
 		}
 	}
+	window.H = {
+		isBlank : function(value){
+			return !(value && (value !== "" || (value.length && value.length > 0)));
+		}
+	}
 })

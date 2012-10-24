@@ -1,22 +1,23 @@
 
 	<a href="<%= can.route.url({type: "pages", action: "list"}) %>" class="btn nav-links"><i class="icon-sitemap icon-large"></i> Pages</a>
-	<div class="btn-group nav-links">
-		<a class="btn dropdown-toggle" data-toggle="dropdown" href="javascript://">
-			<i class="icon-file icon-large"></i>
-			Content
-			<span class="caret"></span>
-		</a>
-		<ul class="dropdown-menu">
-			<% contentTypes.each(function(contentType){ %>
-				<% if(contentType.attr('assigned')){ %>
+	<% if(contentTypes.attr('length') > 0){ %>
+		<div class="btn-group nav-links">
+			<a class="btn dropdown-toggle" data-toggle="dropdown" href="javascript://">
+				<i class="icon-file icon-large"></i>
+				Content
+				<span class="caret"></span>
+			</a>
+			<ul class="dropdown-menu">
+				<% contentTypes.each(function(contentType){ %>
 					<li>
 						<a href="<%= can.route.url({type: "content", content_type: contentType.attr('id'), action: "list"}) %>">
 							<%= contentType.attr('name').pluralize() %>
 						</a>
 					</li>
-				<% } %>
-			<% }) %>
-		</ul>
-	</div>
+				<% }) %>
+			</ul>
+		</div>
+	<% } %>
+	
 	<a href="<%= can.route.url({type: "asset_manager", action: "list"}) %>" class="btn nav-links"><i class="icon-folder-open icon-large"></i> Assets</a>
 	<a href="<%= can.route.url({type: "slots", action: "list"}) %>" class="btn nav-links"><i class="icon-paper-clip icon-large"></i> Slots</a>

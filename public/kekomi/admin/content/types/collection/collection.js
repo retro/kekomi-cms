@@ -25,6 +25,7 @@ steal(
 				this.options.model.attr(this.options.attr, [])
 			}
 			this.allowed = Admin.Models.FieldType.all().get(this.options.fieldType.allowed)[0];
+			console.log(curVal, this.options.attr)
 			this.element.html(this.view('init.ejs', {
 				fieldType: this.options.fieldType,
 				field: this.options.field,

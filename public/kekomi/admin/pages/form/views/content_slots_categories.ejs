@@ -1,12 +1,23 @@
 <ul class="nav nav-tabs content-tabs" <%= (el)-> loadFirstTab(el) %>>
-	<% for(var i = 0; i < behaviors.length; i++){ %>
-		<li>
-			<a href="<%= can.route.url({settings: "behaviors", behavior: behaviors[i].behavior}, true) %>">
-				<%= behaviors[i].behavior.humanize() %>
+	<% if(behaviors.length > 0){ %>
+		<li class="dropdown behaviors-tab">
+			<a href="<%= can.route.url({settings: "behaviors", behavior: behaviors[0].behavior}, true) %>" class="dropdown-toggle">
+				<b class="icon-file"></b>
+				Content
+				<b class="caret"></b>
 			</a>
+			<ul class="dropdown-menu">
+				<% for(var i = 0; i < behaviors.length; i++){ %>
+					<li>
+						<a href="<%= can.route.url({settings: "behaviors", behavior: behaviors[i].behavior}, true) %>">
+							<%= behaviors[i].behavior.humanize() %>
+						</a>
+					</li>
+				<% } %>
+			</ul>
 		</li>
 	<% } %>
-	<li><a href="<%= can.route.url({settings: "slots"}, true) %>">Slots</a></li>
-	<li><a href="<%= can.route.url({settings: "categories"}, true) %>">Categories</a></li>
+	<li class="slots-tab"><a href="<%= cleanRouteUrl({settings: "slots"}, ['behavior']) %>"><b class="icon-paper-clip"></b>Slots</a></li>
+	<li class="categories-tab"><a href="<%= cleanRouteUrl({settings: "categories"}, ['behavior']) %>"><b class="icon-tags"></b>Categories</a></li>
 </ul>
 <div class="tab-content"></div>

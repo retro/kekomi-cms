@@ -16,7 +16,7 @@ class Node
   field :slug
   field :title
   field :slots, :type => Hash
-  field :template
+  field :template_group
   field :position, :type => Integer
 
   def self.register_behaviors(type_behaviors)
@@ -35,7 +35,7 @@ class Node
 
       define_method "#{behavior}_content=" do |content|
 
-        raise NoMethodError unless self.behaviors_with_content.include?(behavior)
+        return unless self.behaviors_with_content.include?(behavior)
 
         @_serialize_content ||= []
         @_serialize_content << behavior unless @_serialize_content.include? behavior
@@ -50,7 +50,7 @@ class Node
 
       define_method "#{behavior}_content" do 
 
-        raise NoMethodError unless self.behaviors_with_content.include?(behavior)
+        return unless self.behaviors_with_content.include?(behavior)
 
         @_serialize_content ||= []
         @_serialize_content << behavior unless @_serialize_content.include? behavior
@@ -63,7 +63,7 @@ class Node
           content = content_klass_for_behavior(behavior).new(content)
         end
 
-        write_attribute "#{behavior}_content", content
+        #write_attribute "#{behavior}_content", content
 
         content
 
@@ -85,7 +85,7 @@ class Node
   before_create :set_position
 
   def behaviors
-    return [] if template.nil?
+    return [] if template_group.nil?
     templates.behaviors.map do |behavior|
       behavior[:id].to_s
     end
@@ -110,6 +110,28 @@ class Node
     end
   end
 
+  def serialized_behavior_content(behavior)
+    content = self.send("#{behavior}_content")
+    return content if content.nil?
+    data = {}
+    content.class.serializable_fields.each_pair do |key, value|
+      if value.to_s.split("::")[-2] == "Compound"
+        compound = []
+        values = content.send(key)
+        values.each do |value|
+          compound << { value: value, type: value.class.to_s.demodulize.underscore }
+        end
+        data[key] = compound
+      else
+        field_data = content.send(key)
+        field_data = field_data.respond_to?(:serialize) ? field_data.serialize : field_data
+        data[key]  = field_data
+      end
+    end
+
+    data
+  end
+
   def set_position
     self.position = self.siblings.size
   end
@@ -119,7 +141,7 @@ class Node
   end
 
   def templates
-    TemplateGroup.from_folder(template, node_type)
+    TemplateGroup.from_folder(template_group, node_type)
   end
 
   def template_fields
@@ -131,7 +153,7 @@ class Node
       files          = b[:templates]
       TemplateGroup::ALLOWED_EXTENSIONS.each do |ext|
         unless files[ext].nil?
-          fields[b[:id]].reverse_merge! TemplateContentField.new(File.join(template, files[ext])).fields
+          fields[b[:id]].reverse_merge! TemplateContentField.new(File.join(template_group, files[ext])).fields
         end
       end
       fields.delete(b[:id]) if fields[b[:id]].blank?
@@ -146,7 +168,7 @@ class Node
 
   def content_klass_for_behavior(behavior)
     return nil unless behaviors_with_content.include? behavior
-    TemplateContentField.content_type_for(template, node_type, behavior)
+    TemplateContentField.content_type_for(template_group, node_type, behavior)
   end
 
   def has_editable_fields?
@@ -154,7 +176,7 @@ class Node
       files = b[:templates]
       TemplateGroup::ALLOWED_EXTENSIONS.each do |ext|
         unless files[ext].nil?
-          return true unless TemplateContentField.new(File.join(template, files[ext])).fields.blank?
+          return true unless TemplateContentField.new(File.join(template_group, files[ext])).fields.blank?
         end
       end
     end
@@ -176,7 +198,8 @@ class Node
   private
 
     def name_for_content_klass(behavior)
-      return "PageContent#{behavior.to_s.classify}Behavior#{id}"
+      type = self.class.to_s.demodulize[0...-4]
+      return TemplateContentField.content_type_name(template_group, type, behavior)
     end
 
 end

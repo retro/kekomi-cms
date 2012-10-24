@@ -5,7 +5,8 @@ steal(
 'admin/util/form',
 'admin/util',
 'admin/vendor/base64',
-'admin/vendor/chosen'
+'admin/vendor/chosen',
+'jquery/event/hover'
 ).then('./form.less', function(){
 
 	var calculatePath = function(pages, parentId, slug){
@@ -42,8 +43,17 @@ steal(
 		return html.join("");
 	}
 
+	var cleanRouteUrl = function(hash, removeAttrs){
+		var attrs = can.route.attr();
+		for(var i = 0; i < removeAttrs.length; i++){
+			delete attrs[removeAttrs[i]];
+		}
+		return can.route.url($.extend(attrs, hash));
+	}
+
 	can.Control('Admin.Pages.Form', {}, {
 		init : function(){
+			window.page = this.options.page
 			$.when(Admin.Models.Page.findAll({}), 
 				   Admin.Models.NodeType.findAll({}), 
 				   Admin.Models.TemplateGroup.findAll({})).then(this.proxy("render"))
@@ -63,6 +73,11 @@ steal(
 			this.element.find('form').admin_util_form({
 				model: this.options.page
 			})
+
+			if(!H.isBlank(this.options.page.template_group)){
+				this.element.find('.template-group-wrap').show();
+				this.loadTemplates();
+			}
 		},
 		'#page_node_type change' : 'loadTemplates',
 		'#page_template_group change' : 'loadTemplates',
@@ -98,7 +113,8 @@ steal(
 				this.element.find('.content-slots-categories').html(this.view('content_slots_categories', {
 					behaviors: behaviors[0],
 					type: this.type,
-					loadFirstTab : this.proxy('loadFirstContentTab')
+					loadFirstTab : this.proxy('loadFirstContentTab'),
+					cleanRouteUrl: cleanRouteUrl
 				}));
 			}
 		},
@@ -113,19 +129,44 @@ steal(
 		"{can.route} settings change" : "loadContentTab",
 		"{can.route} behavior change" : "loadContentTab",
 		loadContentTab : function(){
-			this.element.find('ul.content-tabs li.active').removeClass('active');
-			this.element.find('ul.content-tabs a[href$="'+window.location.hash+'"]').closest('li').addClass('active')
-			if(can.route.attr('settings') === "behaviors"){
-				var behavior = can.route.attr('behavior');
-				var contentTypeName = ["TemplateContentType", this.templateGroup.classify(), this.type.classify(), behavior.classify()].join('0');
-				var contentType = Admin.Models.ContentTypes[contentTypeName]
-				this.element.find('.tab-content').html(this.view('behavior', {
-					model: (new contentType),
-					contentType : contentType.contentTypeDefinition()
-				}))
-			}
+			clearTimeout(this._loadTimeout);
+			this._loadTimeout = setTimeout(this.proxy(function(){
+				this.element.find('.tab-content').empty();
+				this.element.find('ul.content-tabs li.active').removeClass('active');
+				this.element.find('ul.content-tabs li.'+can.route.attr('settings')+'-tab').addClass('active');
+				if(can.route.attr('settings') === "behaviors"){
+					var behavior = can.route.attr('behavior');
+					var attrName = behavior + "_content";
+					var contentTypeName = ["TemplateContentType", this.templateGroup.classify(), this.type.classify(), behavior.classify()].join('0');
+					var contentType = Admin.Models.ContentTypes[contentTypeName];
+					var contentTypeDefinition = contentType.contentTypeDefinition();
+					var behaviorContent = this.options.page.attr(attrName) || {};
+					if($.isFunction(behaviorContent.attr)){
+						behaviorContent = behaviorContent.attr();
+					}
+					if(contentTypeDefinition.fields && contentTypeDefinition.fields.length > 0){
+						this.options.page.attr(attrName, new contentType(behaviorContent));
+					}
+					this.element.find('.tab-content').html(this.view('behavior', {
+						model: this.options.page.attr(attrName),
+						contentTypeDefinition : contentTypeDefinition
+					}))
+				}
+			}), 0)
+			
+		},
+		"li.dropdown hoverinit" : function(el){
+			clearTimeout(this._dropdownTimeout)
+			el.find('.dropdown-menu').fadeIn(100);
+		},
+		"li.dropdown hoverleave" : function(el){
+			this._dropdownTimeout = setTimeout(function(){
+				el.find('.dropdown-menu').fadeOut(100);
+			}, 100)
+		},
+		".dropdown-menu a click" : function(el){
+			el.closest('ul').hide();
 		}
-		
 	})
 
 	/*

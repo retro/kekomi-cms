@@ -1,9 +1,18 @@
-<form class="form-horizontal">
-	<div class="content-form form-wrapper">
-		<% list(contentType.attr('fields'), function(field, i){ %>
-			<div <%= (el)-> renderField(el, field, model, field.name)%> class="content-type-level"></div>
-		<% }) %>
-		<% if(!model.attr('isPageContent')){ %>
+<% if(model.attr('isPageContent')){ %>
+	<div class="form-horizontal">
+		<div class="content-form form-wrapper">
+			<% list(contentType.attr('fields'), function(field, i){ %>
+				<div <%= (el)-> renderField(el, field, model, field.name)%> class="content-type-level"></div>
+			<% }) %>
+		<div>
+	</div>
+<% } else { %>
+
+	<form class="form-horizontal">
+		<div class="content-form form-wrapper">
+			<% list(contentType.attr('fields'), function(field, i){ %>
+				<div <%= (el)-> renderField(el, field, model, field.name)%> class="content-type-level"></div>
+			<% }) %>
 			<div class="publish-options">
 				<div class="control-group">
 					<label class="control-label checkbox">
@@ -32,7 +41,8 @@
 			<div class="actions-bar clearfix">
 				<input type="submit" value="Save Page" class="btn btn-primary" />
 			</div>
-		<% } %>
-		
-	<div>
-</form>
+			
+		<div>
+	</form>
+
+<% } %>

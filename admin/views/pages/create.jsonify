@@ -1,10 +1,16 @@
 json.id                   @page.id
 json.name                 @page.name
 json.slug                 @page.slug
-json.template             @page.template
+json.template_group       @page.template_group
 json.parent_id            @page.parent_id
 json.parent_ids           @page.parent_ids
-json.section_content_type @page.section_content_type
+json.node_type            @page.node_type
 json.behaviors            @page.behaviors
 json.slots                @page.slots
 json.has_editable_fields  @page.has_editable_fields?
+@page.behaviors.each do |behavior|
+  behavior_content = @page.serialized_behavior_content(behavior)
+  unless behavior_content.blank?
+    json.send "#{behavior}_content", behavior_content
+  end
+end
