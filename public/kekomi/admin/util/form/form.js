@@ -28,6 +28,7 @@ steal('admin/mvc.js', 'admin/util/form_params', function(){
 			if($.isEmptyObject(errors)){
 				this.options.model.save(this.proxy('saved'));
 			} else {
+				console.log(errors)
 				showErrors.call(this, errors);
 			}
 		},

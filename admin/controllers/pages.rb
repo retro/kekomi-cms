@@ -24,9 +24,10 @@ Admin.controllers :pages, :provides => :json do
   end
 
   post "/" do
-    pp json_body
     klass = NodeTypeRegistry.types[json_body["node_type"].to_sym]
-    @page = klass.new json_body
+    @page = klass.new
+    @page.template_group = json_body.delete "template_group"
+    @page.attributes     = json_body
     @page.save
     render "pages/create"
   end

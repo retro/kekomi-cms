@@ -15,12 +15,13 @@ Admin.controllers :template_slots, :provides => :json do
     }.to_json
   end
 
-  get :index do
-    halt 404 if params[:ids].blank?
-    @template_slots = TemplateSlot.all(params[:ids])
-    render "template_slots/index"
+  get "/:folder/:type" do
+    slots = TemplateSlot.from_folder(params[:folder], params[:type])
+    {
+      id:    [params[:folder], params[:type]].join("_"),
+      slots: slots
+    }.to_json
   end
-
   
 
 end

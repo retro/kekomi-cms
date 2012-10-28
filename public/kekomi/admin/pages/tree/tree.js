@@ -32,21 +32,25 @@ steal(
 			Admin.Models.Page.findAll({}, this.proxy('render'));
 		},
 		" sortstop" : function(el, ev, ui){
-			var tree = this.element.find('.pages-wrapper ol:first').nestedSortable('toArray', {startDepthCount: 0}),
+
+			var wrapper = $(ui.item).closest('.tree-wrapper'),
+				siteId  = wrapper.data('site-id'),
+				tree    = wrapper.find('> ol').nestedSortable('toArray', {startDepthCount: 0}),
 				page, parentId, pageModel, positions = {};
+
 			for(var i = 0; i < tree.length; i++){
 				page = tree[i];
-				parentId = tree[i].parent_id;
+				parentId = page.parent_id === "root" ? siteId : page.parent_id;
+
 				if(page.item_id === "root"){
 					continue;
 				}
+
 				pageModel = this.pages.get(page.item_id)[0];
-				positions[page.parent_id] = positions[page.parent_id] || 0;
-				++positions[page.parent_id];
-				if(parentId === "root"){
-					parentId = null;
-				}
-				pageModel.attr({parent_id: parentId, position: (positions[page.parent_id] - 1)})
+				positions[parentId] = positions[parentId] || 0;
+				++positions[parentId];
+
+				pageModel.attr({parent_id: parentId, position: (positions[parentId] - 1)})
 				pageModel.save();
 			}
 		}

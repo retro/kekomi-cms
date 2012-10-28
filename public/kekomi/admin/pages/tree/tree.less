@@ -1,6 +1,8 @@
 @import "../../style/elements/elements.less";
 
 .admin_pages_tree {
+	margin: 0 auto;
+	width: 960px;
 	.page-wrapper {
 		background-color: #0088CC;
 		color: #FFFFFF;
@@ -13,25 +15,41 @@
 		.actions {
 			float: right;
 			margin-right: -5px;
+			a {
+				text-decoration: none;
+			}
 			i {
 				font-size: 16px;
 				color: #66b8e0;
 				cursor: pointer;
+				width: 25px;
+				display: inline-block;
+				text-align: center;
 				&:hover {
 					color: white;
 				}
 			}
 		}
+		.url, .node-type, .children-count {
+			float: right;
+			width: 100px;
+			margin-right: 10px;
+		}
+		.url {
+			width: 250px;
+		}
+	}
+	.site-wrapper {
+		background: #333;
+		.actions i {
+			color: #666;
+		}
 	}
 	ol {
-		margin-left: 0;
+		margin-left: 30px;
 		list-style: none;
 	}
-	ol ol {
-		margin-left: 30px;
-	}
 	.placeholder {
-		background: red;
 		margin-bottom: 5px;
 		background-color: #0088CC;
 		opacity: 0.3;

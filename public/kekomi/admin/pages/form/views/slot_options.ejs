@@ -1,0 +1,10 @@
+<% var defSlot     = templateSlots.defaultSlotFor(currentSlot) %>
+<% var pageCurrent = pageSlots[currentSlot] %>
+<% var isActive    = false %>
+<option value="">Default (<%= defSlot ? defSlot.name : "No slot" %>)</option>
+<% for(var i = 0; i < existingSlots.length; i++){ %>
+	<% isActive = existingSlots[i].id === pageCurrent %>
+	<option <%= isActive ? "selected" : "" %> value="<%= existingSlots[i].id %>">
+		-- <%= existingSlots[i].name %>
+	</option>
+<% } %>

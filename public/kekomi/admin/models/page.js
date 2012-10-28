@@ -16,7 +16,7 @@ can.Model('Admin.Models.Page',
 	destroy : "/pages/{id}",
 	validations : {},
 	init : function(){
-		this.validatePresenceOf(['name', 'slug']);
+		this.validatePresenceOf(['name']);
 	}
 },
 /* @Prototype */
@@ -27,13 +27,28 @@ can.Model('Admin.Models.Page',
 		if(serialized.parent_id === null){
 			serialized.parent_id = "";
 		}
+		if(this.node_type === "site"){
+			delete serialized.slug;
+			delete serialized.parent_id;
+		} else {
+			delete serialized.domain;
+			delete serialized.language;
+		}
 		return serialized;
 	},
 	hasBehaviors : function(){
 		return !$.isEmptyObject(this.attr('behaviors').attr())
 	},
 	hasSectionContentType : function(){
-		return this.section_content_type !== "";
+		return typeof Admin.Models.ContentTypes[this.node_type.camelize()] !== "undefined";
+	},
+	url : function(prevPart){
+		var url = [(this.node_type === "site" ? this.language : this.slug)]
+		if(!H.isBlank(prevPart)){
+			url.unshift(prevPart)
+		}
+		url = url.join('/');
+		return url.charAt(0) !== "/" ? "/" + url : url;
 	}
 });
 

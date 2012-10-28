@@ -24,6 +24,7 @@ steal(
 			var values   = sections.map(function(){
 				return $(this).data('type');
 			}).get().unique();
+			console.log(values)
 			var rulesOptions = {
 				selectedContentTypes: values,
 				rules: this.options.slot.attr('rules'),

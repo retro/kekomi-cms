@@ -27,6 +27,7 @@ gem 'rmagick'
 gem 'mime-types'
 gem 'exifr'
 gem 'color_namer'
+gem 'language_list'
 # Test requirements
 
 # Padrino Stable Gem

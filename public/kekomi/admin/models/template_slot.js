@@ -14,18 +14,25 @@ can.Model('Admin.Models.TemplateSlot',
 	update       : "/template_slots/{id}",
 	defaultSlots : function(success, error){
 		return this.findOne({id: 'default'}, success, error)
+	},
+	byFolderAndType : function(folder, type, success, error){
+		return this.findOne({id: [folder,type].join("/")}, success, error)
 	}
 },
 /* @Prototype */
 {
 	defaultSlotFor: function(slotName){
-		if(typeof this._defaultSlotMappings === "undefined"){
-			this._defaultSlotMappings = {};
-			for(var i = 0; i < this.slots.length; i++){
-				this._defaultSlotMappings[this.slots[i].template_slot] = this.slots[i].slot_id;
-			}
+		return this._defaultSlotMappings ? (this._defaultSlotMappings[slotName] || null) : null;
+	},
+	setDefaultMappings : function(mappings){
+		this._defaultSlotMappings = {};
+		for(var i = 0; i < mappings.length; i++){
+			var mapping = mappings[i];
+			this._defaultSlotMappings[mapping.template_slot] = mapping.slot_id ? {
+				name: mappings[i].slot_name,
+				id:   mappings[i].slot_id
+			} : null
 		}
-		return this._defaultSlotMappings[slotName] ? this._defaultSlotMappings[slotName] : null;
 	}
 });
 

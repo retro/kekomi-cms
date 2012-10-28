@@ -4,17 +4,30 @@
 		<fieldset>
 			<div class="basic-wrap">
 				<div class="control-group">
+					<label for="page_node_type" class="control-label">Node Type</label>
+					<div class="controls">
+						<select name="page[node_type]" id="page_node_type">
+							<option value="">Select Type</option>
+							<% for(var i = 0; i < nodeTypes.length; i++){ %>
+								<% if(hasSiteNode || nodeTypes[i].id === "site"){ %>
+									<option value="<%= nodeTypes[i].id %>"><%= nodeTypes[i].name %></option>
+								<% } %>
+							<% } %>
+						</select>
+					</div>
+				</div>
+				<div class="control-group">
 					<label class="control-label" for="page_name">Name</label>
 					<div class="controls">
 						<input id="page_name" class="span3" type="text" size="16" name="page[name]">
 					</div>
 				</div>
-				<div class="clearfix">
+				<div class="clearfix parent-and-slug">
 					<div class="control-group parent-wrap">
-						<label class="control-label" for="page_parent_id">Parent page</label>
+						<label class="control-label" for="page_parent_id">Parent Node</label>
 						<div class="controls">
 							<select id="page_parent_id" name="page[parent_id]">
-								<option value="">Root</option>
+								<option value="">--</option>
 								<%== tree %>
 							</select>
 						</div>
@@ -27,17 +40,32 @@
 						</div>
 					</div>
 				</div>
-				<div class="control-group">
-					<label for="page_node_type" class="control-label">Type</label>
-					<div class="controls">
-						<select name="page[node_type]" id="page_node_type">
-							<option value="">Select Type</option>
-							<% for(var i = 0; i < nodeTypes.length; i++){ %>
-								<option value="<%= nodeTypes[i].id %>"><%= nodeTypes[i].name %></option>
-							<% } %>
-						</select>
+
+				<div class="clearfix site-properties">
+					<div class="control-group parent-wrap">
+						<label class="control-label" for="page_language">Language</label>
+						<div class="controls">
+							<select id="page_language" name="page[language]">
+								<option value="">Select Language</option>
+								<option value="">--</option>
+								<% for(var i = 0; i < languages.length; i++){ %>
+									<option value="<%= languages[i].id %>"><%= languages[i].name %></option>
+									<% if(languages[i].id === "pt"){ %>
+										<option value="">--</option>
+									<% } %>
+								<% } %>
+							</select>
+						</div>
+					</div>
+					<div class="control-group slug-wrap">
+						<label class="control-label" for="page_domain">Domain</label>
+						<div class="controls">
+							<input id="page_domain" class="span3" type="text" size="16" name="page[domain]">
+							<p class="help-block calculated-path"><b>Full path: </b><span></span></p>
+						</div>
 					</div>
 				</div>
+				
 				<div class="control-group template-group-wrap">
 					<label for="page_template_group" class="control-label">Template Group</label>
 					<div class="controls">

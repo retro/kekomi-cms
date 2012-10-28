@@ -15,7 +15,7 @@ class Node
 
   field :slug
   field :title
-  field :slots, :type => Hash
+  
   field :template_group
   field :position, :type => Integer
 
@@ -63,7 +63,7 @@ class Node
           content = content_klass_for_behavior(behavior).new(content)
         end
 
-        #write_attribute "#{behavior}_content", content
+        write_attribute "#{behavior}_content", content
 
         content
 
@@ -104,6 +104,7 @@ class Node
           content.serialize_fields
           attrs = content.attributes
           attrs.delete "_id"
+          attributes.delete(attribute.to_s)
           attributes[attribute] = attrs
         end
       end
@@ -163,7 +164,7 @@ class Node
   end
 
   def behaviors_with_content
-    template_fields.keys.map(&:to_s)
+    template_fields ? template_fields.keys.map(&:to_s) : []
   end
 
   def content_klass_for_behavior(behavior)

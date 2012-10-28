@@ -24,11 +24,35 @@ class TemplateSlot
     all_slots.uniq.sort
   end
 
-  def self.from_folder(folder)
+  def self.from_folder(folder, type = nil)
     templates_dir = File.join(PADRINO_ROOT, 'theme', 'templates', folder)
-    glob          = File.join(templates_dir, '*.{html,json,js,rss,xml}')
+    glob          = File.join(templates_dir, "*.{#{TemplateGroup::ALLOWED_EXTENSIONS.join(',')}}")
     all_slots     = []
-    Dir.glob(glob).each do |file|
+    files         = Dir.glob(glob)
+
+    unless type.nil?
+
+      behaviors = "NodeTypes::#{type.classify}Node".constantize.type_behaviors
+      possible_files = behaviors.map{ |behavior| 
+        behavior_files = []
+        TemplateGroup::ALLOWED_EXTENSIONS.each do |ext|
+          typed_file = File.join(templates_dir, "#{behavior}_#{type}.#{ext}")
+          if files.include? typed_file
+            behavior_files << typed_file
+          else
+            behavior_files << File.join(templates_dir, "#{behavior}.#{ext}")
+          end
+        end
+        behavior_files
+      }.flatten
+
+      files.select! do |file|
+        possible_files.include? file
+      end
+
+    end
+    
+    files.each do |file|
       slots = TemplateSlot.new(file.split('/')[-2..-1].join('/')).slots
       all_slots += slots
     end

@@ -43,7 +43,6 @@ class TemplateContentField
 
     Kekomi::ContentTypes.add_without_base klass_name do
 
-      attr_accessor :page_content_id
 
       fields.each_pair do |field_name, type|
         field field_name, type: type

@@ -2,6 +2,31 @@
 	<div class="alert alert-info">There are no pages. <a href="<%= can.route.url({action: "new"}, true) %>" class="add-page">Add page</a></div>
 <% } else { %>
 	<div class="pages-wrapper">
-		<%== can.view.render("//admin/pages/tree/views/leaf.ejs", {children: pages.childrenOf(), pages: pages}) %>
+		<% var sites = pages.childrenOf(); %>
+		<% for(var i = 0; i < sites.length; i++){ %>
+			<div class="page-wrapper site-wrapper clearfix">
+				<div class="name">
+						<i class="icon-<%= sites[i].node_type === "site" ? "sitemap" : "sort" %>"></i>
+						<%= sites[i].name %>
+					</div>
+					
+					<div class="actions">
+						<a href="<%= can.route.url({type: "pages", action: "edit", id: sites[i].id }) %>">
+							<i class="icon-pencil page-settings"></i>
+						</a>
+						<i class="icon-remove-sign remove-page"></i>
+					</div>
+
+					
+					<div class="url"><%= sites[i].url() %></div>
+			</div>
+			<div class="tree-wrapper" data-site-id="<%= sites[i].id %>">
+				<%== can.view.render("//admin/pages/tree/views/leaf.ejs", {
+					children   : pages.childrenOf(sites[i].id), 
+					pages      : pages, 
+					currentUrl : sites[i].url()
+				}) %>
+			</div>
+		<% } %>
 	</div>
 <% } %>

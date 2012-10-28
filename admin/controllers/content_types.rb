@@ -4,6 +4,10 @@ Admin.controllers :content_types, :provides => :json do
     @content_types = Kekomi::ContentTypes::Store.instance.content_types_metadata.select do |metadata|
       metadata[:name].match(/TemplateContentType(.*)/).nil?
     end
+    @content_types.map! do |metadata|
+      metadata[:assigned] = "NodeTypes::#{metadata[:name]}Node".constantize.count > 0
+      metadata
+    end
     render "content_types/index"
   end
 

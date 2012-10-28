@@ -3,12 +3,28 @@
 		<% for(var i = 0; i < children.length; i++){ %>
 			<li <%= children[i] %> id="page-<%= children[i].id %>" data-id="<%= children[i].id %>">
 				<div class="page-wrapper clearfix">
-					<div class="name"><i class="icon-sort"></i><%= children[i].name %></div>
+					<div class="name">
+						<i class="icon-<%= children[i].node_type === "site" ? "sitemap" : "sort" %>"></i>
+						<%= children[i].name %>
+					</div>
+					
 					<div class="actions">
-						<a href="<%= can.route.url({type: "pages", action: "edit", id: children[i].id }) %>"><i class="icon-pencil page-settings"></i></a>
-						<i class="icon-remove-sign remove-page"></i></div>
+						<a href="<%= can.route.url({type: "pages", action: "edit", id: children[i].id }) %>">
+							<i class="icon-pencil page-settings"></i>
+						</a>
+						<i class="icon-remove-sign remove-page"></i>
+					</div>
+
+					
+					<div class="url"><%= children[i].url(currentUrl) %></div>
+					<div class="node-type"><%= children[i].node_type.humanize() %></div>
+					<div class="children-count"><%= typeof children[i].item_count !== "undefined" ? children[i].item_count + " items" : "" %></div>
 				</div>
-				<%== can.view.render("//admin/pages/tree/views/leaf.ejs", {children: pages.childrenOf(children[i].id), pages: pages}) %>
+				<%== can.view.render("//admin/pages/tree/views/leaf.ejs", {
+					children   : pages.childrenOf(children[i].id),
+					pages      : pages,
+					currentUrl : children[i].url(currentUrl)
+				}) %>
 			</li>
 		<% } %>
 	</ol>

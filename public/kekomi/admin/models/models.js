@@ -11,6 +11,7 @@ steal(
 './slot.js',
 './node_type.js',
 './template_group.js',
+'./languages.js',
 function(){
 	can.Observe.List.prototype.replace = function(newValues){
 		newValues.unshift(0, this.length);

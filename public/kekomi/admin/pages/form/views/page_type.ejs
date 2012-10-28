@@ -1,6 +1,8 @@
-<% if(this.model && contentType.fields.length > 0){ %>
+<% if(this.model && contentTypeDefinition.fields.length > 0){ %>
 	<h4>Page Content</h4>
-	<div <%= (el)-> el.admin_content_form({model: (new model), contentType: contentType, isPageContent: true }) %>></div>
+	<div class="page-type-form-wrap">
+		<div <%= (el)-> el.admin_content_form({model: model, contentType: contentTypeDefinition, isPageContent: true }) %>></div>
+	</div>
 <% } else { %>
 	<div class="alert alert-info">This template group has no editable fields.</div>
 <% } %>

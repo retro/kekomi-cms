@@ -6,8 +6,13 @@ json.parent_id            @page.parent_id
 json.parent_ids           @page.parent_ids
 json.node_type            @page.node_type
 json.behaviors            @page.behaviors
-json.slots                @page.slots
 json.has_editable_fields  @page.has_editable_fields?
+
+json.slots                @page.slots      if @page.respond_to? :slots
+json.language             @page.language   if @page.respond_to? :language
+json.domain               @page.domain     if @page.respond_to? :domain
+json.item_count           @page.item_count if @page.respond_to? :item_count
+
 @page.behaviors.each do |behavior|
   behavior_content = @page.serialized_behavior_content(behavior)
   unless behavior_content.blank?

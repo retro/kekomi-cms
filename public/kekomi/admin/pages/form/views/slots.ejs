@@ -1,0 +1,22 @@
+<% if(templateSlots.slots.length === 0){ %>
+	<div class="alert alert-info">This template group has no defined slots.</div>
+<% } else { %>
+		<div class="control-group slot-group">
+			<label class="control-label" for="slot_name">Slot mappings</label>
+			<div class="controls slots">
+				<% $.each(templateSlots.slots, function(i, slot){ %>
+					<div class="clearfix slot-wrap">
+						<span><%= slot.humanize() %></span>
+						<select name="page[slots][<%= slot %>]">
+							<%== can.view.render('//admin/pages/form/views/slot_options.ejs', {
+								currentSlot   : slot,
+								existingSlots : existingSlots,
+								pageSlots     : pageSlots,
+								templateSlots : templateSlots
+							}) %>
+						</select>
+					</div>
+				<% }) %>
+			</div>
+		</div>
+<% } %>
