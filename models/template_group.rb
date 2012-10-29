@@ -59,7 +59,15 @@ class TemplateGroup
         end
       end
       behavior
-    }.reject { |behavior| behavior[:templates].blank? } # filter out behaviors without assigned templates
+    }.reject { |behavior| behavior[:templates].blank? }.uniq # filter out behaviors without assigned templates
+  end
+
+  def template_for_behavior(behavior_name, format = "html")
+    behavior = behaviors.select { |b| 
+      b[:id] == behavior_name.to_sym
+    }.first
+    return nil if behavior.nil? or behavior[:templates][format].nil?
+    return File.join(base_folder, behavior[:templates][format])
   end
 
   def content_type_for_behavior(behavior)

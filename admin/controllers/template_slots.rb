@@ -3,7 +3,7 @@ Admin.controllers :template_slots, :provides => :json do
   get "/default" do
     {
       id:    "default",
-      slots: DefaultSlot.paired
+      slots: DefaultSlot.paired(true)
     }.to_json
   end
 

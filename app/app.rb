@@ -51,9 +51,13 @@ class Frontend < Padrino::Application
   #   error 404 do
   #     render 'errors/404'
   #   end
+
   #
   #   error 505 do
   #     render 'errors/505'
   #   end
   #
+
+  Cadenza::BaseContext.add_loader Cadenza::FilesystemLoader.new(File.join(PADRINO_ROOT, "theme", "templates"))
+
 end

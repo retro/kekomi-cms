@@ -12,8 +12,8 @@ require 'jsonify/tilt'
 ##
 # Enable devel logging
 #
-# Padrino::Logger::Config[:development][:log_level]  = :devel
-# Padrino::Logger::Config[:development][:log_static] = true
+Padrino::Logger::Config[:development][:log_level]  = :devel
+Padrino::Logger::Config[:development][:log_static] = true
 #
 
 ##
@@ -39,4 +39,7 @@ Padrino.after_load do
     # config.param_name = :page
   end
 end
+
+Padrino.use( Rack::Static, :urls => [""], :root => "theme/public" ) 
+
 Padrino.load!

@@ -25,7 +25,8 @@ Frontend.controllers "/" do
   get %r{/(.+)}, &PageBehavior.handler
 
   get :index, &PageBehavior.handler
-  
+
+
 end
 
 

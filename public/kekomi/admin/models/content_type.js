@@ -53,6 +53,12 @@ var generateContentTypeClass = function(contentType, isPageContent){
 		},
 		tagsArray : function(){
 			return this.tags.split(',');
+		},
+		setPublishedAt : function(date){
+			if(typeof date === "string"){
+				date = moment(date).toDate();
+			}
+			return date;
 		}
 	})
 }

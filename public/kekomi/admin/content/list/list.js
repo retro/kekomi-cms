@@ -75,13 +75,14 @@ steal(
 				selected: this.options.selected
 			}))
 			this.element.find('.filters form').formParams({state: can.route.attr('state')})
-			this.element.find('.filters form select').chosen()
+			//this.element.find('.filters form select').chosen()
 		},
 		renderTable : function(items){
+			if(!this.element) return;
 			this.options.state.attr('count', items.count);
 
 			this.element.find('.table-wrap').html(this.view('list', { 
-				items       :items,
+				items       : items,
 				contentType : this.options.contentTypeModel,
 				breadcrumbs : calculateBreadcrumbs(this.pages),
 				state       : this.options.state
@@ -185,7 +186,7 @@ steal(
 		id = id || "_";
 		var html = [], leafPages = pages.childrenOf(id), isSectionForContentType, indent;
 		for(var i = 0; i < leafPages.length; i++){
-			isSectionForContentType = can.route.attr('content_type') === leafPages[i].section_content_type;
+			isSectionForContentType = can.route.attr('content_type') === leafPages[i].node_type;
 			indent = Array(leafPages[i].parent_ids.length + 2).join('-');
 			html.push('<option value="' + leafPages[i].id + '"' + (!isSectionForContentType ? " disabled" : "") + '>' + indent + " " + leafPages[i].name + '</option>')
 			html.push(renderTree(pages, leafPages[i].id));
@@ -196,7 +197,7 @@ steal(
 	var calculateBreadcrumbs = function(pages){
 		var breadcrumbed = {}, breadcrumbs, parents, path;
 		$.each(pages, function(i, page){
-			if(page.section_content_type === can.route.attr('content_type')){
+			if(page.node_type === can.route.attr('content_type')){
 				breadcrumbs = can.sub("<a href='{url}'>{name}</a>", {
 					url  : can.route.url({state : { in_section: page.id }}, true),
 					name : page.name
@@ -205,7 +206,7 @@ steal(
 				if(parents.length > 0){
 					path = parents.map(function(parent){
 						return parent.name;
-					}).join(' &raquo; ')
+					}).reverse().join(' &raquo; ')
 					breadcrumbs = path + " &raquo; " + breadcrumbs;
 				}
 				breadcrumbed[page.id] = breadcrumbs;

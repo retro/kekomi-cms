@@ -6,7 +6,15 @@ module NodeTypes
     
     field :language
     field :domain
-    field :slots, :type => Hash
+    field :slots, type: Hash, default: {}
+
+    def url
+      "/#{language}"
+    end
+
+    def slug
+      self.language
+    end
 
   end
 end

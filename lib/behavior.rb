@@ -53,7 +53,7 @@ module Behavior
     class << self
 
       def << (behavior)
-        @behaviors ||= %w(PageBehavior ListBehavior DetailBehavior ArchiveByYearBehavior ArchiveByMonthBehavior ArchiveByDayBehavior)
+        @behaviors ||= %w(PageBehavior ListBehavior DetailBehavior ArchiveByYearBehavior ArchiveByMonthBehavior ArchiveByDayBehavior MissingPageBehavior)
         klass_name   = behavior.to_s
         if @behaviors.include? klass_name
           @behaviors[@behaviors.index(klass_name)] = behavior

@@ -49,6 +49,17 @@ can.Model('Admin.Models.Page',
 		}
 		url = url.join('/');
 		return url.charAt(0) !== "/" ? "/" + url : url;
+	},
+	itemListLink : function(){
+		if(typeof this.item_count === "undefined") return "";
+		return can.route.link(this.item_count + " items", {
+			action       : "list",
+			type         : "content",
+			content_type : this.node_type,
+			state        : {
+				in_section: this.id
+			}
+		})
 	}
 });
 

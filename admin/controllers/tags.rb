@@ -19,7 +19,7 @@ Admin.controllers :tags, :provides => :json do
   # end
 
   get :index do
-    tags = ContentNode.tags.sort
+    tags = ContentItem.tags.sort
     if params[:q]
       q = params[:q].to_s.downcase
       tags.select! { |tag|

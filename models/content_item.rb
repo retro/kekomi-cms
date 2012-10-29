@@ -10,8 +10,7 @@ class ContentItem
   field :is_published, type: Boolean, :default => false
   field :published_at, type: DateTime
 
-
-  belongs_to :section, class_name: "NodeTypes::SectionNode"
+  belongs_to :section, class_name: "Node"
 
   acts_as_list :scope => :section
 
@@ -19,9 +18,12 @@ class ContentItem
 
   taggable :tags, :separator => ','
 
-  validate :must_be_attached_or_have_section
-
   slug :representation, reserve: ['list', 'archive']
+
+  after_save :set_section_count
+  after_destroy Proc.new { |item|
+    item.section.update_attribute :item_count, (item.section.item_count - 1)
+  }
 
   def self.publish_state(state)
     if state == "published"
@@ -54,8 +56,18 @@ class ContentItem
     move({action.to_sym => self.class.find(id)})
   end
 
-  def must_be_attached_or_have_section
-    errors.add(:section_id, "can't be empty") if section.blank? and page.blank?
+  def set_section_count
+    if self.section_id_changed?
+      pp self.section_id_change
+      unless self.section_id_change.first.nil?
+        old_section = Node.find(section_id_change.first)
+        old_section.update_attribute(:item_count, (old_section.item_count - 1))
+      end
+      new_section = Node.find(section_id_change.last)
+      self.section.update_attribute(:item_count, (self.section.item_count + 1))
+    end
   end
+
+
 
 end

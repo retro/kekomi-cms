@@ -7,7 +7,7 @@ class DefaultSlot
 
   belongs_to :slot
 
-  def self.paired
+  def self.paired(include_name = false)
     template_slots       = TemplateSlot.list
     default_slots        = DefaultSlot.any_in(template_slot: template_slots)
     default_slots_paired = {}
@@ -15,11 +15,14 @@ class DefaultSlot
       default_slots_paired[slot.template_slot] = slot
     end
     template_slots.map do |template_slot|
-      {
+      data = {
         template_slot: template_slot,
         slot_id:       (default_slots_paired[template_slot].nil?? nil : default_slots_paired[template_slot].slot_id),
-        slot_name:     (default_slots_paired[template_slot].nil?? nil : default_slots_paired[template_slot].slot.name)
       }
+      if include_name
+        data[:slot_name] = (default_slots_paired[template_slot].nil?? nil : default_slots_paired[template_slot].slot.name)
+      end
+      data
     end
   end
 

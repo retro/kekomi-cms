@@ -18,7 +18,7 @@
 					
 					<div class="url"><%= children[i].url(currentUrl) %></div>
 					<div class="node-type"><%= children[i].node_type.humanize() %></div>
-					<div class="children-count"><%= typeof children[i].item_count !== "undefined" ? children[i].item_count + " items" : "" %></div>
+					<div class="children-count"><%== children[i].itemListLink() %></div>
 				</div>
 				<%== can.view.render("//admin/pages/tree/views/leaf.ejs", {
 					children   : pages.childrenOf(children[i].id),

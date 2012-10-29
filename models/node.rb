@@ -163,6 +163,48 @@ class Node
     fields.blank?? nil : fields
   end
 
+  def template_slots
+    TemplateSlot.from_folder(self.template_group, node_type)
+  end
+
+  def combined_slots
+
+    slots_paired_with_id = {}
+
+    template_slots.each do |slot|
+      unless slots[slot].blank?
+        slots_paired_with_id[slot] = BSON::ObjectId(slots[slot].to_s)
+      else
+        slots_paired_with_id[slot] = nil
+      end
+    end
+
+    if slots_paired_with_id.has_value? nil
+      default_slots = DefaultSlot.paired
+      slots_paired_with_id.each do |name, id|
+
+        if id.nil?
+          default_slot = default_slots.select { |slot|
+            slot[:template_slot] == name
+          }.first
+          slots_paired_with_id[name] = default_slot[:slot_id] unless default_slot.nil?
+        end
+
+      end
+    end
+
+    loaded = Slot.find(slots_paired_with_id.values.compact)
+
+    slots_paired_with_id.each do |name, id|
+      slot = loaded.select {|s|
+        s.id == id
+      }.first
+      slots_paired_with_id[name] = slot unless slot.nil?
+    end
+
+    slots_paired_with_id
+  end
+
   def behaviors_with_content
     template_fields ? template_fields.keys.map(&:to_s) : []
   end
@@ -196,11 +238,16 @@ class Node
     pages
   end
 
+  def url
+    ""
+  end
+
   private
 
     def name_for_content_klass(behavior)
       type = self.class.to_s.demodulize[0...-4]
       return TemplateContentField.content_type_name(template_group, type, behavior)
     end
+
 
 end

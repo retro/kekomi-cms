@@ -30,12 +30,11 @@ steal(
 		}
 	}, {
 		init : function(){
-			/*if(this.options.isPageContent){
+			if(this.options.isPageContent){
 				this.render([]);
 			} else {
 				$.when(Admin.Models.Page.findAll({})).then(this.proxy('render'));
-			}*/
-			this.render([])
+			}
 			
 		},
 		render : function(pages){
@@ -49,12 +48,15 @@ steal(
 			if(this.options.isPageContent === false){
 				this.element.addClass('paper-form')
 			}
-			
+
+			if(this.options.model.is_published){
+				this.element.find('[name="content[is_published]"]').prop('checked', true)
+			}
 
 			this.element.find('form').formParams({content: this.options.model})
-
+			console.log(this.options.model.attr('published_at'))
 			var datetimepicker = this.element.find('.publish-date-time input').datetimepicker();
-			datetimepicker.datetimepicker('setDate', this.options.model.attr('published_at'));
+			datetimepicker.datetimepicker('setDate', this.options.model.attr('published_at') || new Date());
 
 			this.element.find('.tags-input').tagit({
 				allowSpaces: true,
@@ -96,7 +98,7 @@ steal(
 		id = id || "_";
 		var html = [], leafPages = pages.childrenOf(id), isSectionForContentType, indent;
 		for(var i = 0; i < leafPages.length; i++){
-			isSectionForContentType = can.route.attr('content_type') === leafPages[i].section_content_type;
+			isSectionForContentType = can.route.attr('content_type') === leafPages[i].node_type;
 			indent = Array(leafPages[i].parent_ids.length + 2).join('-');
 			html.push('<option value="' + leafPages[i].id + '"' + (!isSectionForContentType ? " disabled" : "") + '>' + indent + " " + leafPages[i].name + '</option>')
 			html.push(renderTree(pages, leafPages[i].id));
